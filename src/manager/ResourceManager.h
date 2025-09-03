@@ -9,11 +9,9 @@
 class ResourceManager
 {
 public:
-    // 싱글턴 인스턴스를 가져오는 함수
     static ResourceManager& getInstance();
 
 private:
-    // 생성자와 소멸자를 private으로 선언하여 외부 생성을 막음
     ResourceManager() = default;
     ~ResourceManager() = default;
     ResourceManager(const ResourceManager&) = delete;

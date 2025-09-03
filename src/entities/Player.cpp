@@ -1,22 +1,22 @@
 #include "Player.h"
 
+
+constexpr float WINDOW_WIDTH = 1280.f;
+constexpr float GROUND_Y = 720.f;
+constexpr float CHAR_SIZE = 50.f;
+
 Player::Player()
 {
-    // 플레이어를 임시로 파란색 사각형으로 표현합니다.
-    m_shape.setSize({50.f, 100.f});
+    m_shape.setSize({CHAR_SIZE, CHAR_SIZE});
     m_shape.setFillColor(sf::Color::Blue);
     
-    // y좌표 620을 임시 "땅"으로 가정하고 그 위에 서 있도록 위치를 설정합니다.
-    // (창 높이 720 - 플레이어 높이 100)
-    m_shape.setPosition({200.f, 720.f - 100.f});
+    m_shape.setPosition({200.f, GROUND_Y - CHAR_SIZE});
 
     m_canJump = true; // 처음에는 땅에 있으므로 점프 가능
 }
 
 void Player::handleInput(const sf::Event& event)
 {
-    // --- ❗️ SFML 3.0.0 이벤트 처리 방식 ❗️ ---
-    // getIf<>() 템플릿 함수로 특정 키 입력 이벤트를 가져옵니다.
     if (const auto* keyPressed = event.getIf<sf::Event::KeyPressed>())
     {
         // keyPressed->code 로 키 코드를 확인합니다.
@@ -64,10 +64,21 @@ void Player::update(sf::Time deltaTime)
     m_velocity.y += m_gravity * deltaTime.asSeconds();
     m_shape.move(m_velocity * deltaTime.asSeconds());
 
-    // 간단한 바닥 충돌 처리 (예시)
-    if (m_shape.getPosition().y > 720.f - 100.f)
+    // 1. 왼쪽 경계 확인
+    if (m_shape.getPosition().x < 0.f)
     {
-        m_shape.setPosition({m_shape.getPosition().x, 720.f - 100.f});
+        m_shape.setPosition({0.f, m_shape.getPosition().y});
+    }
+    // 2. 오른쪽 경계 확인 (캐릭터의 오른쪽 끝 = x위치 + 캐릭터 너비)
+    else if (m_shape.getPosition().x + CHAR_SIZE > WINDOW_WIDTH)
+    {
+        m_shape.setPosition({WINDOW_WIDTH - CHAR_SIZE, m_shape.getPosition().y});
+    }
+
+    // 3. 바닥 경계 확인
+    if (m_shape.getPosition().y > 720.f - CHAR_SIZE)
+    {
+        m_shape.setPosition({m_shape.getPosition().x, 720.f - CHAR_SIZE});
         m_velocity.y = 0;
         m_canJump = true;
     }

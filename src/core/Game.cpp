@@ -19,7 +19,6 @@ void Game::run()
 
 void Game::processEvents()
 {
-    // --- ❗️ SFML 3.0.0 이벤트 루프 (완전히 변경됨) ❗️ ---
     while (const auto event = m_window.pollEvent())
     {
         // 1. is<>() 템플릿 함수로 이벤트 타입을 확인합니다.
@@ -46,7 +45,7 @@ void Game::update(sf::Time deltaTime)
 
 void Game::render()
 {
-    m_window.clear(sf::Color(50, 50, 50));
+    m_window.clear(sf::Color::Black);
 
     if (m_currentState)
     {

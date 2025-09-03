@@ -16,9 +16,6 @@ public:
 
 private:
     sf::RenderWindow& m_window; // 창에 대한 참조
-    
-    // Player와 Boss 객체를 소유합니다.
     std::unique_ptr<Player> m_player;
     std::unique_ptr<Boss> m_boss;
-    
 };

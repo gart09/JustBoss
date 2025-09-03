@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <iostream> // 스킬 사용 등 디버그 메시지 출력을 위해 포함
+#include <iostream>
 
 class Player
 {
@@ -27,7 +27,7 @@ private:
 
     // --- 플레이어 능력치 및 물리 상수 ---
     const float m_speed = 300.f;      // 초당 이동 속도 (픽셀)
-    const float m_gravity = 1200.f;   // 중력 가속도
+    const float m_gravity = 1800.f;   // 중력 가속도
     const float m_jumpStrength = 600.f; // 점프 시의 수직 속도
 
     // --- 플레이어 상태 변수 ---
