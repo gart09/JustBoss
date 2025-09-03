@@ -1,0 +1,24 @@
+#pragma once
+
+#include <SFML/Graphics.hpp>
+#include <memory>
+#include "../entities/Player.h"
+#include "../entities/Boss.h"
+
+class GameState
+{
+public:
+    GameState(sf::RenderWindow& window);
+
+    void handleInput(const sf::Event& event);
+    void update(sf::Time deltaTime);
+    void draw(sf::RenderWindow& window);
+
+private:
+    sf::RenderWindow& m_window; // 창에 대한 참조
+    
+    // Player와 Boss 객체를 소유합니다.
+    std::unique_ptr<Player> m_player;
+    std::unique_ptr<Boss> m_boss;
+    
+};

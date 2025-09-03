@@ -1,0 +1,7 @@
+E:\JustBoss\src\core\Game.cpp;E:\JustBoss\build\MyBossFighter.dir\Debug\Game.obj
+E:\JustBoss\src\core\main.cpp;E:\JustBoss\build\MyBossFighter.dir\Debug\main.obj
+E:\JustBoss\src\entities\Boss.cpp;E:\JustBoss\build\MyBossFighter.dir\Debug\Boss.obj
+E:\JustBoss\src\entities\Player.cpp;E:\JustBoss\build\MyBossFighter.dir\Debug\Player.obj
+E:\JustBoss\src\manager\InputManager.cpp;E:\JustBoss\build\MyBossFighter.dir\Debug\InputManager.obj
+E:\JustBoss\src\manager\ResourceManager.cpp;E:\JustBoss\build\MyBossFighter.dir\Debug\ResourceManager.obj
+E:\JustBoss\src\state\GameState.cpp;E:\JustBoss\build\MyBossFighter.dir\Debug\GameState.obj
