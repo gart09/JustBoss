@@ -18,6 +18,7 @@ public:
     void draw(sf::RenderWindow& window);
     
     float* getAirControlForcePtr() { return &m_airControlForce; }
+    float* getSpeed() { return &m_speed; }
 
 private:
     // 내부적으로 사용될 함수들

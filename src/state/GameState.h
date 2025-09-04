@@ -9,6 +9,7 @@ class GameState
 {
 public:
     GameState(sf::RenderWindow& window);
+    ~GameState();
 
     void handleInput(const sf::Event& event);
     void update(sf::Time deltaTime);

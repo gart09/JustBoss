@@ -1,9 +1,10 @@
 #include "core/Game.h"
+#include "../lib/imgui/imgui.h"
+#include "../lib/imgui-sfml/imgui-SFML.h"
 
 Game::Game() : m_window(sf::VideoMode({1280, 720}), "Just Boss")
 {
     m_currentState = std::make_unique<GameState>(m_window);
-    m_debugUI = std::make_unique<DebugUI>(m_window);
 }
 
 void Game::run()
@@ -22,8 +23,6 @@ void Game::processEvents()
 {
     while (const auto event = m_window.pollEvent())
     {
-        m_debugUI->processEvent(m_window, *event);
-        
         // 1. is<>() 템플릿 함수로 이벤트 타입을 확인합니다.
         if (event->is<sf::Event::Closed>())
         {
@@ -40,15 +39,6 @@ void Game::processEvents()
 
 void Game::update(sf::Time deltaTime)
 {
-    // 디버그 UI를 업데이트합니다.
-    m_debugUI->update(deltaTime);
-
-    // 디버그 UI에 플레이어 정보를 연결합니다.
-    if (m_currentState && m_currentState->getPlayer())
-    {
-        m_debugUI->setPlayer(m_currentState->getPlayer());
-    }
-
     if (m_currentState)
     {
         m_currentState->update(deltaTime);
@@ -63,7 +53,5 @@ void Game::render()
     {
         m_currentState->draw(m_window);
     }
-
-    m_debugUI->render(m_window);
     m_window.display();
 }

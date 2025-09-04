@@ -1,65 +1,66 @@
-# CMake ÃÖ¼Ò ¿ä±¸ ¹öÀü ¼³Á¤
+# CMake ìµœì†Œ ìš”êµ¬ ë²„ì „ ì„¤ì •
 cmake_minimum_required(VERSION 3.10)
 
-# ÇÁ·ÎÁ§Æ® ÀÌ¸§°ú C++ ¹öÀü ¼³Á¤
-project(MyBossFighter VERSION 1.0 LANGUAGES CXX)
+# í”„ë¡œì íŠ¸ ì´ë¦„ê³¼ C++ ë²„ì „ ì„¤ì •
+project(JustBoss VERSION 1.0 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# --- ?????? ¼öÁ¤µÈ ºÎºÐ: UTF-8 ¿É¼Ç Àü¿ª Àû¿ë ?????? ---
-# Visual Studio ÄÄÆÄÀÏ·¯(MSVC) »ç¿ë ½Ã, UTF-8 ÀÎÄÚµùÀ» Àü¿ªÀ¸·Î °­Á¦ÇÕ´Ï´Ù.
-# ÀÌ·¸°Ô ÇÏ¸é ¿ì¸® ÇÁ·ÎÁ§Æ®»Ó¸¸ ¾Æ´Ï¶ó ¸ðµç ÇÏÀ§ ¶óÀÌºê·¯¸®¿¡µµ Àû¿ëµË´Ï´Ù.
+# --- ?????? ìˆ˜ì •ëœ ë¶€ë¶„: UTF-8 ì˜µì…˜ ì „ì—­ ì ìš© ?????? ---
+# Visual Studio ì»´íŒŒì¼ëŸ¬(MSVC) ì‚¬ìš© ì‹œ, UTF-8 ì¸ì½”ë”©ì„ ì „ì—­ìœ¼ë¡œ ê°•ì œí•©ë‹ˆë‹¤.
+# ì´ë ‡ê²Œ í•˜ë©´ ìš°ë¦¬ í”„ë¡œì íŠ¸ë¿ë§Œ ì•„ë‹ˆë¼ ëª¨ë“  í•˜ìœ„ ë¼ì´ë¸ŒëŸ¬ë¦¬ì—ë„ ì ìš©ë©ë‹ˆë‹¤.
 if(MSVC)
     add_compile_options(/utf-8)
 endif()
 
 # ------------------------------------------------------------------
-# SFML ¶óÀÌºê·¯¸® Ã£±â
+# SFML ë¼ì´ë¸ŒëŸ¬ë¦¬ ì°¾ê¸°
 # ------------------------------------------------------------------
 find_package(SFML 3.0.0 COMPONENTS Graphics Window REQUIRED)
 
-# --- ?????? ÃÖÁ¾ ¼öÁ¤: ImGui/ImGui-SFMLÀ» ¼Ò½º ÄÚµå·Î Á÷Á¢ Æ÷ÇÔ ?????? ---
-# 1. ImGui¿Í ImGui-SFMLÀÇ ¼Ò½º ÄÚµå ÆÄÀÏ ¸ñ·ÏÀ» º¯¼ö¿¡ ÀúÀåÇÕ´Ï´Ù.
+# ------------------------------------------------------------------
+# ì†ŒìŠ¤ íŒŒì¼ ëª©ë¡ ê´€ë¦¬ 
+# ------------------------------------------------------------------
+# src í´ë”ì™€ ê·¸ í•˜ìœ„ í´ë”ì˜ ëª¨ë“  .cpp íŒŒì¼ ë° main.cppë¥¼ ì°¾ì•„ ì¶”ê°€í•©ë‹ˆë‹¤.
+file(GLOB_RECURSE SOURCES "src/*.cpp" "src/**/*.cpp")
+
+# --- âœ¨ ìˆ˜ì •ëœ ë¶€ë¶„: ImGui ë° ImGui-SFML ì†ŒìŠ¤ íŒŒì¼ ì¶”ê°€ âœ¨ ---
+# lib í´ë”ì— ìžˆëŠ” ImGuiì™€ ImGui-SFMLì˜ ì†ŒìŠ¤ íŒŒì¼ë“¤ì„ ë³€ìˆ˜ì— ì¶”ê°€í•©ë‹ˆë‹¤.
 file(GLOB IMGUI_SOURCES
     "lib/imgui/imgui.cpp"
     "lib/imgui/imgui_draw.cpp"
     "lib/imgui/imgui_tables.cpp"
     "lib/imgui/imgui_widgets.cpp"
-    "lib/imgui-sfml/imgui-SFML.cpp" # ImGui-SFML ¼Ò½º Ãß°¡
+    "lib/imgui-sfml/imgui-SFML.cpp"
 )
 
-# 2. ImGui-SFMLÀº CMakeLists.txt°¡ ÀÖÀ¸¹Ç·Î add_subdirectory¸¦ ±×´ë·Î »ç¿ëÇÕ´Ï´Ù.
-add_subdirectory(lib/imgui-sfml)
-
 # ------------------------------------------------------------------
-# ¼Ò½º ÆÄÀÏ ¸ñ·Ï °ü¸® 
+# ì‹¤í–‰ íŒŒì¼(Executable) ìƒì„±
 # ------------------------------------------------------------------
-# src Æú´õ¿Í ±× ÇÏÀ§ Æú´õÀÇ ¸ðµç .cpp ÆÄÀÏ ¹× main.cpp¸¦ Ã£¾Æ Ãß°¡ÇÕ´Ï´Ù.
-file(GLOB_RECURSE SOURCES "src/*.cpp" "src/**/*.cpp")
-
-# ------------------------------------------------------------------
-# ½ÇÇà ÆÄÀÏ(Executable) »ý¼º
-# ------------------------------------------------------------------
-# ¿ì¸® °ÔÀÓ ¼Ò½º¿Í ImGui ¼Ò½º¸¦ ÇÔ²² ¹­¾î ½ÇÇà ÆÄÀÏÀ» ¸¸µì´Ï´Ù.
+# ìš°ë¦¬ ê²Œìž„ ì†ŒìŠ¤ì™€ ImGui ì†ŒìŠ¤ë¥¼ í•¨ê»˜ ë¬¶ì–´ ì‹¤í–‰ íŒŒì¼ì„ ë§Œë“­ë‹ˆë‹¤.
 add_executable(${PROJECT_NAME} ${SOURCES} ${IMGUI_SOURCES})
 
+target_compile_definitions(${PROJECT_NAME} PRIVATE IMTEXTUREID_DEFINED)
+
 # ------------------------------------------------------------------
-# Çì´õ ÆÄÀÏ °æ·Î ¼³Á¤
+# í—¤ë” íŒŒì¼ ê²½ë¡œ ì„¤ì •
 # ------------------------------------------------------------------
-# ÄÄÆÄÀÏ·¯°¡ Çì´õ ÆÄÀÏÀ» Ã£À» ¼ö ÀÖµµ·Ï ¸ðµç °ü·Ã °æ·Î¸¦ ¾Ë·ÁÁÝ´Ï´Ù.
+# ì»´íŒŒì¼ëŸ¬ê°€ í—¤ë” íŒŒì¼ì„ ì°¾ì„ ìˆ˜ ìžˆë„ë¡ ëª¨ë“  ê´€ë ¨ ê²½ë¡œë¥¼ ì•Œë ¤ì¤ë‹ˆë‹¤.
 target_include_directories(${PROJECT_NAME} PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/src"
     "${CMAKE_CURRENT_SOURCE_DIR}/lib/imgui"
-    "${CMAKE_CURRENT_SOURCE_DIR}/lib/imgui-sfml" # ImGui-SFML Çì´õ °æ·Î Ãß°¡
+    "${CMAKE_CURRENT_SOURCE_DIR}/lib/imgui-sfml"
 )
 
 # ------------------------------------------------------------------
-# ¶óÀÌºê·¯¸® ¹× ÄÄÆÄÀÏ ¿É¼Ç ¼³Á¤
+# ë¼ì´ë¸ŒëŸ¬ë¦¬ ë° ì»´íŒŒì¼ ì˜µì…˜ ì„¤ì •
 # ------------------------------------------------------------------
-target_link_libraries(${PROJECT_NAME} PRIVATE SFML::Graphics SFML::Window)
+target_link_libraries(${PROJECT_NAME} PRIVATE SFML::Graphics SFML::Window opengl32)   
+
+target_compile_definitions(${PROJECT_NAME} PRIVATE IMGUI_IMPL_API=)
 
 # ------------------------------------------------------------------
-# ½ÇÇà ÆÄÀÏ Ãâ·Â °æ·Î ¼³Á¤ (¼±ÅÃ »çÇ×)
+# ì‹¤í–‰ íŒŒì¼ ì¶œë ¥ ê²½ë¡œ ì„¤ì • (ì„ íƒ ì‚¬í•­)
 # ------------------------------------------------------------------
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 

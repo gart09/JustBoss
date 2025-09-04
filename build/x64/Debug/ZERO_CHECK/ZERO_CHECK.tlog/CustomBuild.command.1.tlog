@@ -1,6 +1,6 @@
 ^E:\JUSTBOSS\BUILD\CMAKEFILES\56146BC1A3E11367E0EB1D28DCAD2B3A\GENERATE.STAMP.RULE
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SE:/JustBoss -BE:/JustBoss/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file E:/JustBoss/build/MyBossFighter.sln
+"C:\Program Files\CMake\bin\cmake.exe" -SE:/JustBoss -BE:/JustBoss/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file E:/JustBoss/build/JustBoss.sln
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone

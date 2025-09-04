@@ -54,7 +54,7 @@ set(IMGUI_PUBLIC_HEADERS
 # CMake 3.11 and later prefer to choose GLVND, but we choose legacy OpenGL just because it's safer
 # (unless the OpenGL_GL_PREFERENCE was explicitly set)
 # See CMP0072 for more details (cmake --help-policy CMP0072)
-if((NOT ${CMAKE_VERSION} VERSION_LESS 3.11) AND (NOT OpenGL_GL_PREFERENCE))
+if(NOT OpenGL_GL_PREFERENCE)
   set(OpenGL_GL_PREFERENCE "LEGACY")
 endif()
 
@@ -66,9 +66,11 @@ include(GNUInstallDirs)
 add_library(ImGui-SFML imgui-SFML.cpp ${IMGUI_SOURCES})
 add_library(ImGui-SFML::ImGui-SFML ALIAS ImGui-SFML)
 target_include_directories(ImGui-SFML PUBLIC
-  $<BUILD_INTERFACE:${IMGUI_INCLUDE_DIR}>
   $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}>
   $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+)
+target_include_directories(ImGui-SFML SYSTEM PUBLIC
+  $<BUILD_INTERFACE:${IMGUI_INCLUDE_DIR}>
 )
 target_link_libraries(ImGui-SFML PUBLIC SFML::Graphics OpenGL::GL)
 if(WIN32 AND MINGW)
@@ -133,7 +135,10 @@ install(TARGETS ImGui-SFML
 install(EXPORT ImGui-SFML
   DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/ImGui-SFML
   NAMESPACE ImGui-SFML::
-  FILE ImGui-SFMLConfig.cmake
+)
+
+install(FILES ${PROJECT_SOURCE_DIR}/cmake/ImGui-SFMLConfig.cmake
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/ImGui-SFML
 )
 
 # Stop configuration if being consumed by a higher level project

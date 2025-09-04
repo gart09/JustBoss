@@ -3,7 +3,6 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include "state/GameState.h"
-#include "UI/DebugUI.h"
 
 class Game{
 public:
@@ -17,5 +16,4 @@ private:
 
     sf::RenderWindow m_window;
     std::unique_ptr<GameState> m_currentState;  
-    std::unique_ptr<DebugUI> m_debugUI;
 };
