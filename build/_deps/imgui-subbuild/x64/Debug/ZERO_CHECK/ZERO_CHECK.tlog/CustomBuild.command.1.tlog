@@ -1,0 +1,10 @@
+^E:\JUSTBOSS\BUILD\_DEPS\IMGUI-SUBBUILD\CMAKEFILES\6A22F1FF35CA9816CDE29C38DDCEFF95\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SE:/JustBoss/build/_deps/imgui-subbuild -BE:/JustBoss/build/_deps/imgui-subbuild --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file E:/JustBoss/build/_deps/imgui-subbuild/imgui-populate.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

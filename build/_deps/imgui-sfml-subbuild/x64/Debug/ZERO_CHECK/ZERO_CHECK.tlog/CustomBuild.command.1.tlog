@@ -1,0 +1,10 @@
+^E:\JUSTBOSS\BUILD\_DEPS\IMGUI-SFML-SUBBUILD\CMAKEFILES\3CAB569DF0A17284B827EDB26EB81FD6\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SE:/JustBoss/build/_deps/imgui-sfml-subbuild -BE:/JustBoss/build/_deps/imgui-sfml-subbuild --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file E:/JustBoss/build/_deps/imgui-sfml-subbuild/imgui-sfml-populate.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

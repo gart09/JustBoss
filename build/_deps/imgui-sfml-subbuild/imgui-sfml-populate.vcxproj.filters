@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="E:\JustBoss\build\_deps\imgui-sfml-subbuild\CMakeFiles\a538ae16bfa35236d73a00c1721b0a1d\imgui-sfml-populate-mkdir.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\JustBoss\build\_deps\imgui-sfml-subbuild\CMakeFiles\a538ae16bfa35236d73a00c1721b0a1d\imgui-sfml-populate-download.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\JustBoss\build\_deps\imgui-sfml-subbuild\CMakeFiles\a538ae16bfa35236d73a00c1721b0a1d\imgui-sfml-populate-update.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\JustBoss\build\_deps\imgui-sfml-subbuild\CMakeFiles\a538ae16bfa35236d73a00c1721b0a1d\imgui-sfml-populate-patch.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\JustBoss\build\_deps\imgui-sfml-subbuild\CMakeFiles\a538ae16bfa35236d73a00c1721b0a1d\imgui-sfml-populate-configure.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\JustBoss\build\_deps\imgui-sfml-subbuild\CMakeFiles\a538ae16bfa35236d73a00c1721b0a1d\imgui-sfml-populate-build.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\JustBoss\build\_deps\imgui-sfml-subbuild\CMakeFiles\a538ae16bfa35236d73a00c1721b0a1d\imgui-sfml-populate-install.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\JustBoss\build\_deps\imgui-sfml-subbuild\CMakeFiles\a538ae16bfa35236d73a00c1721b0a1d\imgui-sfml-populate-test.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\JustBoss\build\_deps\imgui-sfml-subbuild\CMakeFiles\279dac355c39edad61388d72338f30ca\imgui-sfml-populate-complete.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\JustBoss\build\_deps\imgui-sfml-subbuild\CMakeFiles\3cab569df0a17284b827edb26eb81fd6\imgui-sfml-populate.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\JustBoss\build\_deps\imgui-sfml-subbuild\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="E:\JustBoss\build\_deps\imgui-sfml-subbuild\CMakeFiles\imgui-sfml-populate" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{9D3B1AEC-C24B-39EB-AE0F-5517E114DB10}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

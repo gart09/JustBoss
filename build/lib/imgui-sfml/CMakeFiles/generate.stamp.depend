@@ -1,0 +1,25 @@
+# CMake generation dependency list for this directory.
+C:/Program Files/CMake/share/cmake-4.1/Modules/CMakeFindDependencyMacro.cmake
+C:/Program Files/CMake/share/cmake-4.1/Modules/CheckCXXSourceCompiles.cmake
+C:/Program Files/CMake/share/cmake-4.1/Modules/CheckIncludeFileCXX.cmake
+C:/Program Files/CMake/share/cmake-4.1/Modules/CheckLibraryExists.cmake
+C:/Program Files/CMake/share/cmake-4.1/Modules/FindOpenGL.cmake
+C:/Program Files/CMake/share/cmake-4.1/Modules/FindPackageHandleStandardArgs.cmake
+C:/Program Files/CMake/share/cmake-4.1/Modules/FindPackageMessage.cmake
+C:/Program Files/CMake/share/cmake-4.1/Modules/FindThreads.cmake
+C:/Program Files/CMake/share/cmake-4.1/Modules/GNUInstallDirs.cmake
+C:/Program Files/CMake/share/cmake-4.1/Modules/Internal/CheckSourceCompiles.cmake
+E:/JustBoss/lib/SFML-3.0.0/lib/cmake/SFML/SFMLConfig.cmake
+E:/JustBoss/lib/SFML-3.0.0/lib/cmake/SFML/SFMLConfigVersion.cmake
+E:/JustBoss/lib/SFML-3.0.0/lib/cmake/SFML/SFMLGraphicsDependencies.cmake
+E:/JustBoss/lib/SFML-3.0.0/lib/cmake/SFML/SFMLGraphicsStaticTargets.cmake
+E:/JustBoss/lib/SFML-3.0.0/lib/cmake/SFML/SFMLSystemDependencies.cmake
+E:/JustBoss/lib/SFML-3.0.0/lib/cmake/SFML/SFMLSystemStaticTargets.cmake
+E:/JustBoss/lib/SFML-3.0.0/lib/cmake/SFML/SFMLWindowDependencies.cmake
+E:/JustBoss/lib/SFML-3.0.0/lib/cmake/SFML/SFMLWindowStaticTargets.cmake
+E:/JustBoss/lib/SFML-3.0.0/lib/cmake/freetype/freetype-config-debug.cmake
+E:/JustBoss/lib/SFML-3.0.0/lib/cmake/freetype/freetype-config-release.cmake
+E:/JustBoss/lib/SFML-3.0.0/lib/cmake/freetype/freetype-config-version.cmake
+E:/JustBoss/lib/SFML-3.0.0/lib/cmake/freetype/freetype-config.cmake
+E:/JustBoss/lib/imgui-sfml/CMakeLists.txt
+E:/JustBoss/lib/imgui-sfml/cmake/FindImGui.cmake

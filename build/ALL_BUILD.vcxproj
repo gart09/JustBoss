@@ -174,6 +174,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
+    <ProjectReference Include="E:\JustBoss\build\lib\imgui-sfml\ImGui-SFML.vcxproj">
+      <Project>{7ADE84D0-3F99-390C-866D-FACCC8B50F44}</Project>
+      <Name>ImGui-SFML</Name>
+    </ProjectReference>
     <ProjectReference Include="E:\JustBoss\build\MyBossFighter.vcxproj">
       <Project>{B624BDC0-31D1-3C95-807B-A66AC39988EF}</Project>
       <Name>MyBossFighter</Name>

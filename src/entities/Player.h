@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <string>
 
 class Player
 {
@@ -15,6 +16,8 @@ public:
 
     // 플레이어를 화면에 그립니다.
     void draw(sf::RenderWindow& window);
+    
+    float* getAirControlForcePtr() { return &m_airControlForce; }
 
 private:
     // 내부적으로 사용될 함수들
@@ -26,11 +29,16 @@ private:
     sf::Vector2f m_velocity;
 
     // --- 플레이어 능력치 및 물리 상수 ---
-    const float m_speed = 300.f;      // 초당 이동 속도 (픽셀)
-    const float m_gravity = 1800.f;   // 중력 가속도
-    const float m_jumpStrength = 600.f; // 점프 시의 수직 속도
+    float m_speed = 300.f;      // 초당 이동 속도 (픽셀)
+    float m_gravity = 1800.f;   // 중력 가속도
+    float m_jumpStrength = 600.f; // 점프 시의 수직 속도
+    float m_airControlForce = 0.1f; 
+
+    enum class FacingDirection { Left, Right };
+    FacingDirection m_facingDirection; // 현재 바라보는 방향
 
     // --- 플레이어 상태 변수 ---
-    bool m_canJump; // 현재 점프가 가능한 상태인지 확인
+    bool m_canJump;      // 지상에서 점프가 가능한가?
+    bool m_canDoubleJump; // 공중에서 더블점프가 가능한가?
 };
 

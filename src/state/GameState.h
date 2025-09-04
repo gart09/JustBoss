@@ -13,7 +13,8 @@ public:
     void handleInput(const sf::Event& event);
     void update(sf::Time deltaTime);
     void draw(sf::RenderWindow& window);
-
+    
+    Player* getPlayer() { return m_player.get(); }
 private:
     sf::RenderWindow& m_window; // 창에 대한 참조
     std::unique_ptr<Player> m_player;

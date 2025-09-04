@@ -12,7 +12,9 @@ Player::Player()
     
     m_shape.setPosition({200.f, GROUND_Y - CHAR_SIZE});
 
-    m_canJump = true; // 처음에는 땅에 있으므로 점프 가능
+    m_canJump = true;
+    m_canDoubleJump = false;
+    m_facingDirection = FacingDirection::Right;
 }
 
 void Player::handleInput(const sf::Event& event)
@@ -49,15 +51,29 @@ void Player::handleInput(const sf::Event& event)
 
 void Player::update(sf::Time deltaTime)
 {
-    m_velocity.x = 0.f;
+    // --- 수평 이동 로직 ---
+    float horizontalInput = 0.f;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))  horizontalInput -= 1.f;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) horizontalInput += 1.f;
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
+    // 키 입력이 있을 때만 바라보는 방향을 갱신
+    if (horizontalInput > 0) m_facingDirection = FacingDirection::Right;
+    if (horizontalInput < 0) m_facingDirection = FacingDirection::Left;
+
+    // 1. 지상에 있을 때: 등속 운동
+    if (m_canJump)
     {
-        m_velocity.x -= m_speed;
+        m_velocity.x = horizontalInput * m_speed;
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
+    // 2. 공중에 있을 때: 공중 제어 (Air Control)
+    else
     {
-        m_velocity.x += m_speed;
+        // 진행 방향과 반대 키를 누르면 속도 감소
+        if (m_velocity.x * horizontalInput < 0)
+        {
+            m_velocity.x += horizontalInput * m_airControlForce;
+        }
+        std::cout << "m_velocity.x= " << m_velocity.x << std::endl;
     }
 
     // 중력 적용
@@ -100,12 +116,48 @@ void Player::attack()
 
 void Player::jump()
 {
-    // 점프 가능한 상태일 때만 점프합니다.
+    // 1. 지상 점프
     if (m_canJump)
     {
-        m_velocity.y = -m_jumpStrength; // y속도에 음수 값을 주어 위로 튀어 오르게 함
-        m_canJump = false; // 점프를 했으므로 땅에 닿기 전까지 다시 점프 불가능
+        m_velocity.y = -m_jumpStrength;
+        m_canJump = false;
+        m_canDoubleJump = true;
         std::cout << "Action: Jump!" << std::endl;
+        return; // 첫 점프 후 함수 종료
+    }
+    // 2. 더블 점프
+    if (m_canDoubleJump)
+    {
+        const float doubleJumpHorizontalForce = 500.f;
+        m_velocity.y = -m_jumpStrength * 0.8f;
+
+        // 더블점프 방향 결정 로직
+        bool leftPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left);
+        bool rightPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right);
+
+        FacingDirection desiredDirection = m_facingDirection;
+
+        // 진행방향과 반대 키를 눌렀을 경우, 방향 전환
+        if ((m_facingDirection == FacingDirection::Right && leftPressed) ||
+            (m_facingDirection == FacingDirection::Left && rightPressed))
+        {
+            desiredDirection = (leftPressed) ? FacingDirection::Left : FacingDirection::Right;
+            m_facingDirection = desiredDirection;
+        }
+        
+        // 결정된 방향으로 더블점프 실행
+        if (desiredDirection == FacingDirection::Right)
+        {
+            m_velocity.x = doubleJumpHorizontalForce;
+        }
+        else
+        {
+            m_velocity.x = -doubleJumpHorizontalForce;
+        }
+
+        m_canDoubleJump = false;
+        std::cout << "Action: Double Jump! Direction: " 
+                  << (desiredDirection == FacingDirection::Right ? "Right" : "Left") << std::endl;
     }
 }
 
