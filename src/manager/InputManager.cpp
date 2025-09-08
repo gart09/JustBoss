@@ -1,38 +1,52 @@
 #include "InputManager.h"
 #include "../commands/PlayerCommand.h"
 
-
 InputManager& InputManager::getInstance() {
-    static InputManager instance; 
+    static InputManager instance;
     return instance;
 }
 
 InputManager::InputManager() {
-    // 키 누름에 대한 커맨드 매핑. 1:점프, 2:공격, 3:대쉬, 4:차징공격, 5:약점공격
-    m_keyMappings[sf::Keyboard::Key::D] = 1;
-    m_keyMappings[sf::Keyboard::Key::S] = 2;
-    m_keyMappings[sf::Keyboard::Key::A] = 3;
-    m_keyMappings[sf::Keyboard::Key::Q] = 4;
-    m_keyMappings[sf::Keyboard::Key::W] = 5;
+    // --- 키를 '눌렀을 때'의 행동을 매핑합니다 ---
+    m_pressedKeyMappings[sf::Keyboard::Key::D] = []() { 
+        float direction = 0.f;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) direction = -1.f;
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) direction = 1.f;
+        return std::make_unique<JumpCommand>(direction); 
+    };
+    m_pressedKeyMappings[sf::Keyboard::Key::S] = []() { return std::make_unique<AttackCommand>(); };
+    m_pressedKeyMappings[sf::Keyboard::Key::Q] = []() { return std::make_unique<StartChargeCommand>(); };
+    m_pressedKeyMappings[sf::Keyboard::Key::W] = []() { return std::make_unique<WeakPointAttackCommand>(); };
+    m_pressedKeyMappings[sf::Keyboard::Key::A] = []() {
+        float direction = 0.f;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) direction = -1.f;
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) direction = 1.f;
+        return std::make_unique<DashCommand>(direction);
+    };
+
+    // --- 키를 '뗐을 때'의 행동을 매핑합니다 ---
+    m_releasedKeyMappings[sf::Keyboard::Key::Q] = []() { return std::make_unique<ReleaseChargeCommand>(); };
 }
 
-std::unique_ptr<ICommand> InputManager::handleEvent(const sf::Event& event) {
-    if (event.is<sf::Event::KeyPressed>()) {
-        auto it = m_keyMappings.find(event.getIf<sf::Event::KeyPressed>()->code);
-        if (it != m_keyMappings.end()) {
-            switch (it->second) {
-                case 1: return std::make_unique<JumpCommand>();
-                case 2: return std::make_unique<AttackCommand>();
-                case 3: return std::make_unique<DashCommand>();
-                //case 4: return std::make_unique<ChargeCommand>();
-                case 5: return std::make_unique<WeakPointAttackCommand>();
-            }
-        }
+std::unique_ptr<ICommand> InputManager::processEvent(const sf::Event& event) {
+    if (const auto* keyPressed = event.getIf<sf::Event::KeyPressed>())
+    {
+        auto it = m_pressedKeyMappings.find(keyPressed->code);
+        if (it != m_pressedKeyMappings.end())
+            return it->second();
     }
+    else if (const auto* keyReleased = event.getIf<sf::Event::KeyReleased>())
+    {
+        auto it = m_releasedKeyMappings.find(keyReleased->code);
+        if (it != m_releasedKeyMappings.end())
+            return it->second();
+    }
+
+    // 해당하는 이벤트가 없으면 nullptr 반환
     return nullptr;
 }
 
-std::unique_ptr<ICommand> InputManager::handleRealtimeInput() {
+std::unique_ptr<ICommand> InputManager::processPolling() {
     float direction = 0.0f;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
         direction -= 1.0f;
@@ -40,10 +54,6 @@ std::unique_ptr<ICommand> InputManager::handleRealtimeInput() {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
         direction += 1.0f;
     }
-
-    if (direction != 0.0f) {
-        return std::make_unique<MoveCommand>(direction);
-    }
-    return nullptr;
+    
+    return std::make_unique<MoveCommand>(direction);
 }
-

@@ -28,10 +28,7 @@ public:
 
     //행동접수 함수
     void move(float direction);
-    void jump();
-    void attack();
     void dash(float direction);
-    void weakPointAttack();
 
     //행동실행 함수
     void takeJump();
@@ -46,6 +43,7 @@ public:
     sf::Vector2f getPosition() { return m_shape.getPosition(); }
     sf::FloatRect getHitbox() { return m_shape.getGlobalBounds(); }
     FacingDirection getFacingDirection() { return m_facingDirection; }
+    std::unique_ptr<IPlayerState>& getCurrentState() { return m_currentState; }
     float* getAirControlForcePtr() { return &m_airControlForce; }
     float* getSpeed() { return &m_speed; }
     int getHP() { return m_hp; }

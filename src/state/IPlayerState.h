@@ -1,6 +1,6 @@
 #pragma once
 #include <memory>
-#include "../commands/CommandType.h"
+#include "../commands/ICommand.h"
 
 // 전방 선언
 class Player;
@@ -18,7 +18,7 @@ public:
     // 상태에 진입할 때 한 번 호출됩니다.
     virtual void enter(Player& player) = 0;
     // 입력을 처리하고, 상태 전환이 필요하면 새로운 상태 객체를 반환합니다.
-    virtual std::unique_ptr<IPlayerState> handleInput(Player& player, CommandType command) = 0;
+    virtual std::unique_ptr<IPlayerState> handleInput(Player& player, ICommand* command) = 0;
     // 매 프레임 호출되며, 상태 전환이 필요하면 새로운 상태 객체를 반환합니다.
     virtual std::unique_ptr<IPlayerState> update(Player& player, float dt) = 0;
 };

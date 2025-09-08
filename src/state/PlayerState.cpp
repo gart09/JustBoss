@@ -6,49 +6,77 @@
 
 // --- IdleState ---
 void IdleState::enter(Player& player) {
-    std::cout << "State: Idle" << std::endl;
 }
 
-std::unique_ptr<IPlayerState> IdleState::handleInput(Player& player, CommandType type)
-{
-    switch (type) {
-        case CommandType::Jump:
-            player.jump();
-            return std::make_unique<JumpState>();
-
-        case CommandType::Attack:
-        case CommandType::WeakPointAttack:
-            return std::make_unique<AttackState>(0);
-
-        case CommandType::Dash:
-            player.dash();
-            return nullptr;
-        default:
-            return nullptr;
+std::unique_ptr<IPlayerState> IdleState::handleInput(Player& player, ICommand* command) {
+    // 1. 이 커맨드가 JumpCommand인지 확인 (데이터 필요 없음)
+    if (dynamic_cast<JumpCommand*>(command)) {
+        return std::make_unique<JumpState>();
     }
+
+    // 2. 이 커맨드가 MoveCommand인지 확인 (데이터 필요!)
+    if (auto* move = dynamic_cast<MoveCommand*>(command)) {
+        // dynamic_cast 성공! move는 이제 MoveCommand* 타입
+        float dir = move->getDirection(); // getter로 데이터 추출
+        if (dir != 0.0f) {
+            player.move(dir); // 추출한 데이터로 행동 호출
+            return std::make_unique<MoveState>();
+        } else {
+            player.move(dir); // 멈춤
+            return nullptr; // 상태 유지
+        }
+    }
+
+    // 3. 이 커맨드가 DashCommand인지 확인 (데이터 필요!)
+    if (auto* dash = dynamic_cast<DashCommand*>(command)) {
+        player.dash(dash->getDirection());
+    }
+
+    return nullptr;
 }
 
 std::unique_ptr<IPlayerState> IdleState::update(Player& player, float dt) {
-    // 바닥에서 떨어지면 점프(낙하) 상태로
-    if (player.m_shape.getPosition().y < 720.f - player.m_shape.getSize().y / 2.f) {
-        player.m_canJump = false;
+    return nullptr;
+}
+
+
+// --- MoveState ---
+void MoveState::enter(Player& player) {
+}
+
+std::unique_ptr<IPlayerState> MoveState::handleInput(Player& player, ICommand* command) {
+    if (dynamic_cast<JumpCommand*>(command)) {
         return std::make_unique<JumpState>();
+    }
+    if (auto* move = dynamic_cast<MoveCommand*>(command)) {
+        float dir = move->getDirection();
+        if (dir != 0.0f) {
+            player.move(dir);
+            return nullptr; // 상태 유지
+        } else {
+            player.move(dir); // 멈춤
+            return std::make_unique<IdleState>();
+        }
+    }
+    if (auto* dash = dynamic_cast<DashCommand*>(command)) { 
+        player.dash(dash->getDirection());
     }
     return nullptr;
 }
 
+std::unique_ptr<IPlayerState> MoveState::update(Player& player, float dt) {
+    return nullptr;
+}
 // --- JumpingState ---
 void JumpState::enter(Player& player) {
     player.takeJump();
 }
 
-std::unique_ptr<IPlayerState> JumpState::handleInput(Player& player, CommandType command) {
-    switch(command)
-    {
-        case CommandType::Jump:
-            return std::make_unique<DoubleJumpState>();
-        default:
-            return nullptr;
+std::unique_ptr<IPlayerState> JumpState::handleInput(Player& player, ICommand* command) {
+    if(auto* jump = dynamic_cast<JumpCommand*>(command)) {
+        if(player.m_canDoubleJump) {
+            return std::make_unique<DoubleJumpState>(jump->getDirection());
+        }
     }
     return nullptr;
 }
@@ -61,21 +89,18 @@ std::unique_ptr<IPlayerState> JumpState::update(Player& player, float dt) {
 }
 
 // --- DoubleJumpeState ---
+DoubleJumpState::DoubleJumpState(float direction) : m_direction(direction) {}
+
 void DoubleJumpState::enter(Player& player) {
-    player.takeDoubleJump();
+    player.takeDoubleJump(m_direction);
 }
 
-std::unique_ptr<IPlayerState> DoubleJumpState::handleInput(Player& player, CommandType command) {
-    switch(command)
-    {
-        default:
-            return nullptr;
-    }
+std::unique_ptr<IPlayerState> DoubleJumpState::handleInput(Player& player, ICommand* command) {
     return nullptr;
 }
 
 std::unique_ptr<IPlayerState> DoubleJumpState::update(Player& player, float dt) {
-    if (player.m_canJump) { // 착지했다면
+    if (player.m_canJump) {
         return std::make_unique<IdleState>();
     }
     return nullptr;
@@ -90,8 +115,8 @@ void AttackState::enter(Player& player) {
     player.m_velocity.x = 0;
 }
 
-std::unique_ptr<IPlayerState> AttackState::handleInput(Player& player, CommandType command) {
-    if (m_canChain && command == CommandType::Attack || command == CommandType::WeakPointAttack) {
+std::unique_ptr<IPlayerState> AttackState::handleInput(Player& player, ICommand* command) {
+    if (m_canChain && dynamic_cast<AttackCommand*>(command) || dynamic_cast<WeakPointAttackCommand*>(command)) {
         if (m_comboIndex < player.getComboData().size() - 1) {
             return std::make_unique<AttackState>(m_comboIndex + 1);
         }
@@ -108,7 +133,7 @@ HitStunState::HitStunState(float duration) : m_stunDuration(duration), m_timer(0
 void HitStunState::enter(Player& player) {
     std::cout << "State: Hit Stun" << std::endl;
 }
-std::unique_ptr<IPlayerState> HitStunState::handleInput(Player& player, CommandType command) {
+std::unique_ptr<IPlayerState> HitStunState::handleInput(Player& player, ICommand* command) {
     return nullptr;
 }
 std::unique_ptr<IPlayerState> HitStunState::update(Player& player, float dt) {

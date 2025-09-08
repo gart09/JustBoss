@@ -17,7 +17,7 @@ endif()
 
 # ? SFML 라이브러리의 정확한 경로를 여기에 입력하세요.
 # SFMLConfig.cmake 파일이 들어있는 폴더의 경로여야 합니다.
-set(SFML_DIR "C:/JustBoss/lib/SFML-3.0.0/lib/cmake/SFML")
+set(SFML_DIR "E:/JustBoss/lib/SFML-3.0.0/lib/cmake/SFML")
 # ------------------------------------------------------------------
 # SFML 라이브러리 찾기
 # ------------------------------------------------------------------

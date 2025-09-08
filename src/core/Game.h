@@ -17,5 +17,5 @@ private:
 
     sf::RenderWindow m_window;
     std::unique_ptr<GameScene> m_currentScene;
-    std::vector<std::unique_ptr<ICommand>> m_commands;
+    std::unique_ptr<ICommand> m_command;
 };

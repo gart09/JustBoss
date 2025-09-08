@@ -21,6 +21,7 @@ void Game::run()
 
 void Game::handleInput()
 {
+    m_command = nullptr;
     while (const auto event = m_window.pollEvent())
     {
         // 1. is<>() 템플릿 함수로 이벤트 타입을 확인합니다.
@@ -28,14 +29,14 @@ void Game::handleInput()
         {
             m_window.close();
         }
-        if (auto command = InputManager::getInstance().handleEvent(*event))
-        {
-            m_commands.push_back(command);
+        auto command = InputManager::getInstance().processEvent(*event);
+        if (command) {
+            m_command = std::move(command);
+            break; 
         }
     }
-    if (auto command = InputManager::getInstance().handleRealtimeInput())
-    {
-        m_commands.push_back(command);
+    if (!m_command) {
+        m_command = InputManager::getInstance().processPolling();
     }
 }
 
@@ -43,9 +44,8 @@ void Game::update(sf::Time deltaTime)
 {
     if (m_currentScene)
     {
-        for (const auto& command : m_commands)
-        {
-            m_currentScene->handleCommand(*command);
+        if (m_command) {
+            m_currentScene->handleCommand(*m_command);
         }
         m_currentScene->update(deltaTime);
     }

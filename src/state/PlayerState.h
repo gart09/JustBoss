@@ -1,12 +1,20 @@
 #pragma once
 #include "IPlayerState.h"
-#include "../commands/CommandType.h"
+#include "../commands/ICommand.h"
 
 // 대기 상태
 class IdleState : public IPlayerState {
 public:
     void enter(Player& player) override;
-    std::unique_ptr<IPlayerState> handleInput(Player& player, CommandType type) override;
+    std::unique_ptr<IPlayerState> handleInput(Player& player, ICommand* command) override;
+    std::unique_ptr<IPlayerState> update(Player& player, float dt) override;
+};
+
+// 이동 상태
+class MoveState : public IPlayerState {
+public:
+    void enter(Player& player) override;
+    std::unique_ptr<IPlayerState> handleInput(Player& player, ICommand* command) override;
     std::unique_ptr<IPlayerState> update(Player& player, float dt) override;
 };
 
@@ -14,15 +22,18 @@ public:
 class JumpState : public IPlayerState {
 public:
     void enter(Player& player) override;
-    std::unique_ptr<IPlayerState> handleInput(Player& player, CommandType type) override;
+    std::unique_ptr<IPlayerState> handleInput(Player& player, ICommand* command) override;
     std::unique_ptr<IPlayerState> update(Player& player, float dt) override;
 };
 
 class DoubleJumpState : public IPlayerState {
 public:
+    DoubleJumpState(float direction);
     void enter(Player& player) override;
-    std::unique_ptr<IPlayerState> handleInput(Player& player, CommandType type) override;
+    std::unique_ptr<IPlayerState> handleInput(Player& player, ICommand* command) override;
     std::unique_ptr<IPlayerState> update(Player& player, float dt) override;
+private:
+    float m_direction;
 };
 
 // 3연타 공격 상태
@@ -30,7 +41,7 @@ class AttackState : public IPlayerState {
 public:
     explicit AttackState(int comboIndex);
     void enter(Player& player) override;
-    std::unique_ptr<IPlayerState> handleInput(Player& player, CommandType type) override;
+    std::unique_ptr<IPlayerState> handleInput(Player& player, ICommand* command) override;
     std::unique_ptr<IPlayerState> update(Player& player, float dt) override;
 private:
     int m_comboIndex;
@@ -44,9 +55,16 @@ class HitStunState : public IPlayerState {
 public:
     explicit HitStunState(float duration);
     void enter(Player& player) override;
-    std::unique_ptr<IPlayerState> handleInput(Player& player, CommandType type) override;
+    std::unique_ptr<IPlayerState> handleInput(Player& player, ICommand* command) override;
     std::unique_ptr<IPlayerState> update(Player& player, float dt) override;
 private:
     float m_stunDuration;
     float m_timer;
+};
+
+class WeakPointAttackState : public IPlayerState {
+public:
+    void enter(Player& player) override;
+    std::unique_ptr<IPlayerState> handleInput(Player& player, ICommand* command) override;
+    std::unique_ptr<IPlayerState> update(Player& player, float dt) override;
 };

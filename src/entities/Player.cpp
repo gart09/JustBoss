@@ -32,9 +32,11 @@ void Player::update(sf::Time deltaTime) {
             changeState(std::move(newState));
         }
     }
+
     applyPhysics(deltaTime.asSeconds());
     handleDashCooldown(deltaTime.asSeconds());
 
+    
     if (m_activeAttack.has_value()) {
         m_debugAttackBox.setPosition(sf::Vector2f(m_activeAttack->worldHitbox.position));
 
@@ -61,20 +63,6 @@ void Player::move(float direction) {
     if (direction < 0) m_facingDirection = FacingDirection::Left;
 }
 
-void Player::attack()
-{
-    // TODO: 여기에 실제 공격 애니메이션, 충돌 판정 등의 코드를 구현합니다.
-    std::cout << "Action: Basic Attack!" << std::endl;
-}
-
-void Player::jump()
-{
-    if (m_currentState) {
-        auto newState = m_currentState->handleInput(*this, CommandType::Jump); 
-        if (newState) changeState(std::move(newState));
-    }
-}
-
 void Player::takeJump()
 {
     if (m_canJump)
@@ -87,17 +75,23 @@ void Player::takeJump()
     }
 }
 
-void Player::takeDoubleJump(float horizontal_input)
+void Player::takeDoubleJump(float m_direction)
 {
     if (m_canDoubleJump)
     {
         m_velocity.y = -m_jumpStrength * 0.8f;
         
-        // Command에서 받은 방향 정보로 속도를 결정
-        m_velocity.x = horizontal_input * 500.f;
+        float move_direction = m_direction;
+        
+        if (move_direction == 0.f) {
+            move_direction = (m_facingDirection == FacingDirection::Right) ? 1.f : -1.f;
+        }
 
-        if(horizontal_input != 0.f)
-            m_facingDirection = (horizontal_input > 0) ? FacingDirection::Right : FacingDirection::Left;
+        // 최종 결정된 방향으로 속도를 설정
+        m_velocity.x = move_direction * 500.f;
+
+        // 바라보는 방향도 갱신
+        m_facingDirection = (move_direction > 0) ? FacingDirection::Right : FacingDirection::Left;
 
         m_canDoubleJump = false;
         std::cout << "Action: Double Jump!" << std::endl;
@@ -115,15 +109,11 @@ void Player::dash(float direction) {
         dashDirection = (m_facingDirection == FacingDirection::Right) ? 1.f : -1.f;
     }
     
-    m_facingDirection = (direction > 0) ? FacingDirection::Right : FacingDirection::Left;
+    m_facingDirection = (dashDirection > 0) ? FacingDirection::Right : FacingDirection::Left;
     sf::Vector2f currentPos = m_shape.getPosition();
-    m_shape.setPosition({currentPos.x + direction * DASH_DISTANCE, currentPos.y});
+    m_shape.setPosition({currentPos.x + dashDirection * DASH_DISTANCE, currentPos.y});
     m_dashCooldown = DASH_COOLDOWN_TIME;
     std::cout << "Dash!" << std::endl;
-}
-
-void Player::weakPointAttack() {
-    // 약점 공격 전용 스킬이 있다면 여기에 구현. 현재는 일반 공격으로 처리.
 }
 
 void Player::takeDamage(int damage, sf::Vector2f damageSourcePosition) {
@@ -147,6 +137,25 @@ void Player::applyPhysics(float dt) {
     m_velocity.y += m_gravity * dt;
     m_shape.move(m_velocity * dt);
     
+
+    const sf::Vector2f pos = m_shape.getPosition();
+    const sf::Vector2f size = m_shape.getSize();
+
+    // 왼쪽 벽 충돌 확인
+    if (pos.x < 0.f) {
+        // 위치를 벽에 강제로 고정
+        m_shape.setPosition({0.f, pos.y});
+        // 벽에 닿았으니 수평 속도를 0으로 만들어 '달라붙는' 현상 방지
+        m_velocity.x = 0; 
+    }
+    // 오른쪽 벽 충돌 확인
+    else if (pos.x + size.x > WINDOW_WIDTH) {
+        // 위치를 벽에 강제로 고정 (캐릭터 너비만큼 빼줌)
+        m_shape.setPosition({WINDOW_WIDTH - size.x, pos.y});
+        // 벽에 닿았으니 수평 속도를 0으로 만듦
+        m_velocity.x = 0;
+    }
+
     // 플레이어의 바닥 위치 계산 (도형의 y좌표 + 도형의 세로 길이)
     float playerBottom = m_shape.getPosition().y + m_shape.getSize().y;
 

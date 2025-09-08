@@ -1,27 +1,32 @@
 #pragma once
 
 #include <SFML/Window/Event.hpp>
-#include <memory>
-#include <map>
 #include <SFML/Window/Keyboard.hpp>
+#include <memory>
+#include <functional>
+#include <map>
 
-class ICommand;
+class ICommand; // 전방 선언
 
-class InputManager {
+class InputManager 
+{
 public:
     static InputManager& getInstance();
 
+    // 복사 및 대입을 금지합니다.
     InputManager(const InputManager&) = delete;
     void operator=(const InputManager&) = delete;
 
-    // 이벤트 기반 입력 처리 (키 누름, 뗌)
-    std::unique_ptr<ICommand> handleEvent(const sf::Event& event);
-    // 실시간 입력 처리 (키 누르고 있는 상태)
-    std::unique_ptr<ICommand> handleRealtimeInput();
+    std::unique_ptr<ICommand> processEvent(const sf::Event& event);
+    std::unique_ptr<ICommand> processPolling();
 
 private:
-    InputManager();
-    // 키 매핑 (향후 이 부분을 파일에서 읽어오도록 수정하면 키 설정 기능 구현 가능)
-    std::map<sf::Keyboard::Key, int> m_keyMappings; // int로 커맨드 타입을 저장
-};
+    InputManager(); // private 생성자
+    ~InputManager() = default;
 
+    // 키를 '눌렀을 때' 실행될 커맨드를 생성하는 함수를 매핑합니다.
+    std::map<sf::Keyboard::Key, std::function<std::unique_ptr<ICommand>()>> m_pressedKeyMappings;
+    
+    // 키를 '뗐을 때' 실행될 커맨드를 생성하는 함수를 매핑합니다.
+    std::map<sf::Keyboard::Key, std::function<std::unique_ptr<ICommand>()>> m_releasedKeyMappings;
+};
