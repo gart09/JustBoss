@@ -2,7 +2,8 @@
 
 #include <SFML/Graphics.hpp>
 #include <memory>
-#include "state/GameState.h"
+#include "Scene/GameScene.h"
+#include "../manager/InputManager.h"
 
 class Game{
 public:
@@ -10,10 +11,11 @@ public:
     void run();
 
 private:
-    void processEvents();
+    void handleInput();
     void update(sf::Time deltaTime);
     void render();
 
     sf::RenderWindow m_window;
-    std::unique_ptr<GameState> m_currentState;  
+    std::unique_ptr<GameScene> m_currentScene;
+    std::vector<std::unique_ptr<ICommand>> m_commands;
 };

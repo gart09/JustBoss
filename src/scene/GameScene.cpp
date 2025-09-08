@@ -1,8 +1,8 @@
-#include "GameState.h"
+#include "GameScene.h"
 #include "../lib/imgui/imgui.h"  
 #include "../lib/imgui-sfml/imgui-SFML.h"
 
-GameState::GameState(sf::RenderWindow& window)
+GameScene::GameScene(sf::RenderWindow& window)
     : m_window(window)
 {
     // ImGui-SFML 초기화
@@ -10,21 +10,23 @@ GameState::GameState(sf::RenderWindow& window)
 
     m_player = std::make_unique<Player>();
     m_boss = std::make_unique<Boss>();
+    m_map = std::make_unique<Map>();
+    m_hpUI = std::make_unique<HpUI>();
 }
 
 // 소멸자 구현
-GameState::~GameState() // <<< 추가된 부분
+GameScene::~GameScene() // <<< 추가된 부분
 {
     ImGui::SFML::Shutdown();
 }
 
-void GameState::handleInput(const sf::Event& event)
+void GameScene::handleCommand(ICommand& command)
 {
-    ImGui::SFML::ProcessEvent(m_window, event);
-    m_player->handleInput(event);
+    // 전달받은 커맨드를 플레이어에게 넘겨 실행합니다.
+    command.execute(*m_player);
 }
 
-void GameState::update(sf::Time deltaTime)
+void GameScene::update(sf::Time deltaTime)
 {
     ImGui::SFML::Update(m_window, deltaTime);
     m_player->update(deltaTime);
@@ -49,7 +51,7 @@ void GameState::update(sf::Time deltaTime)
     // TODO: 여기에 플레이어와 보스 간의 충돌 처리, 스킬 로직 등을 추가합니다.
 }
 
-void GameState::draw(sf::RenderWindow& window)
+void GameScene::draw(sf::RenderWindow& window)
 {
     if (m_player)
     {
@@ -58,6 +60,14 @@ void GameState::draw(sf::RenderWindow& window)
     if (m_boss)
     {
         m_boss->draw(window);
+    }
+    if (m_map)
+    {
+        m_map->draw(window);
+    }
+    if (m_hpUI)
+    {
+        m_hpUI->draw(*m_player, *m_boss, window);
     }
     // 모든 게임 오브젝트를 그린 후, 마지막에 ImGui UI를 그립니다.
     ImGui::SFML::Render(window); // <<< 추가        

@@ -4,7 +4,7 @@ Boss::Boss()
 {
     m_shape.setSize({250.f, 250.f});
     m_shape.setFillColor(sf::Color::Red);
-    m_shape.setPosition({800.f, 720.f-250.f});
+    m_shape.setPosition({800.f, 720.f-250.f - 200.f});
 }
 
 void Boss::update(sf::Time deltaTime)

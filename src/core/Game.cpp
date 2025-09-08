@@ -4,7 +4,7 @@
 
 Game::Game() : m_window(sf::VideoMode({1280, 720}), "Just Boss")
 {
-    m_currentState = std::make_unique<GameState>(m_window);
+    m_currentScene = std::make_unique<GameScene>(m_window);
 }
 
 void Game::run()
@@ -13,13 +13,13 @@ void Game::run()
     while (m_window.isOpen())
     {
         sf::Time deltaTime = clock.restart();
-        processEvents();
+        handleInput();
         update(deltaTime);
         render();
     }
 }
 
-void Game::processEvents()
+void Game::handleInput()
 {
     while (const auto event = m_window.pollEvent())
     {
@@ -28,20 +28,26 @@ void Game::processEvents()
         {
             m_window.close();
         }
-
-        // 2. 현재 상태에 이벤트 객체 자체를 전달합니다.
-        if (m_currentState)
+        if (auto command = InputManager::getInstance().handleEvent(*event))
         {
-            m_currentState->handleInput(*event);
+            m_commands.push_back(std::move(command));
         }
+    }
+    if (auto command = InputManager::getInstance().handleRealtimeInput())
+    {
+        m_commands.push_back(std::move(command));
     }
 }
 
 void Game::update(sf::Time deltaTime)
 {
-    if (m_currentState)
+    if (m_currentScene)
     {
-        m_currentState->update(deltaTime);
+        for (const auto& command : m_commands)
+        {
+            m_currentScene->handleCommand(*command);
+        }
+        m_currentScene->update(deltaTime);
     }
 }
 
@@ -49,9 +55,9 @@ void Game::render()
 {
     m_window.clear(sf::Color::Black);
 
-    if (m_currentState)
+    if (m_currentScene)
     {
-        m_currentState->draw(m_window);
+        m_currentScene->draw(m_window);
     }
     m_window.display();
 }

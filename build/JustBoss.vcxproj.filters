@@ -1,6 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClCompile Include="E:\JustBoss\src\UI\HpUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\JustBoss\src\commands\PlayerCommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="E:\JustBoss\src\core\Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -8,6 +14,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="E:\JustBoss\src\entities\Boss.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\JustBoss\src\entities\Map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="E:\JustBoss\src\entities\Player.cpp">
@@ -19,7 +28,10 @@
     <ClCompile Include="E:\JustBoss\src\manager\ResourceManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="E:\JustBoss\src\state\GameState.cpp">
+    <ClCompile Include="E:\JustBoss\src\scene\GameScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\JustBoss\src\state\PlayerState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="E:\JustBoss\lib\imgui-sfml\imgui-SFML.cpp">
