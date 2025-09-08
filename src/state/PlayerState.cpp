@@ -23,10 +23,6 @@ std::unique_ptr<IPlayerState> IdleState::handleInput(Player& player, CommandType
         case CommandType::Dash:
             player.dash();
             return nullptr;
-
-        case CommandType::Parry:
-            return std::make_unique<ParryingState>(0.3f);
-
         default:
             return nullptr;
     }
@@ -49,8 +45,6 @@ void JumpState::enter(Player& player) {
 std::unique_ptr<IPlayerState> JumpState::handleInput(Player& player, CommandType command) {
     switch(command)
     {
-        case CommandType::Parry:
-            return std::make_unique<ParryingState>(0.3f);
         case CommandType::Jump:
             return std::make_unique<DoubleJumpState>();
         default:
@@ -74,8 +68,6 @@ void DoubleJumpState::enter(Player& player) {
 std::unique_ptr<IPlayerState> DoubleJumpState::handleInput(Player& player, CommandType command) {
     switch(command)
     {
-        case CommandType::Parry:
-            return std::make_unique<ParryingState>(0.3f);
         default:
             return nullptr;
     }
@@ -129,40 +121,3 @@ std::unique_ptr<IPlayerState> HitStunState::update(Player& player, float dt) {
     }
     return nullptr;
 }
-
-// --- ParryingState ---
-ParryingState::ParryingState(float duration) : m_parryWindowDuration(duration), m_timer(0.f) {}
-void ParryingState::enter(Player& player) {
-    std::cout << "State: Parrying" << std::endl;
-    player.m_velocity.x = 0;
-}
-std::unique_ptr<IPlayerState> ParryingState::handleInput(Player& player, CommandType command) {
-    return nullptr;
-}
-std::unique_ptr<IPlayerState> ParryingState::update(Player& player, float dt) {
-    m_timer += dt;
-    if (m_timer >= m_parryWindowDuration) {
-        return std::make_unique<IdleState>();
-    }
-    return nullptr;
-}
-
-// --- ParrySuccessState ---
-ParrySuccessState::ParrySuccessState(float duration) : m_stunDuration(duration), m_timer(0.f) {}
-void ParrySuccessState::enter(Player& player) {
-    std::cout << "State: Parry Success Stun" << std::endl;
-}
-std::unique_ptr<IPlayerState> ParrySuccessState::handleInput(Player& player, CommandType command) {
-    return nullptr;
-}
-std::unique_ptr<IPlayerState> ParrySuccessState::update(Player& player, float dt) {
-    m_timer += dt;
-    if (player.m_canJump) {
-        return std::make_unique<IdleState>();
-    }
-    if (m_timer >= m_stunDuration) {
-        return std::make_unique<JumpState>();
-    }
-    return nullptr;
-}
-

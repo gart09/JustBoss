@@ -2,13 +2,13 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>E:\JustBoss\build\x64\Debug\ZERO_CHECK</FullPath>
+      <FullPath>C:\JustBoss\build\x64\Debug\ZERO_CHECK</FullPath>
     </ProjectOutput>
     <ProjectOutput>
-      <FullPath>E:\JustBoss\build\bin\Debug\JustBoss.exe</FullPath>
+      <FullPath>C:\JustBoss\build\bin\Debug\JustBoss.exe</FullPath>
     </ProjectOutput>
     <ProjectOutput>
-      <FullPath>E:\JustBoss\build\x64\Debug\ALL_BUILD</FullPath>
+      <FullPath>C:\JustBoss\build\x64\Debug\ALL_BUILD</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

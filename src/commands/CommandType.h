@@ -6,6 +6,5 @@ enum class CommandType {
     Attack,
     WeakPointAttack,
     Dash,
-    Parry,
     Move
 };

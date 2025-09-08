@@ -12,7 +12,7 @@ void HpUI::draw(Player& player, Boss& boss, sf::RenderWindow& window) {
 
 // 기존의 drawPlayerUI 함수 코드를 그대로 가져와 클래스 멤버 함수로 만듭니다.
 void HpUI::drawPlayerUI(Player& player, const sf::RenderWindow& window) {
-    ImGui::SetNextWindowPos(ImVec2(10, window.getSize().y - 110));
+    ImGui::SetNextWindowPos(ImVec2(10, window.getSize().y - 100.f));
     ImGui::SetNextWindowSize(ImVec2(300, 100));
 
     ImGui::Begin("PlayerStatus", nullptr,

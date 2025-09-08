@@ -30,19 +30,15 @@ public:
     void move(float direction);
     void jump();
     void attack();
-    void dash();
-    void parryAction();
+    void dash(float direction);
     void weakPointAttack();
 
     //행동실행 함수
     void takeJump();
-    void takeDoubleJump();
+    void takeDoubleJump(float horizontal_input);
 
-    // 피격 및 패링 관련
+    // 피격
     void takeDamage(int damage, sf::Vector2f damageSourcePosition);
-    void parry(const BossAttackData& attackData, sf::Vector2f sourcePosition);
-    bool isParrying() const;
-    void createReflectedProjectile(sf::Vector2f targetPosition);
 
     // 게터 함수들
     std::optional<ActiveAttackInfo> getActiveAttackInfo() { return m_activeAttack; }

@@ -38,14 +38,6 @@ public:
 };
 
 /**
- * @brief 패링 커맨드.
- */
-class ParryCommand : public ICommand {
-public:
-    void execute(Player& player) override;
-};
-
-/**
  * @brief 약점 공격 커맨드.
  * 현재는 일반 공격과 동일한 로직을 트리거하지만, 별도 스킬로 확장될 수 있습니다.
  */

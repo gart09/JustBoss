@@ -3,19 +3,17 @@
 
 
 InputManager& InputManager::getInstance() {
-    // 이 함수가 처음 호출될 때 단 한 번만 instance가 생성됩니다.
-    // C++11 표준부터는 이 방식이 Thread-safe 하도록 보장됩니다.
     static InputManager instance; 
     return instance;
 }
 
 InputManager::InputManager() {
-    // 키 누름에 대한 커맨드 매핑. 1:점프, 2:공격, 3:대쉬, 4:패링, 5:약점공격
+    // 키 누름에 대한 커맨드 매핑. 1:점프, 2:공격, 3:대쉬, 4:차징공격, 5:약점공격
     m_keyMappings[sf::Keyboard::Key::D] = 1;
     m_keyMappings[sf::Keyboard::Key::S] = 2;
     m_keyMappings[sf::Keyboard::Key::A] = 3;
     m_keyMappings[sf::Keyboard::Key::Q] = 4;
-    m_keyMappings[sf::Keyboard::Key::E] = 5;
+    m_keyMappings[sf::Keyboard::Key::W] = 5;
 }
 
 std::unique_ptr<ICommand> InputManager::handleEvent(const sf::Event& event) {
@@ -26,7 +24,7 @@ std::unique_ptr<ICommand> InputManager::handleEvent(const sf::Event& event) {
                 case 1: return std::make_unique<JumpCommand>();
                 case 2: return std::make_unique<AttackCommand>();
                 case 3: return std::make_unique<DashCommand>();
-                case 4: return std::make_unique<ParryCommand>();
+                //case 4: return std::make_unique<ChargeCommand>();
                 case 5: return std::make_unique<WeakPointAttackCommand>();
             }
         }

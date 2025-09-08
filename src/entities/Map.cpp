@@ -9,13 +9,13 @@ constexpr float GROUND_Y = 720.f;
 Map::Map()
 {
     // 바닥 크기 설정
-    m_floor.setSize(sf::Vector2f(WINDOW_WIDTH, 200.f));
+    m_floor.setSize(sf::Vector2f(WINDOW_WIDTH, 100.f));
     
     // 바닥 색상 설정
     m_floor.setFillColor(sf::Color(139, 69, 19)); // SaddleBrown 색상
 
     // 바닥 위치 설정
-    m_floor.setPosition({0.f, GROUND_Y});
+    m_floor.setPosition({0.f, GROUND_Y - 100.f});
 }
 
 // 그리기 함수 구현

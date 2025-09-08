@@ -1,61 +1,61 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="E:\JustBoss\src\UI\HpUI.cpp">
+    <ClCompile Include="C:\JustBoss\src\UI\HpUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="E:\JustBoss\src\commands\PlayerCommand.cpp">
+    <ClCompile Include="C:\JustBoss\src\commands\PlayerCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="E:\JustBoss\src\core\Game.cpp">
+    <ClCompile Include="C:\JustBoss\src\core\Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="E:\JustBoss\src\core\main.cpp">
+    <ClCompile Include="C:\JustBoss\src\core\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="E:\JustBoss\src\entities\Boss.cpp">
+    <ClCompile Include="C:\JustBoss\src\entities\Boss.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="E:\JustBoss\src\entities\Map.cpp">
+    <ClCompile Include="C:\JustBoss\src\entities\Map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="E:\JustBoss\src\entities\Player.cpp">
+    <ClCompile Include="C:\JustBoss\src\entities\Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="E:\JustBoss\src\manager\InputManager.cpp">
+    <ClCompile Include="C:\JustBoss\src\manager\InputManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="E:\JustBoss\src\manager\ResourceManager.cpp">
+    <ClCompile Include="C:\JustBoss\src\manager\ResourceManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="E:\JustBoss\src\scene\GameScene.cpp">
+    <ClCompile Include="C:\JustBoss\src\scene\GameScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="E:\JustBoss\src\state\PlayerState.cpp">
+    <ClCompile Include="C:\JustBoss\src\state\PlayerState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="E:\JustBoss\lib\imgui-sfml\imgui-SFML.cpp">
+    <ClCompile Include="C:\JustBoss\lib\imgui-sfml\imgui-SFML.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="E:\JustBoss\lib\imgui\imgui.cpp">
+    <ClCompile Include="C:\JustBoss\lib\imgui\imgui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="E:\JustBoss\lib\imgui\imgui_draw.cpp">
+    <ClCompile Include="C:\JustBoss\lib\imgui\imgui_draw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="E:\JustBoss\lib\imgui\imgui_tables.cpp">
+    <ClCompile Include="C:\JustBoss\lib\imgui\imgui_tables.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="E:\JustBoss\lib\imgui\imgui_widgets.cpp">
+    <ClCompile Include="C:\JustBoss\lib\imgui\imgui_widgets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="E:\JustBoss\CMakeLists.txt" />
+    <CustomBuild Include="C:\JustBoss\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{7B546492-CE20-3AC4-87C3-8A92CCC5FE09}</UniqueIdentifier>
+      <UniqueIdentifier>{EA3692C9-5CCF-3A26-921A-1F913EFACDA7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

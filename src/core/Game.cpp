@@ -30,12 +30,12 @@ void Game::handleInput()
         }
         if (auto command = InputManager::getInstance().handleEvent(*event))
         {
-            m_commands.push_back(std::move(command));
+            m_commands.push_back(command);
         }
     }
     if (auto command = InputManager::getInstance().handleRealtimeInput())
     {
-        m_commands.push_back(std::move(command));
+        m_commands.push_back(command);
     }
 }
 

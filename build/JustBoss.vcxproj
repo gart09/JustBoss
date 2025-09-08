@@ -22,9 +22,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{83B59B62-A5F8-3FD0-A17B-06BFD6715AB5}</ProjectGuid>
+    <ProjectGuid>{D6CFEE3C-1DD0-3FB3-9E58-76BBC22FD38A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <WindowsTargetPlatformVersion>10.0.26100.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
     <Platform>x64</Platform>
     <ProjectName>JustBoss</ProjectName>
     <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
@@ -59,25 +59,25 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\JustBoss\build\bin\Debug\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\JustBoss\build\bin\Debug\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">JustBoss.dir\Debug\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">JustBoss</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\JustBoss\build\bin\Release\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\JustBoss\build\bin\Release\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">JustBoss.dir\Release\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">JustBoss</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\JustBoss\build\bin\MinSizeRel\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\JustBoss\build\bin\MinSizeRel\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">JustBoss.dir\MinSizeRel\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">JustBoss</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\JustBoss\build\bin\RelWithDebInfo\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\JustBoss\build\bin\RelWithDebInfo\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">JustBoss.dir\RelWithDebInfo\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">JustBoss</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.exe</TargetExt>
@@ -86,36 +86,30 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>E:\JustBoss\src;E:\JustBoss\lib\imgui;E:\JustBoss\lib\imgui-sfml;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /external:I "E:/JustBoss/lib/SFML-3.0.0/include" /utf-8</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\JustBoss\src;C:\JustBoss\lib\imgui;C:\JustBoss\lib\imgui-sfml;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/JustBoss/lib/SFML-3.0.0/include" /utf-8</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ExceptionHandling>Sync</ExceptionHandling>
       <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
-      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
       <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <MinimalRebuild></MinimalRebuild>
       <Optimization>Disabled</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <SupportJustMyCode></SupportJustMyCode>
-      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;IMTEXTUREID_DEFINED;IMGUI_IMPL_API=;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
-      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;IMTEXTUREID_DEFINED;IMGUI_IMPL_API=;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>E:\JustBoss\src;E:\JustBoss\lib\imgui;E:\JustBoss\lib\imgui-sfml;E:\JustBoss\lib\SFML-3.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\JustBoss\src;C:\JustBoss\lib\imgui;C:\JustBoss\lib\imgui-sfml;C:\JustBoss\lib\SFML-3.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>E:\JustBoss\src;E:\JustBoss\lib\imgui;E:\JustBoss\lib\imgui-sfml;E:\JustBoss\lib\SFML-3.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\JustBoss\src;C:\JustBoss\lib\imgui;C:\JustBoss\lib\imgui-sfml;C:\JustBoss\lib\SFML-3.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -123,17 +117,13 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>E:\JustBoss\lib\SFML-3.0.0\lib\sfml-graphics-d.lib;E:\JustBoss\lib\SFML-3.0.0\lib\sfml-window-d.lib;opengl32.lib;E:\JustBoss\lib\SFML-3.0.0\lib\sfml-system-d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>C:\JustBoss\lib\SFML-3.0.0\lib\sfml-graphics-d.lib;C:\JustBoss\lib\SFML-3.0.0\lib\sfml-window-d.lib;opengl32.lib;C:\JustBoss\lib\SFML-3.0.0\lib\sfml-system-d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
-      <DataExecutionPrevention></DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImageHasSafeExceptionHandlers></ImageHasSafeExceptionHandlers>
-      <ImportLibrary>E:/JustBoss/build/bin/Debug/JustBoss.lib</ImportLibrary>
-      <LinkErrorReporting></LinkErrorReporting>
-      <ProgramDataBaseFile>E:/JustBoss/build/bin/Debug/JustBoss.pdb</ProgramDataBaseFile>
-      <RandomizedBaseAddress></RandomizedBaseAddress>
+      <ImportLibrary>C:/JustBoss/build/bin/Debug/JustBoss.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/JustBoss/build/bin/Debug/JustBoss.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -142,37 +132,30 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>E:\JustBoss\src;E:\JustBoss\lib\imgui;E:\JustBoss\lib\imgui-sfml;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /external:I "E:/JustBoss/lib/SFML-3.0.0/include" /utf-8</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\JustBoss\src;C:\JustBoss\lib\imgui;C:\JustBoss\lib\imgui-sfml;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/JustBoss/lib/SFML-3.0.0/include" /utf-8</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
-      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <ExceptionHandling>Sync</ExceptionHandling>
       <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
-      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <MinimalRebuild></MinimalRebuild>
       <Optimization>MaxSpeed</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <SupportJustMyCode></SupportJustMyCode>
-      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;IMTEXTUREID_DEFINED;IMGUI_IMPL_API=;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
-      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;IMTEXTUREID_DEFINED;IMGUI_IMPL_API=;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>E:\JustBoss\src;E:\JustBoss\lib\imgui;E:\JustBoss\lib\imgui-sfml;E:\JustBoss\lib\SFML-3.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\JustBoss\src;C:\JustBoss\lib\imgui;C:\JustBoss\lib\imgui-sfml;C:\JustBoss\lib\SFML-3.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>E:\JustBoss\src;E:\JustBoss\lib\imgui;E:\JustBoss\lib\imgui-sfml;E:\JustBoss\lib\SFML-3.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\JustBoss\src;C:\JustBoss\lib\imgui;C:\JustBoss\lib\imgui-sfml;C:\JustBoss\lib\SFML-3.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -180,17 +163,13 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>E:\JustBoss\lib\SFML-3.0.0\lib\sfml-graphics.lib;E:\JustBoss\lib\SFML-3.0.0\lib\sfml-window.lib;opengl32.lib;E:\JustBoss\lib\SFML-3.0.0\lib\sfml-system.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>C:\JustBoss\lib\SFML-3.0.0\lib\sfml-graphics.lib;C:\JustBoss\lib\SFML-3.0.0\lib\sfml-window.lib;opengl32.lib;C:\JustBoss\lib\SFML-3.0.0\lib\sfml-system.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
-      <DataExecutionPrevention></DataExecutionPrevention>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImageHasSafeExceptionHandlers></ImageHasSafeExceptionHandlers>
-      <ImportLibrary>E:/JustBoss/build/bin/Release/JustBoss.lib</ImportLibrary>
-      <LinkErrorReporting></LinkErrorReporting>
-      <ProgramDataBaseFile>E:/JustBoss/build/bin/Release/JustBoss.pdb</ProgramDataBaseFile>
-      <RandomizedBaseAddress></RandomizedBaseAddress>
+      <ImportLibrary>C:/JustBoss/build/bin/Release/JustBoss.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/JustBoss/build/bin/Release/JustBoss.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -199,37 +178,30 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>E:\JustBoss\src;E:\JustBoss\lib\imgui;E:\JustBoss\lib\imgui-sfml;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /external:I "E:/JustBoss/lib/SFML-3.0.0/include" /utf-8</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\JustBoss\src;C:\JustBoss\lib\imgui;C:\JustBoss\lib\imgui-sfml;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/JustBoss/lib/SFML-3.0.0/include" /utf-8</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
-      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <ExceptionHandling>Sync</ExceptionHandling>
       <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
-      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <MinimalRebuild></MinimalRebuild>
       <Optimization>MinSpace</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <SupportJustMyCode></SupportJustMyCode>
-      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;IMTEXTUREID_DEFINED;IMGUI_IMPL_API=;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
-      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;IMTEXTUREID_DEFINED;IMGUI_IMPL_API=;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>E:\JustBoss\src;E:\JustBoss\lib\imgui;E:\JustBoss\lib\imgui-sfml;E:\JustBoss\lib\SFML-3.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\JustBoss\src;C:\JustBoss\lib\imgui;C:\JustBoss\lib\imgui-sfml;C:\JustBoss\lib\SFML-3.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>E:\JustBoss\src;E:\JustBoss\lib\imgui;E:\JustBoss\lib\imgui-sfml;E:\JustBoss\lib\SFML-3.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\JustBoss\src;C:\JustBoss\lib\imgui;C:\JustBoss\lib\imgui-sfml;C:\JustBoss\lib\SFML-3.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -237,17 +209,13 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>E:\JustBoss\lib\SFML-3.0.0\lib\sfml-graphics-d.lib;E:\JustBoss\lib\SFML-3.0.0\lib\sfml-window-d.lib;opengl32.lib;E:\JustBoss\lib\SFML-3.0.0\lib\sfml-system-d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>C:\JustBoss\lib\SFML-3.0.0\lib\sfml-graphics-d.lib;C:\JustBoss\lib\SFML-3.0.0\lib\sfml-window-d.lib;opengl32.lib;C:\JustBoss\lib\SFML-3.0.0\lib\sfml-system-d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
-      <DataExecutionPrevention></DataExecutionPrevention>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImageHasSafeExceptionHandlers></ImageHasSafeExceptionHandlers>
-      <ImportLibrary>E:/JustBoss/build/bin/MinSizeRel/JustBoss.lib</ImportLibrary>
-      <LinkErrorReporting></LinkErrorReporting>
-      <ProgramDataBaseFile>E:/JustBoss/build/bin/MinSizeRel/JustBoss.pdb</ProgramDataBaseFile>
-      <RandomizedBaseAddress></RandomizedBaseAddress>
+      <ImportLibrary>C:/JustBoss/build/bin/MinSizeRel/JustBoss.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/JustBoss/build/bin/MinSizeRel/JustBoss.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -256,36 +224,29 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>E:\JustBoss\src;E:\JustBoss\lib\imgui;E:\JustBoss\lib\imgui-sfml;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /external:I "E:/JustBoss/lib/SFML-3.0.0/include" /utf-8</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\JustBoss\src;C:\JustBoss\lib\imgui;C:\JustBoss\lib\imgui-sfml;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/JustBoss/lib/SFML-3.0.0/include" /utf-8</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
-      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ExceptionHandling>Sync</ExceptionHandling>
       <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
-      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <MinimalRebuild></MinimalRebuild>
       <Optimization>MaxSpeed</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <SupportJustMyCode></SupportJustMyCode>
-      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;IMTEXTUREID_DEFINED;IMGUI_IMPL_API=;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
-      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;IMTEXTUREID_DEFINED;IMGUI_IMPL_API=;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>E:\JustBoss\src;E:\JustBoss\lib\imgui;E:\JustBoss\lib\imgui-sfml;E:\JustBoss\lib\SFML-3.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\JustBoss\src;C:\JustBoss\lib\imgui;C:\JustBoss\lib\imgui-sfml;C:\JustBoss\lib\SFML-3.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>E:\JustBoss\src;E:\JustBoss\lib\imgui;E:\JustBoss\lib\imgui-sfml;E:\JustBoss\lib\SFML-3.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\JustBoss\src;C:\JustBoss\lib\imgui;C:\JustBoss\lib\imgui-sfml;C:\JustBoss\lib\SFML-3.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -293,17 +254,13 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>E:\JustBoss\lib\SFML-3.0.0\lib\sfml-graphics-d.lib;E:\JustBoss\lib\SFML-3.0.0\lib\sfml-window-d.lib;opengl32.lib;E:\JustBoss\lib\SFML-3.0.0\lib\sfml-system-d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>C:\JustBoss\lib\SFML-3.0.0\lib\sfml-graphics-d.lib;C:\JustBoss\lib\SFML-3.0.0\lib\sfml-window-d.lib;opengl32.lib;C:\JustBoss\lib\SFML-3.0.0\lib\sfml-system-d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
-      <DataExecutionPrevention></DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImageHasSafeExceptionHandlers></ImageHasSafeExceptionHandlers>
-      <ImportLibrary>E:/JustBoss/build/bin/RelWithDebInfo/JustBoss.lib</ImportLibrary>
-      <LinkErrorReporting></LinkErrorReporting>
-      <ProgramDataBaseFile>E:/JustBoss/build/bin/RelWithDebInfo/JustBoss.pdb</ProgramDataBaseFile>
-      <RandomizedBaseAddress></RandomizedBaseAddress>
+      <ImportLibrary>C:/JustBoss/build/bin/RelWithDebInfo/JustBoss.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/JustBoss/build/bin/RelWithDebInfo/JustBoss.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -311,11 +268,11 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="E:\JustBoss\CMakeLists.txt">
+    <CustomBuild Include="C:\JustBoss\CMakeLists.txt">
       <UseUtf8Encoding>Always</UseUtf8Encoding>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule E:/JustBoss/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/JustBoss/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SE:/JustBoss -BE:/JustBoss/build --check-stamp-file E:/JustBoss/build/CMakeFiles/generate.stamp
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/JustBoss -BC:/JustBoss/build --check-stamp-file C:/JustBoss/build/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -323,12 +280,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Internal\CMakeCXXLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Internal\CMakeCommonLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Linker\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Linker\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Linker\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Linker\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\WindowsPaths.cmake;E:\JustBoss\build\CMakeFiles\4.1.0-rc1\CMakeCXXCompiler.cmake;E:\JustBoss\build\CMakeFiles\4.1.0-rc1\CMakeRCCompiler.cmake;E:\JustBoss\build\CMakeFiles\4.1.0-rc1\CMakeSystem.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLConfig.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLConfigVersion.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLGraphicsSharedTargets-debug.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLGraphicsSharedTargets-release.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLGraphicsSharedTargets.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLSystemSharedTargets-debug.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLSystemSharedTargets-release.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLSystemSharedTargets.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLWindowSharedTargets-debug.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLWindowSharedTargets-release.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLWindowSharedTargets.cmake;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\JustBoss\build\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\JustBoss\build\CMakeFiles\3.28.0-msvc1\CMakeCXXCompiler.cmake;C:\JustBoss\build\CMakeFiles\3.28.0-msvc1\CMakeRCCompiler.cmake;C:\JustBoss\build\CMakeFiles\3.28.0-msvc1\CMakeSystem.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLConfig.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLConfigVersion.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLGraphicsSharedTargets-debug.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLGraphicsSharedTargets-release.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLGraphicsSharedTargets.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLSystemSharedTargets-debug.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLSystemSharedTargets-release.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLSystemSharedTargets.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLWindowSharedTargets-debug.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLWindowSharedTargets-release.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLWindowSharedTargets.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\CMakeCXXInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\CMakeGenericSystem.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\CMakeLanguageInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\CMakeRCInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\Compiler\MSVC.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\Platform\Windows.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\Platform\WindowsPaths.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\JustBoss\build\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule E:/JustBoss/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/JustBoss/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SE:/JustBoss -BE:/JustBoss/build --check-stamp-file E:/JustBoss/build/CMakeFiles/generate.stamp
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/JustBoss -BC:/JustBoss/build --check-stamp-file C:/JustBoss/build/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -336,12 +293,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Internal\CMakeCXXLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Internal\CMakeCommonLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Linker\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Linker\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Linker\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Linker\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\WindowsPaths.cmake;E:\JustBoss\build\CMakeFiles\4.1.0-rc1\CMakeCXXCompiler.cmake;E:\JustBoss\build\CMakeFiles\4.1.0-rc1\CMakeRCCompiler.cmake;E:\JustBoss\build\CMakeFiles\4.1.0-rc1\CMakeSystem.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLConfig.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLConfigVersion.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLGraphicsSharedTargets-debug.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLGraphicsSharedTargets-release.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLGraphicsSharedTargets.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLSystemSharedTargets-debug.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLSystemSharedTargets-release.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLSystemSharedTargets.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLWindowSharedTargets-debug.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLWindowSharedTargets-release.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLWindowSharedTargets.cmake;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\JustBoss\build\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\JustBoss\build\CMakeFiles\3.28.0-msvc1\CMakeCXXCompiler.cmake;C:\JustBoss\build\CMakeFiles\3.28.0-msvc1\CMakeRCCompiler.cmake;C:\JustBoss\build\CMakeFiles\3.28.0-msvc1\CMakeSystem.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLConfig.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLConfigVersion.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLGraphicsSharedTargets-debug.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLGraphicsSharedTargets-release.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLGraphicsSharedTargets.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLSystemSharedTargets-debug.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLSystemSharedTargets-release.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLSystemSharedTargets.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLWindowSharedTargets-debug.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLWindowSharedTargets-release.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLWindowSharedTargets.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\CMakeCXXInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\CMakeGenericSystem.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\CMakeLanguageInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\CMakeRCInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\Compiler\MSVC.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\Platform\Windows.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\Platform\WindowsPaths.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\JustBoss\build\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule E:/JustBoss/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/JustBoss/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SE:/JustBoss -BE:/JustBoss/build --check-stamp-file E:/JustBoss/build/CMakeFiles/generate.stamp
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/JustBoss -BC:/JustBoss/build --check-stamp-file C:/JustBoss/build/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -349,12 +306,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Internal\CMakeCXXLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Internal\CMakeCommonLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Linker\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Linker\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Linker\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Linker\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\WindowsPaths.cmake;E:\JustBoss\build\CMakeFiles\4.1.0-rc1\CMakeCXXCompiler.cmake;E:\JustBoss\build\CMakeFiles\4.1.0-rc1\CMakeRCCompiler.cmake;E:\JustBoss\build\CMakeFiles\4.1.0-rc1\CMakeSystem.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLConfig.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLConfigVersion.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLGraphicsSharedTargets-debug.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLGraphicsSharedTargets-release.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLGraphicsSharedTargets.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLSystemSharedTargets-debug.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLSystemSharedTargets-release.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLSystemSharedTargets.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLWindowSharedTargets-debug.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLWindowSharedTargets-release.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLWindowSharedTargets.cmake;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\JustBoss\build\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\JustBoss\build\CMakeFiles\3.28.0-msvc1\CMakeCXXCompiler.cmake;C:\JustBoss\build\CMakeFiles\3.28.0-msvc1\CMakeRCCompiler.cmake;C:\JustBoss\build\CMakeFiles\3.28.0-msvc1\CMakeSystem.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLConfig.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLConfigVersion.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLGraphicsSharedTargets-debug.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLGraphicsSharedTargets-release.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLGraphicsSharedTargets.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLSystemSharedTargets-debug.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLSystemSharedTargets-release.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLSystemSharedTargets.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLWindowSharedTargets-debug.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLWindowSharedTargets-release.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLWindowSharedTargets.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\CMakeCXXInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\CMakeGenericSystem.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\CMakeLanguageInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\CMakeRCInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\Compiler\MSVC.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\Platform\Windows.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\Platform\WindowsPaths.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\JustBoss\build\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule E:/JustBoss/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/JustBoss/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SE:/JustBoss -BE:/JustBoss/build --check-stamp-file E:/JustBoss/build/CMakeFiles/generate.stamp
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/JustBoss -BC:/JustBoss/build --check-stamp-file C:/JustBoss/build/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -362,33 +319,32 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Internal\CMakeCXXLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Internal\CMakeCommonLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Linker\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Linker\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Linker\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Linker\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\WindowsPaths.cmake;E:\JustBoss\build\CMakeFiles\4.1.0-rc1\CMakeCXXCompiler.cmake;E:\JustBoss\build\CMakeFiles\4.1.0-rc1\CMakeRCCompiler.cmake;E:\JustBoss\build\CMakeFiles\4.1.0-rc1\CMakeSystem.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLConfig.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLConfigVersion.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLGraphicsSharedTargets-debug.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLGraphicsSharedTargets-release.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLGraphicsSharedTargets.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLSystemSharedTargets-debug.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLSystemSharedTargets-release.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLSystemSharedTargets.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLWindowSharedTargets-debug.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLWindowSharedTargets-release.cmake;E:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLWindowSharedTargets.cmake;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\JustBoss\build\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\JustBoss\build\CMakeFiles\3.28.0-msvc1\CMakeCXXCompiler.cmake;C:\JustBoss\build\CMakeFiles\3.28.0-msvc1\CMakeRCCompiler.cmake;C:\JustBoss\build\CMakeFiles\3.28.0-msvc1\CMakeSystem.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLConfig.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLConfigVersion.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLGraphicsSharedTargets-debug.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLGraphicsSharedTargets-release.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLGraphicsSharedTargets.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLSystemSharedTargets-debug.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLSystemSharedTargets-release.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLSystemSharedTargets.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLWindowSharedTargets-debug.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLWindowSharedTargets-release.cmake;C:\JustBoss\lib\SFML-3.0.0\lib\cmake\SFML\SFMLWindowSharedTargets.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\CMakeCXXInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\CMakeGenericSystem.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\CMakeLanguageInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\CMakeRCInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\Compiler\MSVC.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\Platform\Windows.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.28\Modules\Platform\WindowsPaths.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\JustBoss\build\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="E:\JustBoss\src\UI\HpUI.cpp" />
-    <ClCompile Include="E:\JustBoss\src\commands\PlayerCommand.cpp" />
-    <ClCompile Include="E:\JustBoss\src\core\Game.cpp" />
-    <ClCompile Include="E:\JustBoss\src\core\main.cpp" />
-    <ClCompile Include="E:\JustBoss\src\entities\Boss.cpp" />
-    <ClCompile Include="E:\JustBoss\src\entities\Map.cpp" />
-    <ClCompile Include="E:\JustBoss\src\entities\Player.cpp" />
-    <ClCompile Include="E:\JustBoss\src\manager\InputManager.cpp" />
-    <ClCompile Include="E:\JustBoss\src\manager\ResourceManager.cpp" />
-    <ClCompile Include="E:\JustBoss\src\scene\GameScene.cpp" />
-    <ClCompile Include="E:\JustBoss\src\state\PlayerState.cpp" />
-    <ClCompile Include="E:\JustBoss\lib\imgui-sfml\imgui-SFML.cpp" />
-    <ClCompile Include="E:\JustBoss\lib\imgui\imgui.cpp" />
-    <ClCompile Include="E:\JustBoss\lib\imgui\imgui_draw.cpp" />
-    <ClCompile Include="E:\JustBoss\lib\imgui\imgui_tables.cpp" />
-    <ClCompile Include="E:\JustBoss\lib\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="C:\JustBoss\src\UI\HpUI.cpp" />
+    <ClCompile Include="C:\JustBoss\src\commands\PlayerCommand.cpp" />
+    <ClCompile Include="C:\JustBoss\src\core\Game.cpp" />
+    <ClCompile Include="C:\JustBoss\src\core\main.cpp" />
+    <ClCompile Include="C:\JustBoss\src\entities\Boss.cpp" />
+    <ClCompile Include="C:\JustBoss\src\entities\Map.cpp" />
+    <ClCompile Include="C:\JustBoss\src\entities\Player.cpp" />
+    <ClCompile Include="C:\JustBoss\src\manager\InputManager.cpp" />
+    <ClCompile Include="C:\JustBoss\src\manager\ResourceManager.cpp" />
+    <ClCompile Include="C:\JustBoss\src\scene\GameScene.cpp" />
+    <ClCompile Include="C:\JustBoss\src\state\PlayerState.cpp" />
+    <ClCompile Include="C:\JustBoss\lib\imgui-sfml\imgui-SFML.cpp" />
+    <ClCompile Include="C:\JustBoss\lib\imgui\imgui.cpp" />
+    <ClCompile Include="C:\JustBoss\lib\imgui\imgui_draw.cpp" />
+    <ClCompile Include="C:\JustBoss\lib\imgui\imgui_tables.cpp" />
+    <ClCompile Include="C:\JustBoss\lib\imgui\imgui_widgets.cpp" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="E:\JustBoss\build\ZERO_CHECK.vcxproj">
-      <Project>{C1AF79FE-D8FE-3E0F-BFEF-F16A2006C331}</Project>
+    <ProjectReference Include="C:\JustBoss\build\ZERO_CHECK.vcxproj">
+      <Project>{648935F5-0F02-38EC-93AF-90783BD3BED8}</Project>
       <Name>ZERO_CHECK</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>

@@ -7,7 +7,7 @@
 #include <cmath>
 
 constexpr float WINDOW_WIDTH = 1280.f;
-constexpr float GROUND_Y = 720.f;
+constexpr float GROUND_Y = 620.f;
 constexpr float CHAR_SIZE = 50.f;
 
 Player::Player()
@@ -17,7 +17,7 @@ Player::Player()
     m_shape.setSize({CHAR_SIZE, CHAR_SIZE});
     m_shape.setFillColor(sf::Color::Blue);
     
-    m_shape.setPosition({200.f, GROUND_Y - CHAR_SIZE - 200.f});
+    m_shape.setPosition({200.f, GROUND_Y - CHAR_SIZE - 100.f});
 
 
     m_debugAttackBox.setFillColor(sf::Color(255, 0, 0, 100));
@@ -87,54 +87,33 @@ void Player::takeJump()
     }
 }
 
-void Player::takeDoubleJump()
+void Player::takeDoubleJump(float horizontal_input)
 {
     if (m_canDoubleJump)
     {
-        const float doubleJumpHorizontalForce = 500.f;
         m_velocity.y = -m_jumpStrength * 0.8f;
-
-        // 더블점프 방향 결정 로직
-        bool leftPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left);
-        bool rightPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right);
-
-        FacingDirection desiredDirection = m_facingDirection;
-
-        // 진행방향과 반대 키를 눌렀을 경우, 방향 전환
-        if ((m_facingDirection == FacingDirection::Right && leftPressed) ||
-            (m_facingDirection == FacingDirection::Left && rightPressed))
-        {
-            desiredDirection = (leftPressed) ? FacingDirection::Left : FacingDirection::Right;
-            m_facingDirection = desiredDirection;
-        }
         
-        // 결정된 방향으로 더블점프 실행
-        if (desiredDirection == FacingDirection::Right)
-        {
-            m_velocity.x = doubleJumpHorizontalForce;
-        }
-        else
-        {
-            m_velocity.x = -doubleJumpHorizontalForce;
-        }
+        // Command에서 받은 방향 정보로 속도를 결정
+        m_velocity.x = horizontal_input * 500.f;
+
+        if(horizontal_input != 0.f)
+            m_facingDirection = (horizontal_input > 0) ? FacingDirection::Right : FacingDirection::Left;
 
         m_canDoubleJump = false;
-        std::cout << "Action: Double Jump! Direction: " 
-                  << (desiredDirection == FacingDirection::Right ? "Right" : "Left") << std::endl;
+        std::cout << "Action: Double Jump!" << std::endl;
     }
 }
 
-void Player::dash() {
+void Player::dash(float direction) {
     if (m_dashCooldown > 0) {
         std::cout << "Dash is on cooldown!" << std::endl;
         return;
     }
-    
-    float direction = 0.f;
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) direction = -1.f;
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) direction = 1.f;
-
-    if (direction == 0.f) { return; }
+    float dashDirection = direction;
+    // 방향이 지정되지 않았으면(0.f), 현재 바라보는 방향으로 대시
+    if (dashDirection == 0.f) {
+        dashDirection = (m_facingDirection == FacingDirection::Right) ? 1.f : -1.f;
+    }
     
     m_facingDirection = (direction > 0) ? FacingDirection::Right : FacingDirection::Left;
     sf::Vector2f currentPos = m_shape.getPosition();
@@ -142,8 +121,6 @@ void Player::dash() {
     m_dashCooldown = DASH_COOLDOWN_TIME;
     std::cout << "Dash!" << std::endl;
 }
-
-void Player::parryAction() {} // 실제 로직은 상태에서 처리
 
 void Player::weakPointAttack() {
     // 약점 공격 전용 스킬이 있다면 여기에 구현. 현재는 일반 공격으로 처리.
@@ -165,40 +142,29 @@ void Player::takeDamage(int damage, sf::Vector2f damageSourcePosition) {
     changeState(std::make_unique<HitStunState>(0.5f));
 }
 
-void Player::parry(const BossAttackData& attackData, sf::Vector2f sourcePosition) {
-    std::cout << "Parry success!" << std::endl;
-
-    sf::Vector2f playerCenter = getPosition();
-    sf::Vector2f direction = playerCenter - sourcePosition;
-    float length = std::sqrt(direction.x * direction.x + direction.y * direction.y);
-    if (length != 0) direction /= length; else direction = {1.f, 0.f};
-    
-    applyKnockback({direction.x * KNOCKBACK_POWER_X * 0.5f, -KNOCKBACK_POWER_Y * 0.5f});
-    changeState(std::make_unique<ParrySuccessState>(0.3f));
-
-    if (attackData.isReflectable) {
-        createReflectedProjectile(sourcePosition);
-    }
-}
-
-bool Player::isParrying() const {
-    return dynamic_cast<const ParryingState*>(m_currentState.get()) != nullptr;
-}
-
-void Player::createReflectedProjectile(sf::Vector2f targetPosition) {
-    std::cout << "Reflected projectile created towards boss!" << std::endl;
-}
-
 // --- Private ---
 void Player::applyPhysics(float dt) {
     m_velocity.y += m_gravity * dt;
     m_shape.move(m_velocity * dt);
     
+    // 플레이어의 바닥 위치 계산 (도형의 y좌표 + 도형의 세로 길이)
+    float playerBottom = m_shape.getPosition().y + m_shape.getSize().y;
+
     // 바닥 충돌 처리
-    if (m_shape.getPosition().y >= 720.f - m_shape.getSize().y / 2.f) {
-        m_shape.setPosition({m_shape.getPosition().x, 720.f - m_shape.getSize().y / 2.f});
+    // 플레이어의 발(playerBottom)이 바닥 라인(GROUND_Y)보다 아래로 내려갔는지 확인
+    if (playerBottom > GROUND_Y) {
+        // 1. 플레이어의 위치를 바닥에 정확히 맞춤
+        // (플레이어의 y좌표 = 바닥 라인 - 플레이어의 높이)
+        m_shape.setPosition({m_shape.getPosition().x, GROUND_Y - m_shape.getSize().y});
+        
+        // 2. 수직 속도를 0으로 만들어 더 이상 떨어지지 않게 함
         m_velocity.y = 0;
+
+        // 3. 점프 가능 상태로 변경
         m_canJump = true;
+        
+        // 더블 점프도 초기화해야 한다면 아래 코드 추가
+        m_canDoubleJump = false; 
     }
 }
 

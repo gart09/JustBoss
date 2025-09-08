@@ -50,28 +50,3 @@ private:
     float m_stunDuration;
     float m_timer;
 };
-
-// 패링 시도 상태
-class ParryingState : public IPlayerState {
-public:
-    explicit ParryingState(float duration);
-    void enter(Player& player) override;
-    std::unique_ptr<IPlayerState> handleInput(Player& player, CommandType type) override;
-    std::unique_ptr<IPlayerState> update(Player& player, float dt) override;
-private:
-    float m_parryWindowDuration;
-    float m_timer;
-};
-
-// 패링 성공 후 경직 상태
-class ParrySuccessState : public IPlayerState {
-public:
-    explicit ParrySuccessState(float duration);
-    void enter(Player& player) override;
-    std::unique_ptr<IPlayerState> handleInput(Player& player, CommandType type) override;
-    std::unique_ptr<IPlayerState> update(Player& player, float dt) override;
-private:
-    float m_stunDuration;
-    float m_timer;
-};
-

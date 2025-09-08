@@ -24,11 +24,6 @@ void DashCommand::execute(Player& player) {
     player.dash();
 }
 
-// --- ParryCommand ---
-void ParryCommand::execute(Player& player) {
-    player.parryAction();
-}
-
 // --- WeakPointAttackCommand ---
 void WeakPointAttackCommand::execute(Player& player) {
     player.weakPointAttack();
