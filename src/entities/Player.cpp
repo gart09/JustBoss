@@ -22,6 +22,22 @@ Player::Player()
 
     m_debugAttackBox.setFillColor(sf::Color(255, 0, 0, 100));
     
+    // 1. 일반 찌르기 데이터
+    sf::FloatRect stabHitbox({50.f, 10.f}, {80.f, 30.f});
+    m_attackDataList.push_back(AttackData{10, 0.5f, 0.1f, 0.3f, stabHitbox});
+
+    // 2. 약점 공격 데이터
+    sf::FloatRect weakPointHitbox({60.f, 0.f}, {60.f, 50.f});
+    m_attackDataList.push_back(AttackData{15, 0.7f, 0.2f, 0.4f, weakPointHitbox});
+
+    // 3. 차지 1단계 데이터
+    sf::FloatRect charge1Hitbox({70.f, -20.f}, {70.f, 70.f});
+    m_attackDataList.push_back(AttackData{20, 0.7f, 0.1f, 0.5f, charge1Hitbox});
+
+    // 4. 차지 2단계 데이터
+    sf::FloatRect charge2Hitbox({80.f, -30.f}, {80.f, 90.f});
+    m_attackDataList.push_back(AttackData{35, 1.0f, 0.1f, 0.8f, charge2Hitbox});
+
     changeState(std::make_unique<IdleState>());
 }
 
@@ -98,24 +114,6 @@ void Player::takeDoubleJump(float m_direction)
     }
 }
 
-void Player::dash(float direction) {
-    if (m_dashCooldown > 0) {
-        std::cout << "Dash is on cooldown!" << std::endl;
-        return;
-    }
-    float dashDirection = direction;
-    // 방향이 지정되지 않았으면(0.f), 현재 바라보는 방향으로 대시
-    if (dashDirection == 0.f) {
-        dashDirection = (m_facingDirection == FacingDirection::Right) ? 1.f : -1.f;
-    }
-    
-    m_facingDirection = (dashDirection > 0) ? FacingDirection::Right : FacingDirection::Left;
-    sf::Vector2f currentPos = m_shape.getPosition();
-    m_shape.setPosition({currentPos.x + dashDirection * DASH_DISTANCE, currentPos.y});
-    m_dashCooldown = DASH_COOLDOWN_TIME;
-    std::cout << "Dash!" << std::endl;
-}
-
 void Player::takeDamage(int damage, sf::Vector2f damageSourcePosition) {
     if (dynamic_cast<HitStunState*>(m_currentState.get())) return; // 경직 중 무적
     if (m_hp <= 0) return;
@@ -130,6 +128,28 @@ void Player::takeDamage(int damage, sf::Vector2f damageSourcePosition) {
 
     applyKnockback({direction.x * KNOCKBACK_POWER_X, -KNOCKBACK_POWER_Y});
     changeState(std::make_unique<HitStunState>(0.5f));
+}
+
+void Player::setActiveHitbox(const sf::FloatRect& hitbox) { m_activeHitbox = hitbox; }
+void Player::clearActiveHitbox() { m_activeHitbox.reset(); }
+
+bool Player::hasAttackHitThisSwing() const {
+    if (auto* attackState = dynamic_cast<AttackState*>(m_currentState.get())) {
+        return attackState->hasDealtDamage();
+    }
+    if (auto* weakAttackState = dynamic_cast<WeakAttackState*>(m_currentState.get())) {
+        return weakAttackState->hasDealtDamage();
+    }
+    return false;
+}
+
+void Player::notifyAttackHit() {
+    if (auto* attackState = dynamic_cast<AttackState*>(m_currentState.get())) {
+        attackState->notifyAttackHit();
+    }
+    if (auto* weakAttackState = dynamic_cast<WeakAttackState*>(m_currentState.get())) {
+        weakAttackState->notifyAttackHit();
+    }
 }
 
 // --- Private ---

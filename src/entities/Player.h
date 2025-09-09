@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <memory>
+#include <vector>
 #include "../state/IPlayerState.h"
 #include "../data/AttackData.h"
 
@@ -26,11 +27,12 @@ public:
     void draw(sf::RenderWindow& window);
     void changeState(std::unique_ptr<IPlayerState> newState);
 
-    //행동접수 함수
-    void move(float direction);
-    void dash(float direction);
+    // 상태 제어 함수
+    void setVelocityX(float vx) { m_velocity.x = vx; };
+    void setVelocityY(float vy) { m_velocity.y = vy; };
 
-    //행동실행 함수
+    //행동 함수
+    void move(float direction);
     void takeJump();
     void takeDoubleJump(float horizontal_input);
 
@@ -38,20 +40,27 @@ public:
     void takeDamage(int damage, sf::Vector2f damageSourcePosition);
 
     // 게터 함수들
-    std::optional<ActiveAttackInfo> getActiveAttackInfo() { return m_activeAttack; }
-    const std::vector<AttackData>& getComboData() { return m_basicComboData; }
-    sf::Vector2f getPosition() { return m_shape.getPosition(); }
-    sf::FloatRect getHitbox() { return m_shape.getGlobalBounds(); }
-    FacingDirection getFacingDirection() { return m_facingDirection; }
+    const std::vector<AttackData>& getAttackDataList() const { return m_attackDataList; }
+    const std::vector<AttackData>& getComboData() const { return m_basicComboData; }
+    sf::Vector2f getPosition() const { return m_shape.getPosition(); }
+    FacingDirection getFacingDirection() const { return m_facingDirection; }
     std::unique_ptr<IPlayerState>& getCurrentState() { return m_currentState; }
-    float* getAirControlForcePtr() { return &m_airControlForce; }
-    float* getSpeed() { return &m_speed; }
-    int getHP() { return m_hp; }
-    int getMaxHP() { return m_hp; }
+    float getAirControlForcePtr() { return m_airControlForce; }
+    float getSpeed() { return m_speed; }
+    int getHP() const { return m_hp; }
+    int getMaxHP() const { return m_hp; }
     void getDamage(int damage) { m_hp -= damage; }
+    std::optional<sf::FloatRect> getActiveHitbox() const { return m_activeHitbox; };
+    bool isOnGround() const { return m_canJump ;}
+    bool canDoubleJump() const { return m_canDoubleJump; }
 
-    bool m_canJump;
-    bool m_canDoubleJump;
+    // 히트박스 관련 함수
+    bool hasAttackHitThisSwing() const;
+    void notifyAttackHit();
+    void setActiveHitbox(const sf::FloatRect& hitbox);
+    void clearActiveHitbox();
+
+
     std::optional<ActiveAttackInfo> m_activeAttack; // 현재 활성화된 공격 정보
     sf::RectangleShape m_shape;
     sf::Vector2f m_velocity;
@@ -62,6 +71,8 @@ private:
 
     std::unique_ptr<IPlayerState> m_currentState;
     FacingDirection m_facingDirection;
+    std::vector<AttackData> m_attackDataList;
+    std::optional<sf::FloatRect> m_activeHitbox;
 
     // --- 플레이어 능력치 및 물리 상수 ---
     float m_speed = 300.f;      // 초당 이동 속도 (픽셀)
@@ -70,6 +81,10 @@ private:
     float m_airControlForce = 0.1f;
     int m_hp = 100;
     int m_maxHp = 100;
+
+    // 점프 관련
+    bool m_canJump;
+    bool m_canDoubleJump;
 
     // 대쉬 관련
     static constexpr float DASH_DISTANCE = 250.f;
