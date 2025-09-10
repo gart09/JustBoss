@@ -22,53 +22,109 @@ Player::Player()
 
     m_debugAttackBox.setFillColor(sf::Color(255, 0, 0, 100));
     
+    // AttacData: [공격력, 선딜레이, 시각화 시간, 후딜레이, 히트박스]
     // 1. 일반 찌르기 데이터
-    sf::FloatRect stabHitbox({50.f, 10.f}, {80.f, 30.f});
-    m_attackDataList.push_back(AttackData{10, 0.5f, 0.1f, 0.3f, stabHitbox});
-
+    sf::FloatRect stabHitbox({50.f, 0.f}, {80.f, 50.f});
+    m_attackDataList.push_back(AttackData{10, 0.1f, 0.15f, 0.05f, stabHitbox});
     // 2. 약점 공격 데이터
-    sf::FloatRect weakPointHitbox({60.f, 0.f}, {60.f, 50.f});
-    m_attackDataList.push_back(AttackData{15, 0.7f, 0.2f, 0.4f, weakPointHitbox});
-
+    sf::FloatRect weakPointHitbox({50.f, 0.f}, {50.f, 50.f});
+    m_attackDataList.push_back(AttackData{15, 0.1f, 0.15f, 0.10f, weakPointHitbox});
     // 3. 차지 1단계 데이터
-    sf::FloatRect charge1Hitbox({70.f, -20.f}, {70.f, 70.f});
-    m_attackDataList.push_back(AttackData{20, 0.7f, 0.1f, 0.5f, charge1Hitbox});
-
+    sf::FloatRect charge1Hitbox({50.f, -10.f}, {70.f, 60.f});
+    m_attackDataList.push_back(AttackData{20, 0.1f, 0.2f, 0.10f, charge1Hitbox});
     // 4. 차지 2단계 데이터
-    sf::FloatRect charge2Hitbox({80.f, -30.f}, {80.f, 90.f});
-    m_attackDataList.push_back(AttackData{35, 1.0f, 0.1f, 0.8f, charge2Hitbox});
+    sf::FloatRect charge2Hitbox({50.f, -30.f}, {150.f, 80.f});
+    m_attackDataList.push_back(AttackData{35, 0.1f, 0.2f, 0.20f, charge2Hitbox});
+
+    m_chargeBarBackground.setSize({50.f, 8.f});
+    m_chargeBarBackground.setFillColor(sf::Color(0, 0, 0, 150));
+    m_chargeBarBackground.setOutlineColor(sf::Color::White);
+    m_chargeBarBackground.setOutlineThickness(1.f);
+    
+    m_chargeBarFill.setSize({0, 8.f}); // 처음 너비는 0
+    m_chargeBarFill.setFillColor(sf::Color::White);
 
     changeState(std::make_unique<IdleState>());
 }
 
-void Player::update(sf::Time deltaTime) {
+void Player::update(sf::Time deltaTime, Boss& boss) {
     if (m_currentState) {
         auto newState = m_currentState->update(*this, deltaTime.asSeconds());
         if (newState) {
             changeState(std::move(newState));
         }
     }
+    std::optional<AttackInfo> attackInfo = m_currentState->getActiveAttackInfo(*this);
+    
+    
+    if (attackInfo.has_value()) {
+        // --- intersects 함수를 대체하는 직접 충돌 검사 로직 ---
+        sf::FloatRect playerHitbox = attackInfo->hitbox;
+        sf::FloatRect bossHitbox = boss.getHitbox();
+
+        // 두 사각형이 충돌했는지 직접 계산
+        bool isColliding = 
+            playerHitbox.position.x < bossHitbox.position.x + bossHitbox.size.x &&
+            playerHitbox.position.x + playerHitbox.size.x > bossHitbox.position.x &&
+            playerHitbox.position.y < bossHitbox.position.y + bossHitbox.size.y &&
+            playerHitbox.position.y + playerHitbox.size.y > bossHitbox.position.y;
+
+        if (isColliding) {
+            // 충돌했다면 보스에게 데미지를 입히고,
+            boss.takeDamage(attackInfo->damage);
+            
+            // 상태에게 공격이 성공했음을 알려 다중 히트를 방지합니다.
+            m_currentState->notifyAttackHit();
+        }
+    }
 
     applyPhysics(deltaTime.asSeconds());
     handleDashCooldown(deltaTime.asSeconds());
-
-    
-    if (m_activeAttack.has_value()) {
-        m_debugAttackBox.setPosition(sf::Vector2f(m_activeAttack->worldHitbox.position));
-
-        m_debugAttackBox.setSize(sf::Vector2f(m_activeAttack->worldHitbox.size));
-    }
 }
 
 void Player::draw(sf::RenderWindow& window)
 {
     window.draw(m_shape);
-    if (m_activeAttack.has_value()) {
+    
+    auto attackInfo = m_currentState->getActiveAttackInfo(*this);
+    if (attackInfo.has_value()) {
+        m_debugAttackBox.setPosition(attackInfo->hitbox.position); // .position이 sf::Vector2f이므로 바로 전달
+        m_debugAttackBox.setSize(attackInfo->hitbox.size);
         window.draw(m_debugAttackBox);
+    }
+
+    auto chargeProgressOpt = m_currentState->getChargeProgress();
+    // 2. 차지 진행도 정보가 있을 경우에만 (즉, ChargingState일 때만)
+    if (chargeProgressOpt.has_value()) {
+        float progress = *chargeProgressOpt;
+        const sf::Vector2f barSize = m_chargeBarBackground.getSize();
+        
+        // 차지 바 위치를 플레이어 머리 위로 설정
+        sf::Vector2f barPosition = getPosition();
+        //barPosition.x +=  // 플레이어 중앙에 맞춤
+        barPosition.y -= 20.f; // 머리 위 20px
+        
+        m_chargeBarBackground.setPosition(barPosition);
+
+        // 진행도에 따라 채워지는 바의 너비를 계산
+        m_chargeBarFill.setSize({ barSize.x * progress, barSize.y });
+        m_chargeBarFill.setPosition(barPosition);
+
+        // 100% 충전 시 색을 초록색으로 변경
+        if (progress >= 1.0f) {
+            m_chargeBarFill.setFillColor(sf::Color::Green);
+        } else {
+            m_chargeBarFill.setFillColor(sf::Color::White);
+        }
+        window.draw(m_chargeBarBackground);
+        window.draw(m_chargeBarFill);
     }
 }
 
 void Player::changeState(std::unique_ptr<IPlayerState> newState) {
+    if (m_currentState) {
+        m_currentState->exit(*this);
+    }
     m_currentState = std::move(newState);
     m_currentState->enter(*this);
 }
@@ -133,25 +189,6 @@ void Player::takeDamage(int damage, sf::Vector2f damageSourcePosition) {
 void Player::setActiveHitbox(const sf::FloatRect& hitbox) { m_activeHitbox = hitbox; }
 void Player::clearActiveHitbox() { m_activeHitbox.reset(); }
 
-bool Player::hasAttackHitThisSwing() const {
-    if (auto* attackState = dynamic_cast<AttackState*>(m_currentState.get())) {
-        return attackState->hasDealtDamage();
-    }
-    if (auto* weakAttackState = dynamic_cast<WeakAttackState*>(m_currentState.get())) {
-        return weakAttackState->hasDealtDamage();
-    }
-    return false;
-}
-
-void Player::notifyAttackHit() {
-    if (auto* attackState = dynamic_cast<AttackState*>(m_currentState.get())) {
-        attackState->notifyAttackHit();
-    }
-    if (auto* weakAttackState = dynamic_cast<WeakAttackState*>(m_currentState.get())) {
-        weakAttackState->notifyAttackHit();
-    }
-}
-
 // --- Private ---
 void Player::applyPhysics(float dt) {
     m_velocity.y += m_gravity * dt;
@@ -191,8 +228,6 @@ void Player::applyPhysics(float dt) {
 
         // 3. 점프 가능 상태로 변경
         m_canJump = true;
-        
-        // 더블 점프도 초기화해야 한다면 아래 코드 추가
         m_canDoubleJump = false; 
     }
 }

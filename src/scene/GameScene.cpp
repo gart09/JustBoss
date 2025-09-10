@@ -29,7 +29,7 @@ void GameScene::handleCommand(ICommand& command)
 void GameScene::update(sf::Time deltaTime)
 {
     ImGui::SFML::Update(m_window, deltaTime);
-    m_player->update(deltaTime);
+    m_player->update(deltaTime, *m_boss);
     m_boss->update(deltaTime);
 
     ImGui::Begin("Player Debug");

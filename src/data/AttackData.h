@@ -8,10 +8,14 @@
  */
 struct AttackData {
     int damage;           // 공격력
-    float duration;         // 총 공격 지속 시간
-    float attackActiveStart; // 공격 판정이 시작되는 시간
-    float attackActiveEnd;   // 공격 판정이 끝나는 시간
+    float preDelay;         // 선딜레이 시간
+    float activeDuration;   // 공격 판정 지속 시간
+    float postDelay;        // 후딜레이 시간
     sf::FloatRect hitbox;    // 공격 범위 (플레이어 기준 상대 위치)
+
+    float getTotalDuration() const {
+        return preDelay + activeDuration + postDelay;
+    }
 };
 
 /**

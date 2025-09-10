@@ -20,7 +20,7 @@ void HpUI::drawPlayerUI(Player& player, const sf::RenderWindow& window) {
         ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoCollapse);
 
     ImGui::Text("Player HP");
-    float healthFraction = player.getHP()/ player.getMaxHP();
+    float healthFraction = static_cast<float>(player.getHP()) / static_cast<float>(player.getMaxHP());
     std::string healthText = std::to_string(player.getHP()) + " / " + std::to_string(player.getMaxHP());
     ImGui::ProgressBar(healthFraction, ImVec2(-1, 0), healthText.c_str());
 

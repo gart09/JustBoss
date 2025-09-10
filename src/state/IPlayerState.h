@@ -1,11 +1,18 @@
 #pragma once
 #include <memory>
 #include "../commands/ICommand.h"
+#include <optional>
+#include <SFML/Graphics.hpp>
 
 // 전방 선언
 class Player;
 class Boss;
 class ICommand;
+
+struct AttackInfo {
+    sf::FloatRect hitbox;
+    int damage;
+};
 
 /**
  * @brief 모든 플레이어 상태 클래스가 상속받는 인터페이스입니다.
@@ -21,5 +28,14 @@ public:
     virtual std::unique_ptr<IPlayerState> handleInput(Player& player, ICommand* command) = 0;
     // 매 프레임 호출되며, 상태 전환이 필요하면 새로운 상태 객체를 반환합니다.
     virtual std::unique_ptr<IPlayerState> update(Player& player, float dt) = 0;
+    virtual void exit(Player& player) = 0;
+
+    virtual std::optional<AttackInfo> getActiveAttackInfo(const Player& player) const { 
+        return std::nullopt; 
+    }
+    virtual void notifyAttackHit() {}
+    virtual std::optional<float> getChargeProgress() const {
+        return std::nullopt;
+    }
 };
 

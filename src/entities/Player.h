@@ -13,17 +13,13 @@ class IPlayerState;
 class ICommand;
 class Boss;
 enum class FacingDirection { Left, Right };
-struct ActiveAttackInfo {
-    sf::FloatRect worldHitbox;
-    float damage;
-};
 
 class Player
 {
 public:
     Player();
 
-    void update(sf::Time deltaTime);
+    void update(sf::Time deltaTime, Boss& boss);
     void draw(sf::RenderWindow& window);
     void changeState(std::unique_ptr<IPlayerState> newState);
 
@@ -55,13 +51,9 @@ public:
     bool canDoubleJump() const { return m_canDoubleJump; }
 
     // 히트박스 관련 함수
-    bool hasAttackHitThisSwing() const;
-    void notifyAttackHit();
     void setActiveHitbox(const sf::FloatRect& hitbox);
     void clearActiveHitbox();
 
-
-    std::optional<ActiveAttackInfo> m_activeAttack; // 현재 활성화된 공격 정보
     sf::RectangleShape m_shape;
     sf::Vector2f m_velocity;
 private:
@@ -98,5 +90,7 @@ private:
     // 공격 관련
     std::vector<AttackData> m_basicComboData;
     sf::RectangleShape m_debugAttackBox; // 공격 판정 시각화용
+    sf::RectangleShape m_chargeBarBackground;
+    sf::RectangleShape m_chargeBarFill;
 };
 
