@@ -39,12 +39,9 @@ void BossPhase1State::update(Boss& boss, float dt, Player& player) {
         float optimalDistance = 200.0f; // 보스가 유지하려는 최적 거리 (예시)
         float moveSpeed = 100.0f;
 
-        if (std::abs(distance) > optimalDistance + 50.0f) {
+        if (std::abs(distance) > optimalDistance + 10.0f) {
             // 너무 멀면 플레이어에게 다가감
             boss.move( (distance > 0 ? -1 : 1) * moveSpeed * dt, 0);
-        } else if (std::abs(distance) < optimalDistance - 50.0f) {
-            // 너무 가까우면 플레이어에게서 멀어짐
-            boss.move( (distance > 0 ? 1 : -1) * moveSpeed * dt, 0);
         } else {
             // 최적 거리라면 가만히 있거나 좌우로 살짝씩 배회 (Wandering)
             boss.wander(dt, moveSpeed / 2);

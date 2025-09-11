@@ -177,12 +177,11 @@ void HitStunState::exit(Player& player) {
 
 // --- BaseAttackState (공격 상태 공통 로직) ---
 BaseAttackState::BaseAttackState(int attackIndex)
-    : m_timer(0.f), m_hasDealtDamage(false), m_attackIndex(attackIndex) {}
+    : m_timer(0.f), m_attackIndex(attackIndex) {}
 
 void BaseAttackState::enter(Player& player) {
     m_timer = 0.f;
-    m_hasDealtDamage = false;
-    if(m_attackIndex == 1)
+    if(m_attackIndex == 1 || player.isOnGround()) // 약점공격 or 지상공격시
         player.setVelocityX(0); // 약점공격중 뚝떨 컨
 }
 
@@ -234,12 +233,6 @@ std::optional<AttackInfo> BaseAttackState::getActiveAttackInfo(const Player& pla
     }
     
     return std::nullopt;
-}
-
-// BaseAttackState에 notifyAttackHit 구현 추가
-void BaseAttackState::notifyAttackHit() {
-    // Player로부터 공격이 적중했다는 알림을 받으면 플래그를 true로 설정
-    m_hasDealtDamage = true;
 }
 
 

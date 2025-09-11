@@ -72,7 +72,6 @@ private:
 class BaseAttackState : public IPlayerState {
 protected:
     float m_timer;
-    bool m_hasDealtDamage;
     const int m_attackIndex; // 사용할 공격 데이터의 인덱스
 
 public:
@@ -83,7 +82,6 @@ public:
     std::unique_ptr<IPlayerState> handleInput(Player& player, ICommand* command) override;
     
     std::optional<AttackInfo> getActiveAttackInfo(const Player& player) const;
-    void notifyAttackHit();
 };
 
 // --- 구체적인 공격 상태 클래스들 ---

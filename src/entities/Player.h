@@ -93,5 +93,6 @@ private:
     sf::RectangleShape m_debugAttackBox; // 공격 판정 시각화용
     sf::RectangleShape m_chargeBarBackground;
     sf::RectangleShape m_chargeBarFill;
+    bool m_hasDealtDamage = false; // 현재 공격 상태에서 이미 데미지를 입혔는지 여부
 };
 

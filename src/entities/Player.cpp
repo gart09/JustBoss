@@ -52,6 +52,7 @@ void Player::update(sf::Time deltaTime, Boss& boss) {
         auto newState = m_currentState->update(*this, deltaTime.asSeconds());
         if (newState) {
             changeState(std::move(newState));
+            m_hasDealtDamage = false; // 새로운 상태로 전환되면 데미지 입힘 기록 초기화
         }
     }
     std::optional<AttackInfo> attackInfo = m_currentState->getActiveAttackInfo(*this);
@@ -69,12 +70,10 @@ void Player::update(sf::Time deltaTime, Boss& boss) {
             playerHitbox.position.y < bossHitbox.position.y + bossHitbox.size.y &&
             playerHitbox.position.y + playerHitbox.size.y > bossHitbox.position.y;
 
-        if (isColliding) {
+        if (isColliding && !m_hasDealtDamage) {
             // 충돌했다면 보스에게 데미지를 입히고,
             boss.takeDamage(attackInfo->damage);
-            
-            // 상태에게 공격이 성공했음을 알려 다중 히트를 방지합니다.
-            m_currentState->notifyAttackHit();
+            m_hasDealtDamage = true; // 현재 공격 상태에서 데미지를 입혔음을 기록
         }
     }
 

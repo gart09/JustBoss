@@ -21,6 +21,7 @@ Boss::Boss()
 {
     m_shape.setSize({BOSS_WIDTH, BOSS_HEIGHT});
     m_shape.setFillColor(sf::Color::Red);
+    m_originalColor = m_shape.getFillColor();
     m_shape.setPosition({800.f, WINDOW_HEIGHT - BOSS_HEIGHT - GROUND_SIZE});
 
     m_hp = m_maxHp;
