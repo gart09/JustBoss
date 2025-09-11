@@ -29,6 +29,7 @@ public:
 
     //행동 함수
     void move(float direction);
+    void turn(float direction);
     void takeJump();
     void takeDoubleJump(float horizontal_input);
 

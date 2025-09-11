@@ -4,6 +4,21 @@
     <ClCompile Include="E:\JustBoss\src\UI\HpUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="E:\JustBoss\src\bossPattern\phase1\FrontSlam.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\JustBoss\src\bossPattern\phase1\GroundSlam.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\JustBoss\src\bossPattern\phase1\MagneticField.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\JustBoss\src\bossPattern\phase1\Rush.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\JustBoss\src\bossPattern\phase1\TripleSlam.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="E:\JustBoss\src\commands\PlayerCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -29,6 +44,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="E:\JustBoss\src\scene\GameScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\JustBoss\src\state\BossPhase1State.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="E:\JustBoss\src\state\PlayerState.cpp">

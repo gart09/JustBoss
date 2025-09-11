@@ -6,7 +6,7 @@ GameScene::GameScene(sf::RenderWindow& window)
     : m_window(window)
 {
     // ImGui-SFML 초기화
-    ImGui::SFML::Init(m_window); // <<< 추가
+    ImGui::SFML::Init(m_window, true); // <<< 추가
 
     m_player = std::make_unique<Player>();
     m_boss = std::make_unique<Boss>();
@@ -30,7 +30,7 @@ void GameScene::update(sf::Time deltaTime)
 {
     ImGui::SFML::Update(m_window, deltaTime);
     m_player->update(deltaTime, *m_boss);
-    m_boss->update(deltaTime);
+    m_boss->update(deltaTime, *m_player);
 
     ImGui::Begin("Player Debug");
     // Player 객체에서 m_airControlForce 변수의 포인터를 가져옵니다.
@@ -53,13 +53,13 @@ void GameScene::update(sf::Time deltaTime)
 
 void GameScene::draw(sf::RenderWindow& window)
 {
-    if (m_player)
-    {
-        m_player->draw(window);
-    }
     if (m_boss)
     {
         m_boss->draw(window);
+    }
+    if (m_player)
+    {
+        m_player->draw(window);
     }
     if (m_map)
     {

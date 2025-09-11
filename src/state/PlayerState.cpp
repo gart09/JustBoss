@@ -70,6 +70,11 @@ std::unique_ptr<IPlayerState> JumpState::handleInput(Player& player, ICommand* c
         return std::make_unique<AttackState>();
     if (dynamic_cast<WeakPointAttackCommand*>(command)) 
         return std::make_unique<WeakAttackState>();
+
+    if (auto* move = dynamic_cast<MoveCommand*>(command)) {
+        // 방향키가 눌렸다면 캐릭터의 방향만 바꿔줍니다.
+        player.turn(move->getDirection());
+    }
     if(auto* jump = dynamic_cast<JumpCommand*>(command)) {
         if(player.canDoubleJump()) {
             return std::make_unique<DoubleJumpState>(jump->getDirection());
@@ -104,6 +109,10 @@ std::unique_ptr<IPlayerState> DoubleJumpState::handleInput(Player& player, IComm
         return std::make_unique<AttackState>();
     if (dynamic_cast<WeakPointAttackCommand*>(command)) 
         return std::make_unique<WeakAttackState>();
+    if (auto* move = dynamic_cast<MoveCommand*>(command)) {
+        // 방향키가 눌렸다면 캐릭터의 방향만 바꿔줍니다.
+        player.turn(move->getDirection());
+    }
     return nullptr;
 }
 
@@ -173,7 +182,8 @@ BaseAttackState::BaseAttackState(int attackIndex)
 void BaseAttackState::enter(Player& player) {
     m_timer = 0.f;
     m_hasDealtDamage = false;
-    player.setVelocityX(0); // 공격 중에는 수평 이동을 멈춤
+    if(m_attackIndex == 1)
+        player.setVelocityX(0); // 약점공격중 뚝떨 컨
 }
 
 void BaseAttackState::exit(Player& player) {

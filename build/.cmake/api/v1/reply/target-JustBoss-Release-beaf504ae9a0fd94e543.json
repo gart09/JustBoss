@@ -2,10 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "bin/Debug/JustBoss.exe"
+			"path" : "bin/Release/JustBoss.exe"
 		},
 		{
-			"path" : "bin/Debug/JustBoss.pdb"
+			"path" : "bin/Release/JustBoss.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -103,7 +103,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++17"
+					"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG -std:c++17"
 				},
 				{
 					"backtrace" : 8,
@@ -167,7 +167,13 @@
 				12,
 				13,
 				14,
-				15
+				15,
+				16,
+				17,
+				18,
+				19,
+				20,
+				21
 			]
 		}
 	],
@@ -183,11 +189,11 @@
 		"commandFragments" : 
 		[
 			{
-				"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1",
+				"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG",
 				"role" : "flags"
 			},
 			{
-				"fragment" : "/machine:x64 /debug /INCREMENTAL",
+				"fragment" : "/machine:x64 /INCREMENTAL:NO",
 				"role" : "flags"
 			},
 			{
@@ -196,12 +202,12 @@
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "E:\\JustBoss\\lib\\SFML-3.0.0\\lib\\sfml-graphics-d.lib",
+				"fragment" : "E:\\JustBoss\\lib\\SFML-3.0.0\\lib\\sfml-graphics.lib",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "E:\\JustBoss\\lib\\SFML-3.0.0\\lib\\sfml-window-d.lib",
+				"fragment" : "E:\\JustBoss\\lib\\SFML-3.0.0\\lib\\sfml-window.lib",
 				"role" : "libraries"
 			},
 			{
@@ -211,7 +217,7 @@
 			},
 			{
 				"backtrace" : 7,
-				"fragment" : "E:\\JustBoss\\lib\\SFML-3.0.0\\lib\\sfml-system-d.lib",
+				"fragment" : "E:\\JustBoss\\lib\\SFML-3.0.0\\lib\\sfml-system.lib",
 				"role" : "libraries"
 			},
 			{
@@ -249,7 +255,13 @@
 				12,
 				13,
 				14,
-				15
+				15,
+				16,
+				17,
+				18,
+				19,
+				20,
+				21
 			]
 		}
 	],
@@ -259,6 +271,36 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "src/UI/HpUI.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/bossPattern/phase1/FrontSlam.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/bossPattern/phase1/GroundSlam.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/bossPattern/phase1/MagneticField.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/bossPattern/phase1/Rush.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/bossPattern/phase1/TripleSlam.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
@@ -313,6 +355,12 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "src/scene/GameScene.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/state/BossPhase1State.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{

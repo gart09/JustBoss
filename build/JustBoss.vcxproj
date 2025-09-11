@@ -369,6 +369,11 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="E:\JustBoss\src\UI\HpUI.cpp" />
+    <ClCompile Include="E:\JustBoss\src\bossPattern\phase1\FrontSlam.cpp" />
+    <ClCompile Include="E:\JustBoss\src\bossPattern\phase1\GroundSlam.cpp" />
+    <ClCompile Include="E:\JustBoss\src\bossPattern\phase1\MagneticField.cpp" />
+    <ClCompile Include="E:\JustBoss\src\bossPattern\phase1\Rush.cpp" />
+    <ClCompile Include="E:\JustBoss\src\bossPattern\phase1\TripleSlam.cpp" />
     <ClCompile Include="E:\JustBoss\src\commands\PlayerCommand.cpp" />
     <ClCompile Include="E:\JustBoss\src\core\Game.cpp" />
     <ClCompile Include="E:\JustBoss\src\core\main.cpp" />
@@ -378,6 +383,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="E:\JustBoss\src\manager\InputManager.cpp" />
     <ClCompile Include="E:\JustBoss\src\manager\ResourceManager.cpp" />
     <ClCompile Include="E:\JustBoss\src\scene\GameScene.cpp" />
+    <ClCompile Include="E:\JustBoss\src\state\BossPhase1State.cpp" />
     <ClCompile Include="E:\JustBoss\src\state\PlayerState.cpp" />
     <ClCompile Include="E:\JustBoss\lib\imgui-sfml\imgui-SFML.cpp" />
     <ClCompile Include="E:\JustBoss\lib\imgui\imgui.cpp" />

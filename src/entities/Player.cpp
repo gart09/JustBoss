@@ -135,6 +135,17 @@ void Player::move(float direction) {
     if (direction < 0) m_facingDirection = FacingDirection::Left;
 }
 
+void Player::turn(float direction)
+{
+    // 0이 아닌 방향 값이 들어올 때만 방향을 갱신합니다.
+    if (direction > 0) {
+        m_facingDirection = FacingDirection::Right;
+    }
+    else if (direction < 0) {
+        m_facingDirection = FacingDirection::Left;
+    }
+}
+
 void Player::takeJump()
 {
     if (m_canJump)
