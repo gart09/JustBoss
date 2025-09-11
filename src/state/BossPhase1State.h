@@ -2,6 +2,7 @@
 #include "IBossPhaseState.h"
 #include "../bossPattern/IPattern.h"
 #include <vector>
+#include <memory>
 
 class BossPhase1State : public IBossPhaseState {
 public:
@@ -10,8 +11,8 @@ public:
     void update(Boss& boss, float dt, Player& player) override;
     void exit(Boss& boss) override; // 상태 종료 시 정리
 private:
-    std::vector<IPattern*> generalPatterns;
-    std::vector<IPattern*> specialPatterns;
+    std::vector<std::unique_ptr<IPattern>> generalPatterns;
+    std::vector<std::unique_ptr<IPattern>> specialPatterns;
 
     IPattern* currentPattern = nullptr;
     float thinkTimer = 0.0f;

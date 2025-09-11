@@ -8,12 +8,12 @@
 
 BossPhase1State::BossPhase1State() {
     // 1페이즈에서 사용할 패턴 객체들을 생성
-    //generalPatterns.push_back(new FrontSlam());
-    //generalPatterns.push_back(new GroundSlam());
+    generalPatterns.push_back(std::make_unique<FrontSlam>());
+    //generalPatterns.push_back(std::make_unique<GroundSlam>());
 
-    //specialPatterns.push_back(new MagneticField());
-    specialPatterns.push_back(new Rush());
-    //specialPatterns.push_back(new TripleSlam());
+    //specialPatterns.push_back(std::make_unique<MagneticField>());
+    //specialPatterns.push_back(std::make_unique<Rush>());
+    //specialPatterns.push_back(std::make_unique<TripleSlam>());
 }
 
 void BossPhase1State::enter(Boss& boss)
@@ -70,9 +70,9 @@ void BossPhase1State::exit(Boss& boss)
 IPattern* BossPhase1State::choosePattern(Boss& boss, Player& player) {
     // 특수 기술 사용 조건 확인 (우선순위 높음)
     std::vector<IPattern*> availableSpecialsPatterns;
-    for(auto* pattern : specialPatterns) {
+    for(auto& pattern : specialPatterns) {
         if (pattern->canExecute(boss, player)) {
-            availableSpecialsPatterns.push_back(pattern);
+            availableSpecialsPatterns.push_back(pattern.get());
         }
     }
     if(!availableSpecialsPatterns.empty()) {
@@ -84,9 +84,9 @@ IPattern* BossPhase1State::choosePattern(Boss& boss, Player& player) {
     // 일반 기술 중 랜덤 선택
     // (이미 사용한 기술은 3초 쿨타임 때문에 canExecute에서 걸러짐)
     std::vector<IPattern*> availableGeneralPatterns;
-    for (auto* pattern : generalPatterns) {
+    for (const auto& pattern : generalPatterns) {
         if (pattern->canExecute(boss, player)) {
-            availableGeneralPatterns.push_back(pattern);
+            availableGeneralPatterns.push_back(pattern.get());
         }
     }
 
