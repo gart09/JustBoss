@@ -25,7 +25,7 @@ public:
         }
     }
     virtual bool isFinished() const { return finished; }
-    virtual bool canExecute(const Boss& boss, const Player& player) const { return currentCooldown <= 0; }
+    virtual bool canExecute(const Boss& boss, const Player& player) const = 0;
     bool isHitboxActive() const { return isHitboxActive_; }
     const sf::FloatRect& getHitbox() const { return activeHitbox_; }
 };

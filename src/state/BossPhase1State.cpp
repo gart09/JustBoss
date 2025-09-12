@@ -49,6 +49,7 @@ void BossPhase1State::update(Boss& boss, float dt, Player& player) {
         // <<< 이동 로직 추가 부분 끝 >>>
         return; // 아직 생각할 시간이 남았으므로 패턴 선택은 하지 않음
     }
+    if(thinkTimer < 0) std::cout << "Boss is thinking..." << std::endl;
 
     // 3. 대기가 끝나면 다음 패턴 선택 (기존과 동일)
     currentPattern = choosePattern(boss, player);
@@ -92,6 +93,7 @@ IPattern* BossPhase1State::choosePattern(Boss& boss, Player& player) {
 
     if (!availableGeneralPatterns.empty()) {
         int randomIndex = rand() % availableGeneralPatterns.size();
+        std::cout << "Boss chooses a general pattern to execute:" << randomIndex << std::endl;
         return availableGeneralPatterns[randomIndex];
     }
     

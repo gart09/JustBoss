@@ -4,8 +4,8 @@
 #include <iostream>
 #include <random>
 
-constexpr float BOSS_WIDTH = 250.f;
-constexpr float BOSS_HEIGHT = 250.f;
+constexpr float BOSS_WIDTH = 200.f;
+constexpr float BOSS_HEIGHT = 200.f;
 constexpr float WINDOW_WIDTH = 1280.f;
 constexpr float WINDOW_HEIGHT = 720.f;
 constexpr float GROUND_SIZE = 100.f;
