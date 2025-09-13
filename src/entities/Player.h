@@ -30,22 +30,26 @@ public:
     //행동 함수
     void move(float direction);
     void turn(float direction);
-    void takeJump();
+    void takeJump(float direction);
     void takeDoubleJump(float horizontal_input);
 
     // 피격
-    void takeDamage(int damage, sf::Vector2f damageSourcePosition);
+    void takeDamage(int damage, sf::Vector2f attackerPosition);
+    bool isInvincible() const { return m_invincibilityTimer > 0; }
+    void resetColor() { m_shape.setFillColor(sf::Color::Blue); }
+    void setColor(sf::Color color) { m_shape.setFillColor(color); }
 
     // 게터 함수들
     const std::vector<AttackData>& getAttackDataList() const { return m_attackDataList; }
     const std::vector<AttackData>& getComboData() const { return m_basicComboData; }
     sf::Vector2f getPosition() const { return m_shape.getPosition(); }
     FacingDirection getFacingDirection() const { return m_facingDirection; }
+    float getDirection() const { return m_facingDirection == FacingDirection::Left ? -1.f : 1.f; }
     std::unique_ptr<IPlayerState>& getCurrentState() { return m_currentState; }
     float getAirControlForcePtr() { return m_airControlForce; }
     float getSpeed() { return m_speed; }
     int getHP() const { return m_hp; }
-    int getMaxHP() const { return m_hp; }
+    int getMaxHP() const { return m_maxHp; }
     void getDamage(int damage) { m_hp -= damage; }
     std::optional<sf::FloatRect> getActiveHitbox() const { return m_activeHitbox; };
     bool isOnGround() const { return m_canJump ;}
@@ -53,6 +57,7 @@ public:
 
     // 히트박스 관련 함수
     void setActiveHitbox(const sf::FloatRect& hitbox);
+    sf::FloatRect getHitbox() const { return m_shape.getGlobalBounds(); };
     void clearActiveHitbox();
 
     sf::RectangleShape m_shape;
@@ -94,5 +99,9 @@ private:
     sf::RectangleShape m_chargeBarBackground;
     sf::RectangleShape m_chargeBarFill;
     bool m_hasDealtDamage = false; // 현재 공격 상태에서 이미 데미지를 입혔는지 여부
+
+    // 피격 관련
+    float m_invincibilityTimer; // 무적 시간 타이머
+    float m_flashTimer = 0.f;
 };
 

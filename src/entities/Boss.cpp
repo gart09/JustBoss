@@ -48,6 +48,9 @@ void Boss::update(sf::Time deltaTime, Player& player)
 void Boss::draw(sf::RenderWindow& window)
 {
     window.draw(m_shape);
+    if(m_currentState) {
+        m_currentState->draw(window);
+    }
 }
 
 // Player 클래스에서 충돌 검사에 사용

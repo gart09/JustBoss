@@ -17,7 +17,7 @@ std::unique_ptr<IPlayerState> IdleState::handleInput(Player& player, ICommand* c
     if (dynamic_cast<StartChargeCommand*>(command)) 
         return std::make_unique<ChargingState>();
     if (dynamic_cast<JumpCommand*>(command)) 
-        return std::make_unique<JumpState>();
+        return std::make_unique<JumpState>(0.f);
     if (auto* move = dynamic_cast<MoveCommand*>(command)) {
         if (move->getDirection() != 0.0f) {
             player.move(move->getDirection());
@@ -44,7 +44,9 @@ std::unique_ptr<IPlayerState> MoveState::handleInput(Player& player, ICommand* c
     if (dynamic_cast<AttackCommand*>(command)) return std::make_unique<AttackState>();
     if (dynamic_cast<WeakPointAttackCommand*>(command)) return std::make_unique<WeakAttackState>();
     if (dynamic_cast<StartChargeCommand*>(command)) return std::make_unique<ChargingState>();
-    if (auto* jump = dynamic_cast<JumpCommand*>(command)) return std::make_unique<JumpState>();
+    if (auto* jump = dynamic_cast<JumpCommand*>(command)) {
+        return std::make_unique<JumpState>(player.getDirection());
+    }
     if (auto* move = dynamic_cast<MoveCommand*>(command)) {
         if (move->getDirection() == 0.0f) return std::make_unique<IdleState>();
         player.move(move->getDirection());
@@ -61,8 +63,10 @@ void MoveState::exit(Player& player) {
 }
 
 // --- JumpingState ---
+JumpState::JumpState(float direction) : m_direction(direction) {}
+
 void JumpState::enter(Player& player) {
-    player.takeJump();
+    player.takeJump(m_direction);
 }
 
 std::unique_ptr<IPlayerState> JumpState::handleInput(Player& player, ICommand* command) {
@@ -141,7 +145,7 @@ std::unique_ptr<IPlayerState> DashState::update(Player& player, float dt) {
     if (m_timer >= m_duration) {
         player.setVelocityX(0);
         if (player.isOnGround()) return std::make_unique<IdleState>();
-        else return std::make_unique<JumpState>();
+        else return std::make_unique<JumpState>(player.getDirection());
     }
     return nullptr;
 }
@@ -154,7 +158,6 @@ void DashState::exit(Player& player) {
 }
 
 // --- HitStunState ---
-HitStunState::HitStunState(float duration) : m_stunDuration(duration), m_timer(0.f) {}
 void HitStunState::enter(Player& player) {
     std::cout << "State: Hit Stun" << std::endl;
 }
@@ -162,17 +165,14 @@ std::unique_ptr<IPlayerState> HitStunState::handleInput(Player& player, ICommand
     return nullptr;
 }
 std::unique_ptr<IPlayerState> HitStunState::update(Player& player, float dt) {
-    m_timer += dt;
     if (player.isOnGround()) { // 경직 중 착지하면 바로 Idle로
         return std::make_unique<IdleState>();
-    }
-    if (m_timer >= m_stunDuration) {
-        return std::make_unique<JumpState>(); // 경직 후 공중 상태로 전환
     }
     return nullptr;
 }
 
 void HitStunState::exit(Player& player) {
+    player.resetColor(); // 상태가 끝나면 색상을 원래대로
 }
 
 // --- BaseAttackState (공격 상태 공통 로직) ---
@@ -198,7 +198,7 @@ std::unique_ptr<IPlayerState> BaseAttackState::update(Player& player, float dt) 
         if (player.isOnGround())
             return std::make_unique<IdleState>();
         else{
-            return std::make_unique<JumpState>();
+            return std::make_unique<JumpState>(player.getDirection());
         }
     }
     // 아직 공격이 진행 중이면 현재 상태를 유지한다 (nullptr 반환).

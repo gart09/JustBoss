@@ -1,56 +1,62 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <algorithm>
 #include "FrontSlam.h"
 #include "../../entities/Boss.h" // 보스 정보에 접근하기 위해 필요
 
+constexpr float HITBOX_WIDTH = 150.f;
+constexpr float HITBOX_HEIGHT = 200.f;
+constexpr float WORLD_MIN_X = 0.f;
+constexpr float WORLD_MAX_X = 1280.f; 
+constexpr float BOSS_SIZE = 200.f;
+constexpr float CHAR_SIZE = 50.f;
+constexpr int DAMAGE = 10;
+constexpr AttackTimings FS_TIMINGS = {1.f, 0.1f, 0.8f};
+const AttackColors FS_COLORS = {
+    sf::Color(255, 165, 0, 100), // 경고 색상 (주황)
+    sf::Color(139, 0, 0, 200)    // 공격 색상 (검붉은색)
+};
+
+
 FrontSlam::FrontSlam() {
-    cooldown = 3.0f; // 기획서대로 일반 기술 쿨타임 3초
+    cooldown = 4.0f;
 }
 
 bool FrontSlam::canExecute(const Boss& boss, const Player& player) const {
-    float distance = abs(boss.getPosition().x - player.getPosition().x); // x축 거리만 계산
-    float optimalDistance = 50.0f; // 보스가 유지하려는 최적 거리
+    float distance = abs(boss.getPosition().x + BOSS_SIZE / 2 - (player.getPosition().x + CHAR_SIZE / 2)); // x축 거리만 계산
+    float optimalDistance = 100.0f; // 보스가 유지하려는 최적 거리
     return currentCooldown <= 0 && distance < optimalDistance;
 }
 
 void FrontSlam::execute(Boss& boss, Player& player) {
-    IPattern::execute(boss, player); // 기본 execute 호출 (finished, cooldown 설정)
-    patternTimer = 0.0f; // 패턴 타이머 초기화
-    currentCooldown = cooldown; // 쿨타임 설정
+    // IPattern의 기본 execute를 호출하여 쿨타임 등을 설정
+    IPattern::execute(boss, player);
     std::cout << "Executing FrontSlam pattern!" << std::endl;
+
+    // 1. 'execute'가 호출된 시점의 정보를 바탕으로 히트박스를 '한 번만' 계산합니다.
+    float playerCenterX = player.getPosition().x + CHAR_SIZE / 2.f;
+    float idealX = playerCenterX - (HITBOX_WIDTH / 2.f);
+    
+    // 월드 경계값을 벗어나지 않도록 좌표를 보정(Clamp)
+    float finalX = std::max(WORLD_MIN_X, idealX);
+    finalX = std::min(finalX, WORLD_MAX_X - HITBOX_WIDTH);
+    
+    // 최종 히트박스 생성
+    sf::FloatRect finalHitbox({finalX, 520.f}, {HITBOX_WIDTH, HITBOX_HEIGHT});
+
+    // 2. 계산된 최종 정보를 Helper에게 넘겨주고 모든 실행을 위임합니다.
+    // FrontSlam은 히트박스가 하나뿐이므로, {finalHitbox} 처럼 vector에 하나만 담아서 전달합니다.
+    m_helper.start({finalHitbox}, DAMAGE, FS_TIMINGS, FS_COLORS);
 }
 
 void FrontSlam::update(float dt, Boss& boss, Player& player) {
-    IPattern::update(dt, boss, player); // 기본 쿨타임 감소
-    if (finished) return;
+    m_helper.update(dt, player, boss);
+}
 
-    patternTimer += dt;
+void FrontSlam::draw(sf::RenderTarget& target) {
+    m_helper.draw(target);
+}
 
-    // 1. 선딜레이(Wind-up) 구간
-    if (patternTimer < WIND_UP_DURATION) {
-        // 아직 공격 판정 없음
-        isHitboxActive_ = false;
-    }
-    // 2. 공격(Active) 구간
-    else if (patternTimer < WIND_UP_DURATION + ACTIVE_DURATION) {
-        // 공격 판정 활성화!
-        isHitboxActive_ = true;
-        float bossX = boss.getPosition().x;
-        float playerX = player.getPosition().x;
-        float direction = (playerX > bossX) ? 1.0f : -1.0f;
-        sf::Vector2f bossPos = boss.getPosition();
-        
-        // 보스 앞쪽으로 히트박스 생성 (크기와 위치는 임의로 설정)
-        float hitboxX = (direction > 0) ? bossPos.x : bossPos.x - 150.f;
-        activeHitbox_ = sf::FloatRect({hitboxX, bossPos.y - 200.f}, {150.f, 200.f});
-        // boss.playAnimation("front_slam_active"); // 공격 애니메이션 재생
-    }
-    // 3. 후딜레이(Recovery) 및 패턴 종료
-    else {
-        isHitboxActive_ = false; // 공격 판정 비활성화
-        // boss.playAnimation("front_slam_recovery"); // 마무리 애니메이션
-        if (patternTimer >= WIND_UP_DURATION + ACTIVE_DURATION + RECOVERY_DURATION) {
-            finished = true; // 패턴 완전히 종료
-        }
-    }
+bool FrontSlam::isFinished() const {
+    return m_helper.isFinished();
 }

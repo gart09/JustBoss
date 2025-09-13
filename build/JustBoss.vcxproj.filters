@@ -19,6 +19,9 @@
     <ClCompile Include="E:\JustBoss\src\bossPattern\phase1\TripleSlam.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="E:\JustBoss\src\bossPatternHelper\WarningAttackHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="E:\JustBoss\src\commands\PlayerCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -38,9 +41,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="E:\JustBoss\src\manager\InputManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="E:\JustBoss\src\manager\ResourceManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="E:\JustBoss\src\scene\GameScene.cpp">

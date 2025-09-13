@@ -6,6 +6,9 @@
 #include "../bossPattern/phase1/MagneticField.h"
 #include "../bossPattern/phase1/TripleSlam.h"
 
+constexpr float BOSS_SIZE = 200.f;
+constexpr float CHAR_SIZE = 50.f;
+
 BossPhase1State::BossPhase1State() {
     // 1페이즈에서 사용할 패턴 객체들을 생성
     generalPatterns.push_back(std::make_unique<FrontSlam>());
@@ -22,7 +25,19 @@ void BossPhase1State::enter(Boss& boss)
     std::cout << "Boss enters Phase 1: Wandering peacefully..." << std::endl;
 }
 
+void BossPhase1State::draw(sf::RenderTarget& target) {
+    if (currentPattern) {
+        currentPattern->draw(target); // 현재 실행 중인 패턴의 draw 함수 호출
+    }
+}
+
 void BossPhase1State::update(Boss& boss, float dt, Player& player) {
+    for (const auto& pattern : generalPatterns) {
+        pattern->updateCooldown(dt); // 쿨타임만 감소시키는 함수를 호출 (아래 추가 설명 참조)
+    }
+    for (const auto& pattern : specialPatterns) {
+        pattern->updateCooldown(dt);
+    }
     // 1. 현재 패턴을 실행 중인 경우
     if (currentPattern) {
         currentPattern->update(dt, boss, player);
@@ -35,21 +50,22 @@ void BossPhase1State::update(Boss& boss, float dt, Player& player) {
     thinkTimer -= dt;
     if (thinkTimer > 0) {
         // <<< 이동 로직 추가 부분 시작 >>>
-        float distance = boss.getPosition().x - player.getPosition().x; // x축 거리만 계산
-        float optimalDistance = 200.0f; // 보스가 유지하려는 최적 거리 (예시)
+        float bossCenterX = boss.getPosition().x + BOSS_SIZE / 2;
+        float playerCenterX = player.getPosition().x + CHAR_SIZE / 2;
+        float distance = bossCenterX - playerCenterX;
+        float optimalDistance = 100.0f; // 보스가 유지하려는 최적 거리 (예시)
         float moveSpeed = 100.0f;
 
-        if (std::abs(distance) > optimalDistance + 10.0f) {
+        if (abs(distance) > optimalDistance) {
             // 너무 멀면 플레이어에게 다가감
             boss.move( (distance > 0 ? -1 : 1) * moveSpeed * dt, 0);
         } else {
             // 최적 거리라면 가만히 있거나 좌우로 살짝씩 배회 (Wandering)
-            boss.wander(dt, moveSpeed / 2);
+            boss.wander(dt, moveSpeed);
         }
         // <<< 이동 로직 추가 부분 끝 >>>
         return; // 아직 생각할 시간이 남았으므로 패턴 선택은 하지 않음
     }
-    if(thinkTimer < 0) std::cout << "Boss is thinking..." << std::endl;
 
     // 3. 대기가 끝나면 다음 패턴 선택 (기존과 동일)
     currentPattern = choosePattern(boss, player);

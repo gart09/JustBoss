@@ -10,6 +10,7 @@ public:
     void enter(Boss& boss) override; // 상태 진입 시 초기화
     void update(Boss& boss, float dt, Player& player) override;
     void exit(Boss& boss) override; // 상태 종료 시 정리
+    void draw(sf::RenderTarget& target) override;
 private:
     std::vector<std::unique_ptr<IPattern>> generalPatterns;
     std::vector<std::unique_ptr<IPattern>> specialPatterns;

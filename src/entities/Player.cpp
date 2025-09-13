@@ -12,7 +12,8 @@ constexpr float CHAR_SIZE = 50.f;
 
 Player::Player()
     : m_hp(100), m_facingDirection(FacingDirection::Right),
-      m_canJump(true), m_canDoubleJump(false), m_dashCooldown(0.f)
+      m_canJump(true), m_canDoubleJump(false), m_dashCooldown(0.f),
+      m_invincibilityTimer(0.f), m_flashTimer(0.f)
 {
     m_shape.setSize({CHAR_SIZE, CHAR_SIZE});
     m_shape.setFillColor(sf::Color::Blue);
@@ -48,6 +49,31 @@ Player::Player()
 }
 
 void Player::update(sf::Time deltaTime, Boss& boss) {
+    if (m_invincibilityTimer > 0.f) {
+        m_invincibilityTimer -= deltaTime.asSeconds();
+    }
+
+    float dt = deltaTime.asSeconds(); // float 형태로 변환
+
+    if (m_invincibilityTimer > 0.f) {
+        m_invincibilityTimer -= dt;
+
+        // --- ▼▼▼ 점멸 로직 시작 ▼▼▼ ---
+        m_flashTimer += dt;
+        float blinkInterval = 0.1f; // 0.1초 간격으로 깜빡임
+        bool showWhite = std::fmod(m_flashTimer, blinkInterval * 2) < blinkInterval;
+
+        if (showWhite) {
+            setColor(sf::Color::White);
+        } else {
+            resetColor();
+        }
+        // --- ▲▲▲ 점멸 로직 끝 ▲▲▲ ---
+
+    } else {
+        resetColor();
+    }
+
     if (m_currentState) {
         auto newState = m_currentState->update(*this, deltaTime.asSeconds());
         if (newState) {
@@ -55,22 +81,12 @@ void Player::update(sf::Time deltaTime, Boss& boss) {
             m_hasDealtDamage = false; // 새로운 상태로 전환되면 데미지 입힘 기록 초기화
         }
     }
+
     std::optional<AttackInfo> attackInfo = m_currentState->getActiveAttackInfo(*this);
-    
-    
     if (attackInfo.has_value()) {
-        // --- intersects 함수를 대체하는 직접 충돌 검사 로직 ---
         sf::FloatRect playerHitbox = attackInfo->hitbox;
         sf::FloatRect bossHitbox = boss.getHitbox();
-
-        // 두 사각형이 충돌했는지 직접 계산
-        bool isColliding = 
-            playerHitbox.position.x < bossHitbox.position.x + bossHitbox.size.x &&
-            playerHitbox.position.x + playerHitbox.size.x > bossHitbox.position.x &&
-            playerHitbox.position.y < bossHitbox.position.y + bossHitbox.size.y &&
-            playerHitbox.position.y + playerHitbox.size.y > bossHitbox.position.y;
-
-        if (isColliding && !m_hasDealtDamage) {
+        if (playerHitbox.findIntersection(bossHitbox) && !m_hasDealtDamage) {
             // 충돌했다면 보스에게 데미지를 입히고,
             boss.takeDamage(attackInfo->damage);
             m_hasDealtDamage = true; // 현재 공격 상태에서 데미지를 입혔음을 기록
@@ -145,10 +161,11 @@ void Player::turn(float direction)
     }
 }
 
-void Player::takeJump()
+void Player::takeJump(float direction)
 {
     if (m_canJump)
     {
+        m_velocity.x = direction * m_speed;
         m_velocity.y = -m_jumpStrength;
         m_canJump = false;
         m_canDoubleJump = true;
@@ -181,19 +198,39 @@ void Player::takeDoubleJump(float m_direction)
 }
 
 void Player::takeDamage(int damage, sf::Vector2f damageSourcePosition) {
-    if (dynamic_cast<HitStunState*>(m_currentState.get())) return; // 경직 중 무적
+    if (isInvincible()) return; 
     if (m_hp <= 0) return;
 
+    if (dynamic_cast<ChargingState*>(m_currentState.get())) {
+        damage *= 2;
+        std::cout << "while Charging attacked!!  Damage 2 times! " << damage << std::endl;
+    }
+
     m_hp -= damage;
+    m_invincibilityTimer = 1.0f; // 무적 시간 부여
+
     std::cout << "Player hit! HP: " << m_hp << std::endl;
+
+    m_invincibilityTimer = 1.0f; // 무적 시간 부여
+    m_flashTimer = 0.f;          // <-- 피격 시 점멸 타이머를 리셋
     
     sf::Vector2f playerCenter = getPosition();
     sf::Vector2f direction = playerCenter - damageSourcePosition;
-    float length = std::sqrt(direction.x * direction.x + direction.y * direction.y);
-    if (length != 0) direction /= length; else direction = {1.f, 0.f};
+    if (direction.x >= 0) {
+        direction.x = 1.f; // 오른쪽에서 공격받음
+    } else {
+        direction.x = -1.f; // 왼쪽에서 공격받음
+    }
 
-    applyKnockback({direction.x * KNOCKBACK_POWER_X, -KNOCKBACK_POWER_Y});
-    changeState(std::make_unique<HitStunState>(0.5f));
+    if (m_currentState && m_currentState->isInterruptible()) {
+        std::cout << "Action Interrupted!" << std::endl;
+        applyKnockback({direction.x * KNOCKBACK_POWER_X, -KNOCKBACK_POWER_Y});
+        changeState(std::make_unique<HitStunState>());
+    }
+    else {
+        std::cout << "Super Armor! Action Continues." << std::endl;
+        applyKnockback({direction.x * KNOCKBACK_POWER_X, -KNOCKBACK_POWER_Y});
+    }
 }
 
 void Player::setActiveHitbox(const sf::FloatRect& hitbox) { m_activeHitbox = hitbox; }
@@ -201,7 +238,9 @@ void Player::clearActiveHitbox() { m_activeHitbox.reset(); }
 
 // --- Private ---
 void Player::applyPhysics(float dt) {
-    m_velocity.y += m_gravity * dt;
+    if (m_currentState && !m_currentState->ignoresGravity()) {
+        m_velocity.y += m_gravity * dt;
+    }
     m_shape.move(m_velocity * dt);
     
 
@@ -232,8 +271,9 @@ void Player::applyPhysics(float dt) {
         // 1. 플레이어의 위치를 바닥에 정확히 맞춤
         // (플레이어의 y좌표 = 바닥 라인 - 플레이어의 높이)
         m_shape.setPosition({m_shape.getPosition().x, GROUND_Y - m_shape.getSize().y});
-        
-        // 2. 수직 속도를 0으로 만들어 더 이상 떨어지지 않게 함
+        if (m_currentState && m_currentState->stopHorizontalOnLand()) {
+            m_velocity.x = 0;
+        }
         m_velocity.y = 0;
 
         // 3. 점프 가능 상태로 변경
@@ -246,6 +286,7 @@ void Player::applyKnockback(sf::Vector2f knockbackVelocity) {
     m_velocity = knockbackVelocity;
     m_canJump = false;
     m_canDoubleJump = false;
+    std::cout << m_velocity.x << ", " << m_velocity.y << std::endl;
 }
 
 void Player::handleDashCooldown(float dt) {

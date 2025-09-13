@@ -18,12 +18,13 @@ public:
         currentCooldown = cooldown;
         isHitboxActive_ = false; // 패턴 시작 시에는 항상 비활성화
     }
-    virtual void update(float dt, Boss& boss, Player& player) {
-        // 모든 패턴은 기본적으로 쿨타임이 흐름
+    virtual void update(float dt, Boss& boss, Player& player) = 0;
+    virtual void updateCooldown(float dt) {
         if (currentCooldown > 0) {
             currentCooldown -= dt;
         }
     }
+    virtual void draw(sf::RenderTarget& target) = 0;
     virtual bool isFinished() const { return finished; }
     virtual bool canExecute(const Boss& boss, const Player& player) const = 0;
     bool isHitboxActive() const { return isHitboxActive_; }

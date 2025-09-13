@@ -52,5 +52,4 @@ void Rush::execute(Boss& boss, Player& player) {
 }
 
 void Rush::update(float dt, Boss& boss, Player& player) {
-    IPattern::update(dt, boss, player);
 }
