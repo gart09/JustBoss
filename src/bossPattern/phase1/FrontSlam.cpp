@@ -8,8 +8,6 @@ constexpr float HITBOX_WIDTH = 150.f;
 constexpr float HITBOX_HEIGHT = 200.f;
 constexpr float WORLD_MIN_X = 0.f;
 constexpr float WORLD_MAX_X = 1280.f; 
-constexpr float BOSS_SIZE = 200.f;
-constexpr float CHAR_SIZE = 50.f;
 constexpr int DAMAGE = 10;
 constexpr AttackTimings FS_TIMINGS = {1.f, 0.1f, 0.8f};
 const AttackColors FS_COLORS = {
@@ -20,10 +18,11 @@ const AttackColors FS_COLORS = {
 
 FrontSlam::FrontSlam() {
     cooldown = 4.0f;
+    currentCooldown = 3.f;
 }
 
 bool FrontSlam::canExecute(const Boss& boss, const Player& player) const {
-    float distance = abs(boss.getPosition().x + BOSS_SIZE / 2 - (player.getPosition().x + CHAR_SIZE / 2)); // x축 거리만 계산
+    float distance = abs(boss.getPosition().x + boss.getSize() / 2 - (player.getPosition().x + player.getSize() / 2)); // x축 거리만 계산
     float optimalDistance = 100.0f; // 보스가 유지하려는 최적 거리
     return currentCooldown <= 0 && distance < optimalDistance;
 }
@@ -31,10 +30,11 @@ bool FrontSlam::canExecute(const Boss& boss, const Player& player) const {
 void FrontSlam::execute(Boss& boss, Player& player) {
     // IPattern의 기본 execute를 호출하여 쿨타임 등을 설정
     IPattern::execute(boss, player);
+    boss.setVelocity({0.f, 0.f});
     std::cout << "Executing FrontSlam pattern!" << std::endl;
 
     // 1. 'execute'가 호출된 시점의 정보를 바탕으로 히트박스를 '한 번만' 계산합니다.
-    float playerCenterX = player.getPosition().x + CHAR_SIZE / 2.f;
+    float playerCenterX = player.getPosition().x + player.getSize() / 2.f;
     float idealX = playerCenterX - (HITBOX_WIDTH / 2.f);
     
     // 월드 경계값을 벗어나지 않도록 좌표를 보정(Clamp)

@@ -31,7 +31,7 @@ void WarningAttackHelper::start(
     }
 }
 
-void WarningAttackHelper::update(float dt, Player& player, const Boss& boss) {
+void WarningAttackHelper::update(float dt, Player& player, Boss& boss) {
     if (m_isFinished) return;
 
     m_timer += dt;
@@ -49,6 +49,7 @@ void WarningAttackHelper::update(float dt, Player& player, const Boss& boss) {
             }
         }
     } else if (m_timer >= totalDuration) {
+        boss.resetVelocity();
         m_isFinished = true;
     }
 }

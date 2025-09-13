@@ -27,6 +27,9 @@ public:
     virtual void draw(sf::RenderTarget& target) = 0;
     virtual bool isFinished() const { return finished; }
     virtual bool canExecute(const Boss& boss, const Player& player) const = 0;
+    virtual std::optional<sf::FloatRect> getWeakPointHitbox() const {
+        return std::nullopt;
+    }
     bool isHitboxActive() const { return isHitboxActive_; }
     const sf::FloatRect& getHitbox() const { return activeHitbox_; }
 };

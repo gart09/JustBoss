@@ -1,24 +1,24 @@
-#include "Player.h"
 #include "Boss.h"
 #include "../state/PlayerState.h"
 #include "../commands/PlayerCommand.h"
-#include "../commands/CommandType.h"
+#include "../bossPattern/IPattern.h"
 #include <iostream>
 #include <cmath>
 
 constexpr float WINDOW_WIDTH = 1280.f;
 constexpr float GROUND_Y = 620.f;
-constexpr float CHAR_SIZE = 50.f;
 
 Player::Player()
     : m_hp(100), m_facingDirection(FacingDirection::Right),
       m_canJump(true), m_canDoubleJump(false), m_dashCooldown(0.f),
-      m_invincibilityTimer(0.f), m_flashTimer(0.f)
+      m_invincibilityTimer(0.f), m_flashTimer(0.f), m_speed(300.f), m_jumpStrength(600.f)
 {
-    m_shape.setSize({CHAR_SIZE, CHAR_SIZE});
+    //m_shape.setSize({getSize(), getSize()});
+    m_shape.setSize({50.f, 50.f});
     m_shape.setFillColor(sf::Color::Blue);
     
-    m_shape.setPosition({200.f, GROUND_Y - CHAR_SIZE - 100.f});
+    //m_shape.setPosition({200.f, GROUND_Y - getSize()});
+    m_shape.setPosition({200.f, GROUND_Y - 50.f});
 
 
     m_debugAttackBox.setFillColor(sf::Color(255, 0, 0, 100));
@@ -53,14 +53,13 @@ void Player::update(sf::Time deltaTime, Boss& boss) {
         m_invincibilityTimer -= deltaTime.asSeconds();
     }
 
-    float dt = deltaTime.asSeconds(); // float 형태로 변환
+    float dt = deltaTime.asSeconds();
 
     if (m_invincibilityTimer > 0.f) {
         m_invincibilityTimer -= dt;
 
-        // --- ▼▼▼ 점멸 로직 시작 ▼▼▼ ---
         m_flashTimer += dt;
-        float blinkInterval = 0.1f; // 0.1초 간격으로 깜빡임
+        float blinkInterval = 0.1f;
         bool showWhite = std::fmod(m_flashTimer, blinkInterval * 2) < blinkInterval;
 
         if (showWhite) {
@@ -68,7 +67,6 @@ void Player::update(sf::Time deltaTime, Boss& boss) {
         } else {
             resetColor();
         }
-        // --- ▲▲▲ 점멸 로직 끝 ▲▲▲ ---
 
     } else {
         resetColor();
@@ -78,7 +76,7 @@ void Player::update(sf::Time deltaTime, Boss& boss) {
         auto newState = m_currentState->update(*this, deltaTime.asSeconds());
         if (newState) {
             changeState(std::move(newState));
-            m_hasDealtDamage = false; // 새로운 상태로 전환되면 데미지 입힘 기록 초기화
+            m_hasDealtDamage = false;
         }
     }
 
@@ -86,10 +84,19 @@ void Player::update(sf::Time deltaTime, Boss& boss) {
     if (attackInfo.has_value()) {
         sf::FloatRect playerHitbox = attackInfo->hitbox;
         sf::FloatRect bossHitbox = boss.getHitbox();
+        if (dynamic_cast<WeakAttackState*>(m_currentState.get())) {
+            IPattern* currentBossPattern = boss.getCurrentPattern();
+            if(currentBossPattern)
+                if (auto bossWeakPoint = boss.getCurrentPattern()->getWeakPointHitbox()) {
+                    if (playerHitbox.findIntersection(*bossWeakPoint) && !m_hasDealtDamage) {
+                        boss.enterGroggyState(boss.getCurrentPhase());
+                        m_hasDealtDamage = true;
+                    }
+                }
+        }
         if (playerHitbox.findIntersection(bossHitbox) && !m_hasDealtDamage) {
-            // 충돌했다면 보스에게 데미지를 입히고,
             boss.takeDamage(attackInfo->damage);
-            m_hasDealtDamage = true; // 현재 공격 상태에서 데미지를 입혔음을 기록
+            m_hasDealtDamage = true;
         }
     }
 
@@ -103,29 +110,24 @@ void Player::draw(sf::RenderWindow& window)
     
     auto attackInfo = m_currentState->getActiveAttackInfo(*this);
     if (attackInfo.has_value()) {
-        m_debugAttackBox.setPosition(attackInfo->hitbox.position); // .position이 sf::Vector2f이므로 바로 전달
+        m_debugAttackBox.setPosition(attackInfo->hitbox.position);
         m_debugAttackBox.setSize(attackInfo->hitbox.size);
         window.draw(m_debugAttackBox);
     }
 
     auto chargeProgressOpt = m_currentState->getChargeProgress();
-    // 2. 차지 진행도 정보가 있을 경우에만 (즉, ChargingState일 때만)
     if (chargeProgressOpt.has_value()) {
         float progress = *chargeProgressOpt;
         const sf::Vector2f barSize = m_chargeBarBackground.getSize();
         
-        // 차지 바 위치를 플레이어 머리 위로 설정
         sf::Vector2f barPosition = getPosition();
-        //barPosition.x +=  // 플레이어 중앙에 맞춤
-        barPosition.y -= 20.f; // 머리 위 20px
+        barPosition.y -= 20.f;
         
         m_chargeBarBackground.setPosition(barPosition);
 
-        // 진행도에 따라 채워지는 바의 너비를 계산
         m_chargeBarFill.setSize({ barSize.x * progress, barSize.y });
         m_chargeBarFill.setPosition(barPosition);
 
-        // 100% 충전 시 색을 초록색으로 변경
         if (progress >= 1.0f) {
             m_chargeBarFill.setFillColor(sf::Color::Green);
         } else {
@@ -152,7 +154,6 @@ void Player::move(float direction) {
 
 void Player::turn(float direction)
 {
-    // 0이 아닌 방향 값이 들어올 때만 방향을 갱신합니다.
     if (direction > 0) {
         m_facingDirection = FacingDirection::Right;
     }
@@ -170,7 +171,7 @@ void Player::takeJump(float direction)
         m_canJump = false;
         m_canDoubleJump = true;
         std::cout << "Action: Jump!" << std::endl;
-        return; // 첫 점프 후 함수 종료
+        return;
     }
 }
 
@@ -293,4 +294,21 @@ void Player::handleDashCooldown(float dt) {
     if (m_dashCooldown > 0) {
         m_dashCooldown -= dt;
     }
+}
+
+bool Player::canDash() const {
+    return m_dashCooldown <= 0;
+}
+
+void Player::startDashCooldown() {
+    m_dashCooldown = DASH_COOLDOWN_TIME;
+}
+
+float Player::getDashCooldownProgress() const {
+    float progress = 1.f - (m_dashCooldown / DASH_COOLDOWN_TIME);
+    return std::clamp(progress, 0.f, 1.f);
+}
+
+sf::Vector2f Player::getCenter() const {
+    return {m_shape.getPosition().x + m_size / 2, m_shape.getPosition().y + m_size / 2};
 }

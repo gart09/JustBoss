@@ -7,6 +7,7 @@
 #include "../entities/Map.h"
 #include "../UI/HpUI.h"
 #include "../commands/ICommand.h"
+#include "../UI/DashUI.h"
 
 class GameScene
 {
@@ -26,4 +27,5 @@ private:
     std::unique_ptr<Boss> m_boss;
     std::unique_ptr<HpUI> m_hpUI;
     std::unique_ptr<Map> m_map;
+    std::unique_ptr<DashUI> m_dashUI;
 };

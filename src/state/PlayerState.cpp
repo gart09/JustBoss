@@ -20,12 +20,14 @@ std::unique_ptr<IPlayerState> IdleState::handleInput(Player& player, ICommand* c
         return std::make_unique<JumpState>(0.f);
     if (auto* move = dynamic_cast<MoveCommand*>(command)) {
         if (move->getDirection() != 0.0f) {
-            player.move(move->getDirection());
             return std::make_unique<MoveState>();
         }
     }
-    if (auto* dash = dynamic_cast<DashCommand*>(command)) 
-        return std::make_unique<DashState>(dash->getDirection());
+    if (auto* dash = dynamic_cast<DashCommand*>(command)) {
+        if (player.canDash()) {
+            return std::make_unique<DashState>(dash->getDirection());
+        }
+    }
     return nullptr;
 }
 
@@ -41,17 +43,24 @@ void MoveState::enter(Player& player) {
 }
 
 std::unique_ptr<IPlayerState> MoveState::handleInput(Player& player, ICommand* command) {
-    if (dynamic_cast<AttackCommand*>(command)) return std::make_unique<AttackState>();
-    if (dynamic_cast<WeakPointAttackCommand*>(command)) return std::make_unique<WeakAttackState>();
-    if (dynamic_cast<StartChargeCommand*>(command)) return std::make_unique<ChargingState>();
-    if (auto* jump = dynamic_cast<JumpCommand*>(command)) {
+    if (dynamic_cast<AttackCommand*>(command)) 
+        return std::make_unique<AttackState>();
+    if (dynamic_cast<WeakPointAttackCommand*>(command)) 
+        return std::make_unique<WeakAttackState>();
+    if (dynamic_cast<StartChargeCommand*>(command)) 
+        return std::make_unique<ChargingState>();
+    if (auto* jump = dynamic_cast<JumpCommand*>(command))
         return std::make_unique<JumpState>(player.getDirection());
-    }
     if (auto* move = dynamic_cast<MoveCommand*>(command)) {
-        if (move->getDirection() == 0.0f) return std::make_unique<IdleState>();
+        if (move->getDirection() == 0.0f) 
+            return std::make_unique<IdleState>();
         player.move(move->getDirection());
     }
-    if (auto* dash = dynamic_cast<DashCommand*>(command)) return std::make_unique<DashState>(dash->getDirection());
+    if (auto* dash = dynamic_cast<DashCommand*>(command)) {
+        if (player.canDash()) {
+            return std::make_unique<DashState>(dash->getDirection());
+        }
+    }
     return nullptr;
 }
 
@@ -84,8 +93,11 @@ std::unique_ptr<IPlayerState> JumpState::handleInput(Player& player, ICommand* c
             return std::make_unique<DoubleJumpState>(jump->getDirection());
         }
     }
-    if (auto* dash = dynamic_cast<DashCommand*>(command)) 
-        return std::make_unique<DashState>(dash->getDirection());
+    if (auto* dash = dynamic_cast<DashCommand*>(command)) {
+        if (player.canDash()) {
+            return std::make_unique<DashState>(dash->getDirection());
+        }
+    }
     return nullptr;
 }
 
@@ -107,8 +119,11 @@ void DoubleJumpState::enter(Player& player) {
 }
 
 std::unique_ptr<IPlayerState> DoubleJumpState::handleInput(Player& player, ICommand* command) {
-    if (auto* dash = dynamic_cast<DashCommand*>(command)) 
-        return std::make_unique<DashState>(dash->getDirection());
+    if (auto* dash = dynamic_cast<DashCommand*>(command)) {
+        if (player.canDash()) {
+            return std::make_unique<DashState>(dash->getDirection());
+        }
+    }
     if (dynamic_cast<AttackCommand*>(command)) 
         return std::make_unique<AttackState>();
     if (dynamic_cast<WeakPointAttackCommand*>(command)) 
@@ -133,6 +148,7 @@ void DoubleJumpState::exit(Player& player) {
 // --- DashState ---
 DashState::DashState(float direction) : m_direction(direction), m_duration(0.2f), m_timer(0.f) {}
 void DashState::enter(Player& player) {
+    player.startDashCooldown();
     m_timer = 0.f;
     float dashDirection = m_direction;
     if (dashDirection == 0.f) dashDirection = (player.getFacingDirection() == FacingDirection::Right) ? 1.f : -1.f;
@@ -207,7 +223,9 @@ std::unique_ptr<IPlayerState> BaseAttackState::update(Player& player, float dt) 
 
 std::unique_ptr<IPlayerState> BaseAttackState::handleInput(Player& player, ICommand* command) {
     if (auto* dash = dynamic_cast<DashCommand*>(command)) {
-        return std::make_unique<DashState>(dash->getDirection());
+        if (player.canDash()) {
+            return std::make_unique<DashState>(dash->getDirection());
+        }
     }
     return nullptr;
 }
@@ -279,7 +297,9 @@ std::unique_ptr<IPlayerState> ChargingState::handleInput(Player& player, IComman
 
     // 차지 중 대쉬로 캔슬 가능
     if (auto* dash = dynamic_cast<DashCommand*>(command)) {
-        return std::make_unique<DashState>(dash->getDirection());
+        if (player.canDash()) {
+            return std::make_unique<DashState>(dash->getDirection());
+        }
     }
 
     return nullptr;

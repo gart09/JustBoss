@@ -12,6 +12,7 @@ GameScene::GameScene(sf::RenderWindow& window)
     m_boss = std::make_unique<Boss>();
     m_map = std::make_unique<Map>();
     m_hpUI = std::make_unique<HpUI>();
+    m_dashUI = std::make_unique<DashUI>();
 }
 
 // 소멸자 구현
@@ -68,6 +69,9 @@ void GameScene::draw(sf::RenderWindow& window)
     if (m_hpUI)
     {
         m_hpUI->draw(*m_player, *m_boss, window);
+    }
+    if (m_dashUI) {
+        m_dashUI->draw(*m_player, window);
     }
     // 모든 게임 오브젝트를 그린 후, 마지막에 ImGui UI를 그립니다.
     ImGui::SFML::Render(window); // <<< 추가        

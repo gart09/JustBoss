@@ -28,9 +28,10 @@ public:
         const AttackColors& colors
     );
     
-    void update(float dt, Player& player, const Boss& boss);
+    void update(float dt, Player& player, Boss& boss);
     void draw(sf::RenderTarget& target);
     bool isFinished() const;
+    bool isAttack() const { return m_timer > m_timings.preDelay && m_timer < m_timings.preDelay + m_timings.activeDuration; }
 
 private:
     float m_timer;

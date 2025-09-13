@@ -43,11 +43,13 @@ public:
     const std::vector<AttackData>& getAttackDataList() const { return m_attackDataList; }
     const std::vector<AttackData>& getComboData() const { return m_basicComboData; }
     sf::Vector2f getPosition() const { return m_shape.getPosition(); }
+    sf::Vector2f getCenter() const;
     FacingDirection getFacingDirection() const { return m_facingDirection; }
-    float getDirection() const { return m_facingDirection == FacingDirection::Left ? -1.f : 1.f; }
+    float getDirection() const { return m_facingDirection == FacingDirection::Right ? 1.f : -1.f; }
     std::unique_ptr<IPlayerState>& getCurrentState() { return m_currentState; }
     float getAirControlForcePtr() { return m_airControlForce; }
-    float getSpeed() { return m_speed; }
+    float getSpeed() const { return m_speed; }
+    float getSize() const { return m_size; }
     int getHP() const { return m_hp; }
     int getMaxHP() const { return m_maxHp; }
     void getDamage(int damage) { m_hp -= damage; }
@@ -59,6 +61,11 @@ public:
     void setActiveHitbox(const sf::FloatRect& hitbox);
     sf::FloatRect getHitbox() const { return m_shape.getGlobalBounds(); };
     void clearActiveHitbox();
+
+    // 대쉬 관련 함수
+    bool canDash() const;
+    void startDashCooldown();  
+    float getDashCooldownProgress() const;
 
     sf::RectangleShape m_shape;
     sf::Vector2f m_velocity;
@@ -79,6 +86,7 @@ private:
     float m_airControlForce = 0.1f;
     int m_hp = 100;
     int m_maxHp = 100;
+    float m_size = 50.f;
 
     // 점프 관련
     bool m_canJump;

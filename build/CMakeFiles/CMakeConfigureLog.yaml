@@ -95,7 +95,7 @@ events:
       The output was:
       0
       msbuild 踰꾩쟾 17.14.14+a129329f1(.NET Framework??
-      鍮뚮뱶 ?쒖옉: 2025-09-13 ?ㅽ썑 12:26:41
+      鍮뚮뱶 ?쒖옉: 2025-09-14 ?ㅼ쟾 1:47:07
       
       1 ?몃뱶??"E:\\JustBoss\\build\\CMakeFiles\\4.1.0-rc1\\CompilerIdCXX\\CompilerIdCXX.vcxproj" ?꾨줈?앺듃(湲곕낯 ?\xc2\x80???낅땲??
       PrepareForBuild:
@@ -124,7 +124,7 @@ events:
           寃쎄퀬 0媛?
           ?ㅻ쪟 0媛?
       
-      寃쎄낵 ?쒓컙: 00:00:01.87
+      寃쎄낵 ?쒓컙: 00:00:02.09
       
       
       Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
@@ -878,8 +878,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "E:/JustBoss/build/CMakeFiles/CMakeScratch/TryCompile-vwxf25"
-      binary: "E:/JustBoss/build/CMakeFiles/CMakeScratch/TryCompile-vwxf25"
+      source: "E:/JustBoss/build/CMakeFiles/CMakeScratch/TryCompile-nogubr"
+      binary: "E:/JustBoss/build/CMakeFiles/CMakeScratch/TryCompile-nogubr"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc"
       CMAKE_CXX_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
@@ -889,34 +889,34 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'E:/JustBoss/build/CMakeFiles/CMakeScratch/TryCompile-vwxf25'
+        Change Dir: 'E:/JustBoss/build/CMakeFiles/CMakeScratch/TryCompile-nogubr'
         
-        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_a6208.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_1441b.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         msbuild 踰꾩쟾 17.14.14+a129329f1(.NET Framework??
-        鍮뚮뱶 ?쒖옉: 2025-09-13 ?ㅽ썑 12:26:44
+        鍮뚮뱶 ?쒖옉: 2025-09-14 ?ㅼ쟾 1:47:10
         
-        1 ?몃뱶??"E:\\JustBoss\\build\\CMakeFiles\\CMakeScratch\\TryCompile-vwxf25\\cmTC_a6208.vcxproj" ?꾨줈?앺듃(湲곕낯 ?\xc2\x80???낅땲??
+        1 ?몃뱶??"E:\\JustBoss\\build\\CMakeFiles\\CMakeScratch\\TryCompile-nogubr\\cmTC_1441b.vcxproj" ?꾨줈?앺듃(湲곕낯 ?\xc2\x80???낅땲??
         PrepareForBuild:
-          "cmTC_a6208.dir\\Debug\\" ?붾젆?곕━瑜?留뚮뱾怨??덉뒿?덈떎.
+          "cmTC_1441b.dir\\Debug\\" ?붾젆?곕━瑜?留뚮뱾怨??덉뒿?덈떎.
           援ъ“??異쒕젰???ъ슜?????덉뒿?덈떎. 而댄뙆?쇰윭 吏꾨떒???쒖떇?\xc2\x80 ?ㅻ쪟 怨꾩링 援ъ“瑜?諛섏쁺?⑸땲?? ?먯꽭???댁슜?\xc2\x80 https://aka.ms/cpp/structured-output??李몄“?섏꽭??
-          "E:\\JustBoss\\build\\CMakeFiles\\CMakeScratch\\TryCompile-vwxf25\\Debug\\" ?붾젆?곕━瑜?留뚮뱾怨??덉뒿?덈떎.
-          "cmTC_a6208.dir\\Debug\\cmTC_a6208.tlog\\" ?붾젆?곕━瑜?留뚮뱾怨??덉뒿?덈떎.
+          "E:\\JustBoss\\build\\CMakeFiles\\CMakeScratch\\TryCompile-nogubr\\Debug\\" ?붾젆?곕━瑜?留뚮뱾怨??덉뒿?덈떎.
+          "cmTC_1441b.dir\\Debug\\cmTC_1441b.tlog\\" ?붾젆?곕━瑜?留뚮뱾怨??덉뒿?덈떎.
         InitializeBuildStatus:
-          "AlwaysCreate"??媛\xc2\x80) 吏\xc2\x80?뺣릺?덇린 ?뚮Ц??"cmTC_a6208.dir\\Debug\\cmTC_a6208.tlog\\unsuccessfulbuild"??瑜? 留뚮뱾怨??덉뒿?덈떎.
-          "cmTC_a6208.dir\\Debug\\cmTC_a6208.tlog\\unsuccessfulbuild"???곌껐(touching)?섍퀬 ?덉뒿?덈떎.
+          "AlwaysCreate"??媛\xc2\x80) 吏\xc2\x80?뺣릺?덇린 ?뚮Ц??"cmTC_1441b.dir\\Debug\\cmTC_1441b.tlog\\unsuccessfulbuild"??瑜? 留뚮뱾怨??덉뒿?덈떎.
+          "cmTC_1441b.dir\\Debug\\cmTC_1441b.tlog\\unsuccessfulbuild"???곌껐(touching)?섍퀬 ?덉뒿?덈떎.
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /GR /Fo"cmTC_a6208.dir\\Debug\\\\" /Fd"cmTC_a6208.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCXXCompilerABI.cpp"
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /GR /Fo"cmTC_1441b.dir\\Debug\\\\" /Fd"cmTC_1441b.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCXXCompilerABI.cpp"
           Microsoft (R) C/C++ 理쒖쟻??而댄뙆?쇰윭 踰꾩쟾 19.44.35211(x64)
           Copyright (c) Microsoft Corporation. All rights reserved.
-          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /GR /Fo"cmTC_a6208.dir\\Debug\\\\" /Fd"cmTC_a6208.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCXXCompilerABI.cpp"
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /GR /Fo"cmTC_1441b.dir\\Debug\\\\" /Fd"cmTC_1441b.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCXXCompilerABI.cpp"
           CMakeCXXCompilerABI.cpp
         Link:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"E:\\JustBoss\\build\\CMakeFiles\\CMakeScratch\\TryCompile-vwxf25\\Debug\\cmTC_a6208.exe" /INCREMENTAL /ILK:"cmTC_a6208.dir\\Debug\\cmTC_a6208.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:/JustBoss/build/CMakeFiles/CMakeScratch/TryCompile-vwxf25/Debug/cmTC_a6208.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"E:/JustBoss/build/CMakeFiles/CMakeScratch/TryCompile-vwxf25/Debug/cmTC_a6208.lib" /MACHINE:X64  /machine:x64 cmTC_a6208.dir\\Debug\\CMakeCXXCompilerABI.obj
-          cmTC_a6208.vcxproj -> E:\\JustBoss\\build\\CMakeFiles\\CMakeScratch\\TryCompile-vwxf25\\Debug\\cmTC_a6208.exe
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"E:\\JustBoss\\build\\CMakeFiles\\CMakeScratch\\TryCompile-nogubr\\Debug\\cmTC_1441b.exe" /INCREMENTAL /ILK:"cmTC_1441b.dir\\Debug\\cmTC_1441b.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:/JustBoss/build/CMakeFiles/CMakeScratch/TryCompile-nogubr/Debug/cmTC_1441b.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"E:/JustBoss/build/CMakeFiles/CMakeScratch/TryCompile-nogubr/Debug/cmTC_1441b.lib" /MACHINE:X64  /machine:x64 cmTC_1441b.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_1441b.vcxproj -> E:\\JustBoss\\build\\CMakeFiles\\CMakeScratch\\TryCompile-nogubr\\Debug\\cmTC_1441b.exe
         FinalizeBuildStatus:
-          "cmTC_a6208.dir\\Debug\\cmTC_a6208.tlog\\unsuccessfulbuild" ?뚯씪????젣?섍퀬 ?덉뒿?덈떎.
-          "cmTC_a6208.dir\\Debug\\cmTC_a6208.tlog\\cmTC_a6208.lastbuildstate"???곌껐(touching)?섍퀬 ?덉뒿?덈떎.
-        "E:\\JustBoss\\build\\CMakeFiles\\CMakeScratch\\TryCompile-vwxf25\\cmTC_a6208.vcxproj" ?꾨줈?앺듃瑜?鍮뚮뱶?덉뒿?덈떎(湲곕낯 ?\xc2\x80??.
+          "cmTC_1441b.dir\\Debug\\cmTC_1441b.tlog\\unsuccessfulbuild" ?뚯씪????젣?섍퀬 ?덉뒿?덈떎.
+          "cmTC_1441b.dir\\Debug\\cmTC_1441b.tlog\\cmTC_1441b.lastbuildstate"???곌껐(touching)?섍퀬 ?덉뒿?덈떎.
+        "E:\\JustBoss\\build\\CMakeFiles\\CMakeScratch\\TryCompile-nogubr\\cmTC_1441b.vcxproj" ?꾨줈?앺듃瑜?鍮뚮뱶?덉뒿?덈떎(湲곕낯 ?\xc2\x80??.
         
         鍮뚮뱶?덉뒿?덈떎.
             寃쎄퀬 0媛?

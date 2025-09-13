@@ -368,6 +368,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="E:\JustBoss\src\UI\DashUI.cpp" />
     <ClCompile Include="E:\JustBoss\src\UI\HpUI.cpp" />
     <ClCompile Include="E:\JustBoss\src\bossPattern\phase1\FrontSlam.cpp" />
     <ClCompile Include="E:\JustBoss\src\bossPattern\phase1\GroundSlam.cpp" />
@@ -383,6 +384,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="E:\JustBoss\src\entities\Player.cpp" />
     <ClCompile Include="E:\JustBoss\src\manager\InputManager.cpp" />
     <ClCompile Include="E:\JustBoss\src\scene\GameScene.cpp" />
+    <ClCompile Include="E:\JustBoss\src\state\BossGroggyState.cpp" />
     <ClCompile Include="E:\JustBoss\src\state\BossPhase1State.cpp" />
     <ClCompile Include="E:\JustBoss\src\state\PlayerState.cpp" />
     <ClCompile Include="E:\JustBoss\lib\imgui-sfml\imgui-SFML.cpp" />

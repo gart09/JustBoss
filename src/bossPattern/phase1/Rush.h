@@ -2,22 +2,31 @@
 #include "../IPattern.h"
 
 class Rush : public IPattern {
-private:
-    float dashDuration = 1.5f;
-    float timer = 0.0f;
-
-    float stateTimer_ = 0.0f; // 각 상태의 지속 시간을 재는 타이머
-
-    sf::Vector2f targetPosition_; // 돌진 목표 지점
-
-    const float WIND_UP_DURATION = 0.8f;  // 선딜레이
-    const float DASH_SPEED = 1200.0f;     // 돌진 속도 (매우 빠르게)
-    const float RECOVERY_DURATION = 0.5f; // 후딜레이
-
 public:
     Rush();
 
-    virtual bool canExecute(const Boss& boss, const Player& player) const override;
-    virtual void execute(Boss& boss, Player& player) override;
-    virtual void update(float dt, Boss& boss, Player& player) override;
+    bool canExecute(const Boss& boss, const Player& player) const override;
+    void execute(Boss& boss, Player& player) override;
+    void update(float dt, Boss& boss, Player& player) override;
+    void draw(sf::RenderTarget& target) override;
+    bool isFinished() const override;
+
+    // IPattern의 가상 함수를 재정의하여 약점 히트박스를 외부에 제공
+    std::optional<sf::FloatRect> getWeakPointHitbox() const override;
+
+private:
+    enum class Phase { Preparing, Dashing, Done };
+    Phase m_phase;
+
+    float m_timer;
+    sf::Vector2f m_rushDirection;
+    bool m_hasHitPlayer;
+
+    // 시각 효과
+    sf::RectangleShape m_warningSign;
+    sf::RectangleShape m_weakPointVisual;
+    
+    // 데이터
+    sf::FloatRect m_weakPointHitbox;
+    bool m_isWeakPointActive;
 };
