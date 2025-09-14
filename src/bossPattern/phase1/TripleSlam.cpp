@@ -73,7 +73,6 @@ void TripleSlam::execute(Boss& boss, Player& player) {
 }
 
 bool TripleSlam::canExecute(const Boss& boss, const Player& player) const {
-    std::cout << "TripleSlam canExecute check: cooldown = " << currentCooldown << ", isFinished: " << isFinished() << std::endl;
     return currentCooldown <= 0;
 }
 
