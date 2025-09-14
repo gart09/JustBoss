@@ -10,6 +10,8 @@ public:
     std::unique_ptr<IPlayerState> handleInput(Player& player, ICommand* command) override;
     std::unique_ptr<IPlayerState> update(Player& player, float dt) override;
     void exit(Player& player) override;
+    bool isInterruptible() const override { return true; }
+
 };
 
 // 이동 상태
@@ -19,15 +21,22 @@ public:
     std::unique_ptr<IPlayerState> handleInput(Player& player, ICommand* command) override;
     std::unique_ptr<IPlayerState> update(Player& player, float dt) override;
     void exit(Player& player) override;
+    bool isInterruptible() const override { return true; }
+
 };
 
 // 점프 상태
 class JumpState : public IPlayerState {
 public:
+    explicit JumpState(float direction);
     void enter(Player& player) override;
     std::unique_ptr<IPlayerState> handleInput(Player& player, ICommand* command) override;
     std::unique_ptr<IPlayerState> update(Player& player, float dt) override;
     void exit(Player& player) override;
+    bool isInterruptible() const override { return true; }
+
+private:
+    float m_direction;
 };
 
 class DoubleJumpState : public IPlayerState {
@@ -37,6 +46,8 @@ public:
     std::unique_ptr<IPlayerState> handleInput(Player& player, ICommand* command) override;
     std::unique_ptr<IPlayerState> update(Player& player, float dt) override;
     void exit(Player& player) override;
+    bool isInterruptible() const override { return true; }
+
 private:
     float m_direction;
 };
@@ -49,6 +60,8 @@ public:
     std::unique_ptr<IPlayerState> handleInput(Player& player, ICommand* command) override;
     std::unique_ptr<IPlayerState> update(Player& player, float dt) override;
     void exit(Player& player) override;
+    bool ignoresGravity() const override { return true; }
+    bool stopHorizontalOnLand() const override { return false; }
 private:
     float m_direction;
     float m_duration;
@@ -58,14 +71,12 @@ private:
 // 피격 경직 상태
 class HitStunState : public IPlayerState {
 public:
-    explicit HitStunState(float duration);
     void enter(Player& player) override;
     std::unique_ptr<IPlayerState> handleInput(Player& player, ICommand* command) override;
     std::unique_ptr<IPlayerState> update(Player& player, float dt) override;
     void exit(Player& player) override;
-private:
-    float m_stunDuration;
-    float m_timer;
+
+private:    
 };
 
 // --- 공격 상태들의 기반 클래스 ---
@@ -80,8 +91,8 @@ public:
     void exit(Player& player) override;
     std::unique_ptr<IPlayerState> update(Player& player, float dt) override;
     std::unique_ptr<IPlayerState> handleInput(Player& player, ICommand* command) override;
-    
     std::optional<AttackInfo> getActiveAttackInfo(const Player& player) const;
+
 };
 
 // --- 구체적인 공격 상태 클래스들 ---
@@ -107,6 +118,7 @@ public:
     std::unique_ptr<IPlayerState> handleInput(Player& player, ICommand* command) override;
     std::unique_ptr<IPlayerState> update(Player& player, float dt) override;
     std::optional<float> getChargeProgress() const override;
+    bool isInterruptible() const override { return true; }
 
 private:
     // 차지 버튼을 누르고 있는 시간을 기록하기 위한 타이머

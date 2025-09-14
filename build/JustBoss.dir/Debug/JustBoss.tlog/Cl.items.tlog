@@ -1,9 +1,11 @@
+E:\JustBoss\src\UI\DashUI.cpp;E:\JustBoss\build\JustBoss.dir\Debug\DashUI.obj
 E:\JustBoss\src\UI\HpUI.cpp;E:\JustBoss\build\JustBoss.dir\Debug\HpUI.obj
 E:\JustBoss\src\bossPattern\phase1\FrontSlam.cpp;E:\JustBoss\build\JustBoss.dir\Debug\FrontSlam.obj
 E:\JustBoss\src\bossPattern\phase1\GroundSlam.cpp;E:\JustBoss\build\JustBoss.dir\Debug\GroundSlam.obj
 E:\JustBoss\src\bossPattern\phase1\MagneticField.cpp;E:\JustBoss\build\JustBoss.dir\Debug\MagneticField.obj
 E:\JustBoss\src\bossPattern\phase1\Rush.cpp;E:\JustBoss\build\JustBoss.dir\Debug\Rush.obj
 E:\JustBoss\src\bossPattern\phase1\TripleSlam.cpp;E:\JustBoss\build\JustBoss.dir\Debug\TripleSlam.obj
+E:\JustBoss\src\bossPatternHelper\WarningAttackHelper.cpp;E:\JustBoss\build\JustBoss.dir\Debug\WarningAttackHelper.obj
 E:\JustBoss\src\commands\PlayerCommand.cpp;E:\JustBoss\build\JustBoss.dir\Debug\PlayerCommand.obj
 E:\JustBoss\src\core\Game.cpp;E:\JustBoss\build\JustBoss.dir\Debug\Game.obj
 E:\JustBoss\src\core\main.cpp;E:\JustBoss\build\JustBoss.dir\Debug\main.obj
@@ -11,8 +13,8 @@ E:\JustBoss\src\entities\Boss.cpp;E:\JustBoss\build\JustBoss.dir\Debug\Boss.obj
 E:\JustBoss\src\entities\Map.cpp;E:\JustBoss\build\JustBoss.dir\Debug\Map.obj
 E:\JustBoss\src\entities\Player.cpp;E:\JustBoss\build\JustBoss.dir\Debug\Player.obj
 E:\JustBoss\src\manager\InputManager.cpp;E:\JustBoss\build\JustBoss.dir\Debug\InputManager.obj
-E:\JustBoss\src\manager\ResourceManager.cpp;E:\JustBoss\build\JustBoss.dir\Debug\ResourceManager.obj
 E:\JustBoss\src\scene\GameScene.cpp;E:\JustBoss\build\JustBoss.dir\Debug\GameScene.obj
+E:\JustBoss\src\state\BossGroggyState.cpp;E:\JustBoss\build\JustBoss.dir\Debug\BossGroggyState.obj
 E:\JustBoss\src\state\BossPhase1State.cpp;E:\JustBoss\build\JustBoss.dir\Debug\BossPhase1State.obj
 E:\JustBoss\src\state\PlayerState.cpp;E:\JustBoss\build\JustBoss.dir\Debug\PlayerState.obj
 E:\JustBoss\lib\imgui-sfml\imgui-SFML.cpp;E:\JustBoss\build\JustBoss.dir\Debug\imgui-SFML.obj

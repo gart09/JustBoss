@@ -5,18 +5,6 @@ cmake_minimum_required(VERSION 3.10)
 project(JustBoss VERSION 1.0 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-# --- ?????? 수정된 부분: UTF-8 옵션 전역 적용 ?????? ---
-# Visual Studio 컴파일러(MSVC) 사용 시, UTF-8 인코딩을 전역으로 강제합니다.
-# 이렇게 하면 우리 프로젝트뿐만 아니라 모든 하위 라이브러리에도 적용됩니다.
-if(MSVC)
-    add_compile_options(/utf-8)
-endif()
-
-
-
-# ? SFML 라이브러리의 정확한 경로를 여기에 입력하세요.
-# SFMLConfig.cmake 파일이 들어있는 폴더의 경로여야 합니다.
 set(SFML_DIR "E:/JustBoss/lib/SFML-3.0.0/lib/cmake/SFML")
 # ------------------------------------------------------------------
 # SFML 라이브러리 찾기
@@ -29,7 +17,6 @@ find_package(SFML 3.0.0 COMPONENTS Graphics Window REQUIRED)
 # src 폴더와 그 하위 폴더의 모든 .cpp 파일 및 main.cpp를 찾아 추가합니다.
 file(GLOB_RECURSE SOURCES "src/*.cpp" "src/**/*.cpp")
 
-# --- ? 수정된 부분: ImGui 및 ImGui-SFML 소스 파일 추가 ? ---
 # lib 폴더에 있는 ImGui와 ImGui-SFML의 소스 파일들을 변수에 추가합니다.
 file(GLOB IMGUI_SOURCES
     "lib/imgui/imgui.cpp"
@@ -44,6 +31,17 @@ file(GLOB IMGUI_SOURCES
 # ------------------------------------------------------------------
 # 우리 게임 소스와 ImGui 소스를 함께 묶어 실행 파일을 만듭니다.
 add_executable(${PROJECT_NAME} ${SOURCES} ${IMGUI_SOURCES})
+
+if (WIN32)
+    file(GLOB SFML_DLLS "${CMAKE_SOURCE_DIR}/lib/SFML-3.0.0/bin/*.dll")
+    foreach(DLL ${SFML_DLLS})
+        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${DLL}"
+            $<TARGET_FILE_DIR:${PROJECT_NAME}>
+        )
+    endforeach()
+endif()
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE IMTEXTUREID_DEFINED)
 

@@ -37,5 +37,9 @@ public:
     virtual std::optional<float> getChargeProgress() const {
         return std::nullopt;
     }
+    virtual bool isInterruptible() const { return false; }
+    virtual bool ignoresGravity() const { return false; } 
+    virtual bool stopHorizontalOnLand() const { return true; } 
+
 };
 

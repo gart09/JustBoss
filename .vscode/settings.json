@@ -9,6 +9,7 @@
     "cmake.outputLogEncoding": "UTF-8",
         "files.encoding": "utf8",
     "files.autoGuessEncoding": true,
+    "cmake.buildType": "Release",
     // C++ 파일 연관성 설정 (오류 방지)
     "files.associations": {
         "memory": "cpp",

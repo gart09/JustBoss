@@ -1,40 +1,40 @@
-#include "Player.h"
 #include "Boss.h"
 #include "../state/PlayerState.h"
 #include "../commands/PlayerCommand.h"
-#include "../commands/CommandType.h"
+#include "../bossPattern/IPattern.h"
 #include <iostream>
 #include <cmath>
 
 constexpr float WINDOW_WIDTH = 1280.f;
 constexpr float GROUND_Y = 620.f;
-constexpr float CHAR_SIZE = 50.f;
 
 Player::Player()
     : m_hp(100), m_facingDirection(FacingDirection::Right),
-      m_canJump(true), m_canDoubleJump(false), m_dashCooldown(0.f)
+      m_canJump(true), m_canDoubleJump(false), m_dashCooldown(0.f),
+      m_invincibilityTimer(0.f), m_flashTimer(0.f), m_speed(300.f), m_jumpStrength(600.f)
 {
-    m_shape.setSize({CHAR_SIZE, CHAR_SIZE});
+    m_shape.setSize({m_size, m_size});
     m_shape.setFillColor(sf::Color::Blue);
     
-    m_shape.setPosition({200.f, GROUND_Y - CHAR_SIZE - 100.f});
+    //m_shape.setPosition({200.f, GROUND_Y - getSize()});
+    m_shape.setPosition({200.f, GROUND_Y - 50.f});
 
 
-    m_debugAttackBox.setFillColor(sf::Color(255, 0, 0, 100));
+    m_debugAttackBox.setFillColor(sf::Color(50, 255, 50, 150));
     
     // AttacData: [공격력, 선딜레이, 시각화 시간, 후딜레이, 히트박스]
     // 1. 일반 찌르기 데이터
     sf::FloatRect stabHitbox({50.f, 0.f}, {80.f, 50.f});
-    m_attackDataList.push_back(AttackData{10, 0.1f, 0.15f, 0.05f, stabHitbox});
+    m_attackDataList.push_back(AttackData{10, 0.2f, 0.15f, 0.2f, stabHitbox});
     // 2. 약점 공격 데이터
     sf::FloatRect weakPointHitbox({50.f, 0.f}, {50.f, 50.f});
-    m_attackDataList.push_back(AttackData{15, 0.1f, 0.15f, 0.10f, weakPointHitbox});
+    m_attackDataList.push_back(AttackData{5, 0.1f, 0.15f, 0.10f, weakPointHitbox});
     // 3. 차지 1단계 데이터
     sf::FloatRect charge1Hitbox({50.f, -10.f}, {70.f, 60.f});
-    m_attackDataList.push_back(AttackData{20, 0.1f, 0.2f, 0.10f, charge1Hitbox});
+    m_attackDataList.push_back(AttackData{10, 0.2f, 0.2f, 0.20f, charge1Hitbox});
     // 4. 차지 2단계 데이터
     sf::FloatRect charge2Hitbox({50.f, -30.f}, {150.f, 80.f});
-    m_attackDataList.push_back(AttackData{35, 0.1f, 0.2f, 0.20f, charge2Hitbox});
+    m_attackDataList.push_back(AttackData{100, 0.1f, 0.2f, 0.20f, charge2Hitbox});
 
     m_chargeBarBackground.setSize({50.f, 8.f});
     m_chargeBarBackground.setFillColor(sf::Color(0, 0, 0, 150));
@@ -48,32 +48,55 @@ Player::Player()
 }
 
 void Player::update(sf::Time deltaTime, Boss& boss) {
+    if (m_invincibilityTimer > 0.f) {
+        m_invincibilityTimer -= deltaTime.asSeconds();
+    }
+
+    float dt = deltaTime.asSeconds();
+
+    if (m_invincibilityTimer > 0.f) {
+        m_invincibilityTimer -= dt;
+
+        m_flashTimer += dt;
+        float blinkInterval = 0.1f;
+        bool showWhite = std::fmod(m_flashTimer, blinkInterval * 2) < blinkInterval;
+
+        if (showWhite) {
+            setColor(sf::Color::White);
+        } else {
+            resetColor();
+        }
+
+    } else {
+        resetColor();
+    }
+
     if (m_currentState) {
         auto newState = m_currentState->update(*this, deltaTime.asSeconds());
         if (newState) {
             changeState(std::move(newState));
-            m_hasDealtDamage = false; // 새로운 상태로 전환되면 데미지 입힘 기록 초기화
+            m_hasDealtDamage = false;
         }
     }
+
     std::optional<AttackInfo> attackInfo = m_currentState->getActiveAttackInfo(*this);
-    
-    
     if (attackInfo.has_value()) {
-        // --- intersects 함수를 대체하는 직접 충돌 검사 로직 ---
         sf::FloatRect playerHitbox = attackInfo->hitbox;
         sf::FloatRect bossHitbox = boss.getHitbox();
-
-        // 두 사각형이 충돌했는지 직접 계산
-        bool isColliding = 
-            playerHitbox.position.x < bossHitbox.position.x + bossHitbox.size.x &&
-            playerHitbox.position.x + playerHitbox.size.x > bossHitbox.position.x &&
-            playerHitbox.position.y < bossHitbox.position.y + bossHitbox.size.y &&
-            playerHitbox.position.y + playerHitbox.size.y > bossHitbox.position.y;
-
-        if (isColliding && !m_hasDealtDamage) {
-            // 충돌했다면 보스에게 데미지를 입히고,
+        if (dynamic_cast<WeakAttackState*>(m_currentState.get())) {
+            IPattern* currentBossPattern = boss.getCurrentPattern();
+            if(currentBossPattern)
+                if (auto bossWeakPoint = boss.getCurrentPattern()->getWeakPointHitbox()) {
+                    if (playerHitbox.findIntersection(*bossWeakPoint) && !m_hasDealtDamage) {
+                        boss.takeDamage(attackInfo->damage);
+                        boss.enterGroggyState(boss.getCurrentPhase());
+                        m_hasDealtDamage = true;
+                    }
+                }
+        }
+        if (playerHitbox.findIntersection(bossHitbox) && !m_hasDealtDamage) {
             boss.takeDamage(attackInfo->damage);
-            m_hasDealtDamage = true; // 현재 공격 상태에서 데미지를 입혔음을 기록
+            m_hasDealtDamage = true;
         }
     }
 
@@ -87,29 +110,24 @@ void Player::draw(sf::RenderWindow& window)
     
     auto attackInfo = m_currentState->getActiveAttackInfo(*this);
     if (attackInfo.has_value()) {
-        m_debugAttackBox.setPosition(attackInfo->hitbox.position); // .position이 sf::Vector2f이므로 바로 전달
+        m_debugAttackBox.setPosition(attackInfo->hitbox.position);
         m_debugAttackBox.setSize(attackInfo->hitbox.size);
         window.draw(m_debugAttackBox);
     }
 
     auto chargeProgressOpt = m_currentState->getChargeProgress();
-    // 2. 차지 진행도 정보가 있을 경우에만 (즉, ChargingState일 때만)
     if (chargeProgressOpt.has_value()) {
         float progress = *chargeProgressOpt;
         const sf::Vector2f barSize = m_chargeBarBackground.getSize();
         
-        // 차지 바 위치를 플레이어 머리 위로 설정
         sf::Vector2f barPosition = getPosition();
-        //barPosition.x +=  // 플레이어 중앙에 맞춤
-        barPosition.y -= 20.f; // 머리 위 20px
+        barPosition.y -= 20.f;
         
         m_chargeBarBackground.setPosition(barPosition);
 
-        // 진행도에 따라 채워지는 바의 너비를 계산
         m_chargeBarFill.setSize({ barSize.x * progress, barSize.y });
         m_chargeBarFill.setPosition(barPosition);
 
-        // 100% 충전 시 색을 초록색으로 변경
         if (progress >= 1.0f) {
             m_chargeBarFill.setFillColor(sf::Color::Green);
         } else {
@@ -136,7 +154,6 @@ void Player::move(float direction) {
 
 void Player::turn(float direction)
 {
-    // 0이 아닌 방향 값이 들어올 때만 방향을 갱신합니다.
     if (direction > 0) {
         m_facingDirection = FacingDirection::Right;
     }
@@ -145,15 +162,16 @@ void Player::turn(float direction)
     }
 }
 
-void Player::takeJump()
+void Player::takeJump(float direction)
 {
     if (m_canJump)
     {
+        m_velocity.x = direction * m_speed;
         m_velocity.y = -m_jumpStrength;
         m_canJump = false;
         m_canDoubleJump = true;
         std::cout << "Action: Jump!" << std::endl;
-        return; // 첫 점프 후 함수 종료
+        return;
     }
 }
 
@@ -181,19 +199,39 @@ void Player::takeDoubleJump(float m_direction)
 }
 
 void Player::takeDamage(int damage, sf::Vector2f damageSourcePosition) {
-    if (dynamic_cast<HitStunState*>(m_currentState.get())) return; // 경직 중 무적
+    if (isInvincible()) return; 
     if (m_hp <= 0) return;
 
+    if (dynamic_cast<ChargingState*>(m_currentState.get())) {
+        damage *= 2;
+        std::cout << "while Charging attacked!!  Damage 2 times! " << damage << std::endl;
+    }
+
     m_hp -= damage;
+    m_invincibilityTimer = 1.0f; // 무적 시간 부여
+
     std::cout << "Player hit! HP: " << m_hp << std::endl;
+
+    m_invincibilityTimer = 1.0f; // 무적 시간 부여
+    m_flashTimer = 0.f;          // <-- 피격 시 점멸 타이머를 리셋
     
     sf::Vector2f playerCenter = getPosition();
     sf::Vector2f direction = playerCenter - damageSourcePosition;
-    float length = std::sqrt(direction.x * direction.x + direction.y * direction.y);
-    if (length != 0) direction /= length; else direction = {1.f, 0.f};
+    if (direction.x >= 0) {
+        direction.x = 1.f; // 오른쪽에서 공격받음
+    } else {
+        direction.x = -1.f; // 왼쪽에서 공격받음
+    }
 
-    applyKnockback({direction.x * KNOCKBACK_POWER_X, -KNOCKBACK_POWER_Y});
-    changeState(std::make_unique<HitStunState>(0.5f));
+    if (m_currentState && m_currentState->isInterruptible()) {
+        std::cout << "Action Interrupted!" << std::endl;
+        applyKnockback({direction.x * KNOCKBACK_POWER_X, -KNOCKBACK_POWER_Y});
+        changeState(std::make_unique<HitStunState>());
+    }
+    else {
+        std::cout << "Super Armor! Action Continues." << std::endl;
+        applyKnockback({direction.x * KNOCKBACK_POWER_X, -KNOCKBACK_POWER_Y});
+    }
 }
 
 void Player::setActiveHitbox(const sf::FloatRect& hitbox) { m_activeHitbox = hitbox; }
@@ -201,7 +239,9 @@ void Player::clearActiveHitbox() { m_activeHitbox.reset(); }
 
 // --- Private ---
 void Player::applyPhysics(float dt) {
-    m_velocity.y += m_gravity * dt;
+    if (m_currentState && !m_currentState->ignoresGravity()) {
+        m_velocity.y += m_gravity * dt;
+    }
     m_shape.move(m_velocity * dt);
     
 
@@ -232,8 +272,9 @@ void Player::applyPhysics(float dt) {
         // 1. 플레이어의 위치를 바닥에 정확히 맞춤
         // (플레이어의 y좌표 = 바닥 라인 - 플레이어의 높이)
         m_shape.setPosition({m_shape.getPosition().x, GROUND_Y - m_shape.getSize().y});
-        
-        // 2. 수직 속도를 0으로 만들어 더 이상 떨어지지 않게 함
+        if (m_currentState && m_currentState->stopHorizontalOnLand()) {
+            m_velocity.x = 0;
+        }
         m_velocity.y = 0;
 
         // 3. 점프 가능 상태로 변경
@@ -246,10 +287,28 @@ void Player::applyKnockback(sf::Vector2f knockbackVelocity) {
     m_velocity = knockbackVelocity;
     m_canJump = false;
     m_canDoubleJump = false;
+    std::cout << m_velocity.x << ", " << m_velocity.y << std::endl;
 }
 
 void Player::handleDashCooldown(float dt) {
     if (m_dashCooldown > 0) {
         m_dashCooldown -= dt;
     }
+}
+
+bool Player::canDash() const {
+    return m_dashCooldown <= 0;
+}
+
+void Player::startDashCooldown() {
+    m_dashCooldown = DASH_COOLDOWN_TIME;
+}
+
+float Player::getDashCooldownProgress() const {
+    float progress = 1.f - (m_dashCooldown / DASH_COOLDOWN_TIME);
+    return std::clamp(progress, 0.f, 1.f);
+}
+
+sf::Vector2f Player::getCenter() const {
+    return {m_shape.getPosition().x + m_size / 2, m_shape.getPosition().y + m_size / 2};
 }

@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "(Windows) Launch",
+            "type": "cppvsdbg", // MSVC 디버거 사용
+            "request": "launch",
+            // 중요: 이 경로가 CMake 빌드 후 생성되는 실행 파일의 실제 경로와 일치해야 합니다.
+            "program": "${workspaceFolder}/build/bin/Debug/JustBoss.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "console": "integratedTerminal"
+        }
+    ]
+}
