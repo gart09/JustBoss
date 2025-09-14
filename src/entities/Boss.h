@@ -41,8 +41,8 @@ private:
     sf::Vector2f m_velocity;
     float m_size = 200.f;
     float m_speed = 100.f;
-    int m_hp = 500;
-    int m_maxHp = 500;
+    int m_hp = 800;
+    int m_maxHp = 800;
     float wanderDirection_ = 1.0f; // 1.0f: 오른쪽, -1.0f: 왼쪽
     float wanderTimer_ = 0.0f; // 방향 전환 타이머
     std::unique_ptr<IBossPhaseState> m_currentState;

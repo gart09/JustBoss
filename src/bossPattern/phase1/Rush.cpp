@@ -15,13 +15,14 @@ Rush::Rush() : m_phase(Phase::Done), m_timer(0.f), m_hasHitPlayer(false), m_isWe
     cooldown = 20.f;
     currentCooldown = 10.f;
     m_warningSign.setFillColor(sf::Color(255, 165, 0, 80));
-    m_weakPointVisual.setFillColor(sf::Color(255, 255, 0, 150)); // 약점은 노란색으로 표시
+    m_weakPointVisual.setFillColor(sf::Color(255, 255, 0, 150));
     m_weakPointVisual.setOutlineColor(sf::Color::White);
     m_weakPointVisual.setOutlineThickness(2.f);
 }
 
 bool Rush::canExecute(const Boss& boss, const Player& player) const {
     float distance = std::abs(boss.getCenter().x - player.getCenter().x);
+    // 쿨타임이 지났거나, 플레이어가 일정 거리 이상 멀어졌을 때 발동
     return currentCooldown <= 0 || distance > RUSH_TRIGGER_DISTANCE;
 }
 
@@ -33,11 +34,10 @@ void Rush::execute(Boss& boss, Player& player) {
     m_hasHitPlayer = false;
     m_isWeakPointActive = true;
 
-    // 돌진 방향 결정
     m_rushDirection.x = (player.getCenter().x > boss.getCenter().x) ? 1.f : -1.f;
     m_rushDirection.y = 0;
 
-    // 1. 워닝 사인 설정 (보스부터 벽 끝까지)
+    // 보스의 돌진 경로 전체를 경고 표시로 설정합니다.
     float bossX = boss.getPosition().x;
     float bossWidth = boss.getSize();
     if (m_rushDirection.x > 0) {
@@ -48,7 +48,7 @@ void Rush::execute(Boss& boss, Player& player) {
         m_warningSign.setSize({bossX, boss.getSize()});
     }
 
-    // 2. 약점 히트박스 설정 (보스 중앙)
+    // 돌진 준비 자세에서 노출될 약점의 위치를 설정합니다.
     sf::Vector2f weakPointSize = {60.f, 60.f};
     m_weakPointHitbox.position.x = boss.getCenter().x - weakPointSize.x / 2;
     m_weakPointHitbox.position.y = boss.getCenter().y - weakPointSize.y / 2;
@@ -66,23 +66,21 @@ void Rush::update(float dt, Boss& boss, Player& player) {
             m_timer += dt;
             if (m_timer >= RUSH_PREPARE_TIME) {
                 m_phase = Phase::Dashing;
-                m_isWeakPointActive = false; // 돌진 시작 시 약점 사라짐
+                m_isWeakPointActive = false;
                 boss.setVelocity({m_rushDirection.x * RUSH_SPEED, 0});
             }
             break;
         }
         case Phase::Dashing: {
-            // 플레이어와 충돌 판정
             if (!m_hasHitPlayer && boss.getHitbox().findIntersection(player.getHitbox())) {
                 player.takeDamage(RUSH_DAMAGE, boss.getPosition());
                 m_hasHitPlayer = true;
-                // 플레이어와 부딪혀도 돌진은 계속됨
             }
-            // 벽과 충돌 판정
+            // 보스가 벽에 부딪히면 패턴을 종료합니다.
             float bossX = boss.getPosition().x;
             if (bossX <= 0 || bossX + boss.getSize() >= WORLD_MAX_X) {
-                boss.setVelocity({0, 0}); // 벽에 부딪히면 멈춤
-                m_phase = Phase::Done;    // 패턴 종료
+                boss.setVelocity({0, 0});
+                m_phase = Phase::Done;
             }
             break;
         }
@@ -92,6 +90,7 @@ void Rush::update(float dt, Boss& boss, Player& player) {
 }
 
 void Rush::draw(sf::RenderTarget& target) {
+    // 돌진 준비 단계일 때만 경고 사인과 약점을 그립니다.
     if (m_phase == Phase::Preparing) {
         target.draw(m_warningSign);
         if(m_isWeakPointActive) target.draw(m_weakPointVisual);

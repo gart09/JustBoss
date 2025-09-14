@@ -108,8 +108,6 @@ void Boss::wander(float dt) {
         }
         wanderTimer_ = randomFloat(1.0f, 3.0f); 
     }
-
-    // 3. 현재 설정된 방향으로 보스를 이동시킵니다.
     setVelocity({m_speed * wanderDirection_, 0.f});
 }
 

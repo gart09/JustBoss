@@ -31,6 +31,7 @@ public:
     void update(float dt, Player& player, Boss& boss);
     void draw(sf::RenderTarget& target);
     bool isFinished() const;
+    // 현재 패턴이 공격 활성(Active) 구간인지 여부를 반환
     bool isAttack() const { return m_timer > m_timings.preDelay && m_timer < m_timings.preDelay + m_timings.activeDuration; }
 
 private:

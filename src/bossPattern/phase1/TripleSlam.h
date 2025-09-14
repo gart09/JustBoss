@@ -15,25 +15,20 @@ public:
     std::optional<sf::FloatRect> getWeakPointHitbox() const override;
 
 private:
-    // 이 패턴의 내부 상태를 관리
-    int m_slamIndex;        // 현재 몇 번째 공격인지 (0, 1, 2)
-    float m_phaseTimer;     // 현재 단계(선딜/공격/후딜)의 경과 시간
-    sf::RectangleShape m_visualRect;
-
-    // 각 공격 단계별 히트박스와 안전지대 정보를 미리 저장할 변수
-    std::vector<sf::FloatRect> m_slamHitboxes[3];
-    AttackTimings m_slamTimings[3];
-    std::vector<sf::FloatRect> m_safeZones[2];
-
-    // 약점 관련 변수
-    sf::FloatRect m_weakPointHitbox;
-    bool m_isWeakPointActive;
-
-    // 중복 타격 방지 플래그
-    bool m_hasDealtDamage;
+    int m_slamIndex;        // 현재 몇 번째 공격인지 추적 (0, 1, 2)
+    float m_phaseTimer;     // 현재 공격 단계(선딜/공격/후딜)의 경과 시간
 
     // 시각 효과용 객체
-    sf::RectangleShape m_attackVisual;     // 공격 범위 표시
-    sf::RectangleShape m_safeZoneVisual;   // 안전지대 표시
-    sf::RectangleShape m_weakPointVisual;  // 약점 표시
+    sf::RectangleShape m_visualRect;      // 공격/경고 범위를 그리는 데 사용되는 공용 사각형
+    sf::RectangleShape m_weakPointVisual;   // 약점을 그리는 데 사용되는 사각형
+
+    // 패턴 데이터
+    std::vector<sf::FloatRect> m_slamHitboxes[3]; // 3번의 공격에 대한 히트박스 목록
+    AttackTimings m_slamTimings[3];               // 3번의 공격에 대한 타이밍 정보
+    std::vector<sf::FloatRect> m_safeZones[2];    // 1, 2타의 안전지대 정보
+    sf::FloatRect m_weakPointHitbox;              // 3타의 약점 히트박스
+
+    // 패턴 상태 플래그
+    bool m_isWeakPointActive; // 약점 활성화 여부
+    bool m_hasDealtDamage;    // 현재 타격에서 피해를 입혔는지 여부
 };

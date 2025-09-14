@@ -18,7 +18,6 @@
 			"set_target_properties",
 			"include",
 			"find_package",
-			"add_compile_options",
 			"target_compile_definitions",
 			"target_include_directories"
 		],
@@ -36,19 +35,19 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 46,
+				"line" : 33,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 63,
+				"line" : 61,
 				"parent" : 0
 			},
 			{
 				"command" : 4,
 				"file" : 0,
-				"line" : 24,
+				"line" : 12,
 				"parent" : 0
 			},
 			{
@@ -74,25 +73,19 @@
 			{
 				"command" : 5,
 				"file" : 0,
-				"line" : 13,
+				"line" : 63,
+				"parent" : 0
+			},
+			{
+				"command" : 5,
+				"file" : 0,
+				"line" : 46,
 				"parent" : 0
 			},
 			{
 				"command" : 6,
 				"file" : 0,
-				"line" : 65,
-				"parent" : 0
-			},
-			{
-				"command" : 6,
-				"file" : 0,
-				"line" : 48,
-				"parent" : 0
-			},
-			{
-				"command" : 7,
-				"file" : 0,
-				"line" : 54,
+				"line" : 52,
 				"parent" : 0
 			}
 		]
@@ -104,35 +97,31 @@
 			[
 				{
 					"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++17"
-				},
-				{
-					"backtrace" : 8,
-					"fragment" : "/utf-8"
 				}
 			],
 			"defines" : 
 			[
 				{
-					"backtrace" : 9,
+					"backtrace" : 8,
 					"define" : "IMGUI_IMPL_API="
 				},
 				{
-					"backtrace" : 10,
+					"backtrace" : 9,
 					"define" : "IMTEXTUREID_DEFINED"
 				}
 			],
 			"includes" : 
 			[
 				{
-					"backtrace" : 11,
+					"backtrace" : 10,
 					"path" : "E:/JustBoss/src"
 				},
 				{
-					"backtrace" : 11,
+					"backtrace" : 10,
 					"path" : "E:/JustBoss/lib/imgui"
 				},
 				{
-					"backtrace" : 11,
+					"backtrace" : 10,
 					"path" : "E:/JustBoss/lib/imgui-sfml"
 				},
 				{

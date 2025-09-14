@@ -20,7 +20,7 @@ void WarningAttackHelper::start(
     m_isFinished = false;
     m_hasDealtDamage = false;
 
-    // 시각 효과용 사각형들도 vector 기반으로 생성
+    // 시각 효과용 사각형들을 vector 기반으로 생성
     m_visualRects.clear();
     for (const auto& hitbox : m_hitboxes) {
         sf::RectangleShape rect;
@@ -38,13 +38,12 @@ void WarningAttackHelper::update(float dt, Player& player, Boss& boss) {
     float totalDuration = m_timings.preDelay + m_timings.activeDuration + m_timings.recoveryDuration;
 
     if (m_timer >= m_timings.preDelay && m_timer < m_timings.preDelay + m_timings.activeDuration) {
-        // 공격 판정은 모든 히트박스에 대해 검사
         if (!m_hasDealtDamage) {
             for (const auto& hitbox : m_hitboxes) {
                 if (hitbox.findIntersection(player.getHitbox())) {
                     player.takeDamage(m_damage, boss.getPosition());
                     m_hasDealtDamage = true;
-                    break; // 한 번만 피해를 주도록 루프 탈출
+                    break;
                 }
             }
         }
@@ -69,7 +68,7 @@ void WarningAttackHelper::draw(sf::RenderTarget& target) {
         currentColor = sf::Color(m_colors.activeColor.r, m_colors.activeColor.g, m_colors.activeColor.b, std::max(0, alpha));
     }
 
-    // 모든 시각적 사각형에 대해 색상을 적용하고 그림
+    // 결정된 색상으로 모든 시각적 사각형을 그립니다.
     if (currentColor.a > 0) {
         for (auto& rect : m_visualRects) {
             rect.setFillColor(currentColor);

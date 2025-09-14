@@ -34,7 +34,7 @@ Player::Player()
     m_attackDataList.push_back(AttackData{10, 0.2f, 0.2f, 0.20f, charge1Hitbox});
     // 4. 차지 2단계 데이터
     sf::FloatRect charge2Hitbox({50.f, -30.f}, {150.f, 80.f});
-    m_attackDataList.push_back(AttackData{50, 0.1f, 0.2f, 0.20f, charge2Hitbox});
+    m_attackDataList.push_back(AttackData{100, 0.1f, 0.2f, 0.20f, charge2Hitbox});
 
     m_chargeBarBackground.setSize({50.f, 8.f});
     m_chargeBarBackground.setFillColor(sf::Color(0, 0, 0, 150));

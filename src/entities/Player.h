@@ -47,6 +47,7 @@ public:
     FacingDirection getFacingDirection() const { return m_facingDirection; }
     float getDirection() const { return m_facingDirection == FacingDirection::Right ? 1.f : -1.f; }
     std::unique_ptr<IPlayerState>& getCurrentState() { return m_currentState; }
+    float getAirControlForcePtr() { return m_airControlForce; }
     float getSpeed() const { return m_speed; }
     float getSize() const { return m_size; }
     int getHP() const { return m_hp; }
@@ -78,9 +79,11 @@ private:
     std::vector<AttackData> m_attackDataList;
     std::optional<sf::FloatRect> m_activeHitbox;
 
-    float m_speed = 300.f;
-    float m_gravity = 1800.f;
-    float m_jumpStrength = 600.f;
+    // --- 플레이어 능력치 및 물리 상수 ---
+    float m_speed = 300.f;      // 초당 이동 속도 (픽셀)
+    float m_gravity = 1800.f;   // 중력 가속도
+    float m_jumpStrength = 600.f; // 점프 시의 수직 속도
+    float m_airControlForce = 0.1f;
     int m_hp = 100;
     int m_maxHp = 100;
     float m_size = 50.f;
@@ -91,7 +94,7 @@ private:
 
     // 대쉬 관련
     static constexpr float DASH_DISTANCE = 250.f;
-    static constexpr float DASH_COOLDOWN_TIME = 5.0f;
+    static constexpr float DASH_COOLDOWN_TIME = 3.0f;
     float m_dashCooldown;
 
     // 넉백 관련
@@ -100,13 +103,13 @@ private:
 
     // 공격 관련
     std::vector<AttackData> m_basicComboData;
-    sf::RectangleShape m_debugAttackBox;
+    sf::RectangleShape m_debugAttackBox; // 공격 판정 시각화용
     sf::RectangleShape m_chargeBarBackground;
     sf::RectangleShape m_chargeBarFill;
-    bool m_hasDealtDamage = false;
+    bool m_hasDealtDamage = false; // 현재 공격 상태에서 이미 데미지를 입혔는지 여부
 
     // 피격 관련
-    float m_invincibilityTimer;
+    float m_invincibilityTimer; // 무적 시간 타이머
     float m_flashTimer = 0.f;
 };
 
