@@ -7,9 +7,9 @@
 class BossPhase1State : public IBossPhaseState {
 public:
     BossPhase1State();
-    void enter(Boss& boss) override; // 상태 진입 시 초기화
+    void enter(Boss& boss) override;
     void update(Boss& boss, float dt, Player& player) override;
-    void exit(Boss& boss) override; // 상태 종료 시 정리
+    void exit(Boss& boss) override;
     void draw(sf::RenderTarget& target, Boss& boss) override;
     IPattern* getCurrentPattern() const override { return m_currentPattern; }
     PhaseID BossPhase1State::getPhaseID() const { return PhaseID::Phase1; }
@@ -20,7 +20,9 @@ private:
 
     IPattern* m_currentPattern = nullptr;
     float m_thinkTimer = 0.0f;
-    float m_thinkDelay = 2.0f; // 패턴 선택 간격
+    float m_thinkDelay = 2.0f;
+    float m_decisionTimer;
+    static constexpr float DECISION_INTERVAL = 0.5f;
     
     IPattern* choosePattern(Boss& boss, Player& player);
 };

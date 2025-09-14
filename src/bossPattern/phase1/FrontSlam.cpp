@@ -4,8 +4,8 @@
 #include "FrontSlam.h"
 #include "../../entities/Boss.h" // 보스 정보에 접근하기 위해 필요
 
-constexpr float HITBOX_WIDTH = 150.f;
-constexpr float HITBOX_HEIGHT = 200.f;
+constexpr float HITBOX_WIDTH = 200.f;
+constexpr float HITBOX_HEIGHT = 720.f;
 constexpr float WORLD_MIN_X = 0.f;
 constexpr float WORLD_MAX_X = 1280.f; 
 constexpr int DAMAGE = 10;
@@ -28,7 +28,6 @@ bool FrontSlam::canExecute(const Boss& boss, const Player& player) const {
 }
 
 void FrontSlam::execute(Boss& boss, Player& player) {
-    // IPattern의 기본 execute를 호출하여 쿨타임 등을 설정
     IPattern::execute(boss, player);
     boss.setVelocity({0.f, 0.f});
     std::cout << "Executing FrontSlam pattern!" << std::endl;
@@ -42,7 +41,7 @@ void FrontSlam::execute(Boss& boss, Player& player) {
     finalX = std::min(finalX, WORLD_MAX_X - HITBOX_WIDTH);
     
     // 최종 히트박스 생성
-    sf::FloatRect finalHitbox({finalX, 520.f}, {HITBOX_WIDTH, HITBOX_HEIGHT});
+    sf::FloatRect finalHitbox({finalX, 0.f}, {HITBOX_WIDTH, HITBOX_HEIGHT});
 
     // 2. 계산된 최종 정보를 Helper에게 넘겨주고 모든 실행을 위임합니다.
     // FrontSlam은 히트박스가 하나뿐이므로, {finalHitbox} 처럼 vector에 하나만 담아서 전달합니다.

@@ -9,6 +9,12 @@
 #include "../commands/ICommand.h"
 #include "../UI/DashUI.h"
 
+enum class GameState {
+    Playing,
+    Clear,
+    Defeat
+};
+
 class GameScene
 {
 public:
@@ -18,7 +24,7 @@ public:
     void handleCommand(ICommand& command);
     void update(sf::Time deltaTime);
     void draw(sf::RenderWindow& window);
-
+    bool isGameOver() const { return m_isGameOver; }
     
     Player* getPlayer() { return m_player.get(); }
 private:
@@ -28,4 +34,11 @@ private:
     std::unique_ptr<HpUI> m_hpUI;
     std::unique_ptr<Map> m_map;
     std::unique_ptr<DashUI> m_dashUI;
+
+    GameState m_gameState;
+    sf::Clock m_restartClock;
+    static constexpr float RESTART_DELAY = 5.f;
+
+    bool m_isGameOver = false;
+    void resetGame();
 };

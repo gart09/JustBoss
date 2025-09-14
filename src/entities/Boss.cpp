@@ -10,7 +10,7 @@ constexpr float WINDOW_WIDTH = 1280.f;
 constexpr float WINDOW_HEIGHT = 720.f;
 constexpr float GROUND_SIZE = 100.f;
 
-float randomFloat(float min, float max) {
+float Boss::randomFloat(float min, float max) {
     static std::random_device rd;
     static std::mt19937 gen(rd());
     std::uniform_real_distribution<float> distr(min, max);
@@ -66,23 +66,18 @@ void Boss::takeDamage(int damage)
     if (m_hp <= 0) {
         return;
     }
-
-    m_hp -= damage;
     if (m_currentState && m_currentState->isGroggyState()) {
         damage *= 2;
         std::cout << "Groggy! Damage doubled to " << damage << std::endl;
     }
+    m_hp -= damage;
     std::cout << "Boss hit! Remaining HP: " << m_hp << std::endl;
 
     m_hitEffectTimer = 0.15f;    // 0.15초간 하얗게 점멸
     m_shape.setFillColor(sf::Color::White);
 
-    /*if( this->m_hp < 60 && dynamic_cast<BossPhase1State*>(currentState)) {
-        changeState(new BossPhase2State());
-    }*/
     if (m_hp <= 0) {
         std::cout << "Boss has been defeated!" << std::endl;
-        // TODO: 보스 사망 로직 (예: 상태 변경, 소멸 애니메이션)
     }
 }
 
@@ -96,23 +91,19 @@ void Boss::changeState(std::unique_ptr<IBossPhaseState> newState) {
 }
 
 void Boss::wander(float dt) {
-    // 1. 타이머를 매 프레임 감소시킵니다.
     wanderTimer_ -= dt;
 
-    // 2. 타이머가 0 이하로 떨어지면 방향을 바꾸고 타이머를 재설정합니다.
     if (wanderTimer_ <= 0.0f) {
         int randomChoice = rand() % 3;
-
-        // 선택된 숫자에 따라 방향을 결정합니다.
         switch (randomChoice) {
             case 0:
-                wanderDirection_ = -1.0f; // 왼쪽으로 이동
+                wanderDirection_ = -1.0f;
                 break;
             case 1:
-                wanderDirection_ = 0.0f;  // 멈춤
+                wanderDirection_ = 0.0f;
                 break;
             case 2:
-                wanderDirection_ = 1.0f; // 오른쪽으로 이동
+                wanderDirection_ = 1.0f;
                 break;
         }
         wanderTimer_ = randomFloat(1.0f, 3.0f); 
@@ -125,7 +116,7 @@ void Boss::wander(float dt) {
 
 void Boss::enterGroggyState (PhaseID phaseId) {
     std::cout << "Boss weak point hit! Entering Groggy State!" << std::endl;
-    changeState(std::make_unique<BossGroggyState>(5.f, phaseId)); // 예: 5초간 그로기
+    changeState(std::make_unique<BossGroggyState>(3.f, phaseId));
 }
 
 IPattern* Boss::getCurrentPattern() const {

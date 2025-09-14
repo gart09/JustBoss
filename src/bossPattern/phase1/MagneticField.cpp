@@ -5,7 +5,7 @@
 
 constexpr float HITBOX_WIDTH = 600.f;
 constexpr float HITBOX_HEIGHT = 600.f;
-constexpr int DAMAGE = 12;
+constexpr int DAMAGE = 25;
 
 const AttackTimings MF_TIMINGS = {1.5f, 1.0f, 0.5f}; // 선딜레이, 공격 활성, 후딜레이
 const AttackColors MF_COLORS = {
@@ -15,7 +15,7 @@ const AttackColors MF_COLORS = {
 
 
 MagneticField::MagneticField() {
-    cooldown = 7.0f; // 광역기이므로 쿨타임을 길게 설정
+    cooldown = 7.0f;
     currentCooldown = 3.f;
 }
 

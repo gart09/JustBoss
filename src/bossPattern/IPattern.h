@@ -4,7 +4,7 @@
 
 class IPattern {
 protected:
-    bool finished = true;
+    bool finished = false;
     float cooldown = 0.0f;
     float currentCooldown = 0.0f;
     bool isHitboxActive_ = false; // 현재 히트박스가 활성화 상태인지 여부

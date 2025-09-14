@@ -13,29 +13,28 @@ Player::Player()
       m_canJump(true), m_canDoubleJump(false), m_dashCooldown(0.f),
       m_invincibilityTimer(0.f), m_flashTimer(0.f), m_speed(300.f), m_jumpStrength(600.f)
 {
-    //m_shape.setSize({getSize(), getSize()});
-    m_shape.setSize({50.f, 50.f});
+    m_shape.setSize({m_size, m_size});
     m_shape.setFillColor(sf::Color::Blue);
     
     //m_shape.setPosition({200.f, GROUND_Y - getSize()});
     m_shape.setPosition({200.f, GROUND_Y - 50.f});
 
 
-    m_debugAttackBox.setFillColor(sf::Color(255, 0, 0, 100));
+    m_debugAttackBox.setFillColor(sf::Color(50, 255, 50, 150));
     
     // AttacData: [공격력, 선딜레이, 시각화 시간, 후딜레이, 히트박스]
     // 1. 일반 찌르기 데이터
     sf::FloatRect stabHitbox({50.f, 0.f}, {80.f, 50.f});
-    m_attackDataList.push_back(AttackData{10, 0.1f, 0.15f, 0.05f, stabHitbox});
+    m_attackDataList.push_back(AttackData{10, 0.2f, 0.15f, 0.2f, stabHitbox});
     // 2. 약점 공격 데이터
     sf::FloatRect weakPointHitbox({50.f, 0.f}, {50.f, 50.f});
-    m_attackDataList.push_back(AttackData{15, 0.1f, 0.15f, 0.10f, weakPointHitbox});
+    m_attackDataList.push_back(AttackData{5, 0.1f, 0.15f, 0.10f, weakPointHitbox});
     // 3. 차지 1단계 데이터
     sf::FloatRect charge1Hitbox({50.f, -10.f}, {70.f, 60.f});
-    m_attackDataList.push_back(AttackData{20, 0.1f, 0.2f, 0.10f, charge1Hitbox});
+    m_attackDataList.push_back(AttackData{10, 0.2f, 0.2f, 0.20f, charge1Hitbox});
     // 4. 차지 2단계 데이터
     sf::FloatRect charge2Hitbox({50.f, -30.f}, {150.f, 80.f});
-    m_attackDataList.push_back(AttackData{35, 0.1f, 0.2f, 0.20f, charge2Hitbox});
+    m_attackDataList.push_back(AttackData{50, 0.1f, 0.2f, 0.20f, charge2Hitbox});
 
     m_chargeBarBackground.setSize({50.f, 8.f});
     m_chargeBarBackground.setFillColor(sf::Color(0, 0, 0, 150));
@@ -89,6 +88,7 @@ void Player::update(sf::Time deltaTime, Boss& boss) {
             if(currentBossPattern)
                 if (auto bossWeakPoint = boss.getCurrentPattern()->getWeakPointHitbox()) {
                     if (playerHitbox.findIntersection(*bossWeakPoint) && !m_hasDealtDamage) {
+                        boss.takeDamage(attackInfo->damage);
                         boss.enterGroggyState(boss.getCurrentPhase());
                         m_hasDealtDamage = true;
                     }

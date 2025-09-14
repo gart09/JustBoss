@@ -7,7 +7,7 @@ namespace {
     constexpr float RUSH_PREPARE_TIME = 1.5f;
     constexpr float RUSH_SPEED = 800.f;
     constexpr float RUSH_TRIGGER_DISTANCE = 700.f;
-    constexpr int RUSH_DAMAGE = 20;
+    constexpr int RUSH_DAMAGE = 30;
     constexpr float WORLD_MAX_X = 1280.f;
 }
 

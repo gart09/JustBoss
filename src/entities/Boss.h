@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include "../enum/BossPhaseEnum.h"
+
 class IBossPhaseState; // 전방 선언
 class IPattern;
 class Player;
@@ -32,6 +33,7 @@ public:
     void setColor(sf::Color color) { m_shape.setFillColor(color); };
     void resetColor() { m_shape.setFillColor(sf::Color::Red); };
 
+    float Boss::randomFloat(float min, float max);
 private:
     void applyPhysics(float dt); 
 
@@ -49,3 +51,4 @@ private:
     float m_hitEffectTimer;        // 하얗게 점멸하는 효과가 지속되는 시간
 
 };
+

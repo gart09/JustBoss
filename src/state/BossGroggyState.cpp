@@ -21,9 +21,6 @@ void BossGroggyState::update(Boss& boss, float dt, Player& player) {
             case PhaseID::Phase1:
                 boss.changeState(std::make_unique<BossPhase1State>());
                 break;
-            case PhaseID::Phase2:
-//                boss.changeState(std::make_unique<BossPhase2State>());
-                break;
             default:
                 break;
         }

@@ -276,7 +276,6 @@ void ChargingState::exit(Player& player) {} // 추가
 
 std::unique_ptr<IPlayerState> ChargingState::update(Player& player, float dt) {
     m_chargeTimer += dt;
-    // 차지 이펙트 등을 여기서 업데이트 할 수 있음
     return nullptr;
 }
 

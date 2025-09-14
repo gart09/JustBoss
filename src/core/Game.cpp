@@ -21,6 +21,8 @@ void Game::run()
 
 void Game::handleInput()
 {
+    if(m_currentScene->isGameOver())
+        return;
     m_command = nullptr;
     while (const auto event = m_window.pollEvent())
     {
