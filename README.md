@@ -1,6 +1,6 @@
 # JustBoss ⚔️
 
-A 2D side-scrolling, 1-on-1 boss fight game inspired by the combat and hit detection mechanics of games like MapleStory.
+A 2D side-scrolling, 1-on-1 boss fight game
 
 ---
 
