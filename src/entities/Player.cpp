@@ -48,10 +48,6 @@ Player::Player()
 }
 
 void Player::update(sf::Time deltaTime, Boss& boss) {
-    if (m_invincibilityTimer > 0.f) {
-        m_invincibilityTimer -= deltaTime.asSeconds();
-    }
-
     float dt = deltaTime.asSeconds();
 
     if (m_invincibilityTimer > 0.f) {
@@ -209,12 +205,11 @@ void Player::takeDamage(int damage, sf::Vector2f damageSourcePosition) {
 
     m_hp -= damage;
     m_invincibilityTimer = 1.0f; // 무적 시간 부여
+    m_flashTimer = 0.f;          // 피격 시 점멸 타이머를 리셋
 
     std::cout << "Player hit! HP: " << m_hp << std::endl;
-
-    m_invincibilityTimer = 1.0f; // 무적 시간 부여
-    m_flashTimer = 0.f;          // <-- 피격 시 점멸 타이머를 리셋
     
+        
     sf::Vector2f playerCenter = getPosition();
     sf::Vector2f direction = playerCenter - damageSourcePosition;
     if (direction.x >= 0) {

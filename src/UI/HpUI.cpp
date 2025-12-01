@@ -4,13 +4,11 @@
 #include <sstream>
 #include <iomanip>
 
-// HpUI 클래스의 메인 드로우 함수
 void HpUI::draw(Player& player, Boss& boss, sf::RenderWindow& window) {
     drawPlayerUI(player, window);
     drawBossUI(boss, window);
 }
 
-// 기존의 drawPlayerUI 함수 코드를 그대로 가져와 클래스 멤버 함수로 만듭니다.
 void HpUI::drawPlayerUI(Player& player, const sf::RenderWindow& window) {
     ImGui::SetNextWindowPos(ImVec2(10, window.getSize().y - 100.f));
     ImGui::SetNextWindowSize(ImVec2(300, 100));
@@ -28,7 +26,6 @@ void HpUI::drawPlayerUI(Player& player, const sf::RenderWindow& window) {
     ImGui::End();
 }
 
-// 기존의 drawBossUI 함수 코드를 그대로 가져와 클래스 멤버 함수로 만듭니다.
 void HpUI::drawBossUI(Boss& boss, const sf::RenderWindow& window) {
     float windowWidth = static_cast<float>(window.getSize().x);
     ImGui::SetNextWindowPos(ImVec2(windowWidth / 2 - 200, 10));
