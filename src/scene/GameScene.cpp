@@ -1,14 +1,13 @@
 #include "GameScene.h"
 #include "../lib/imgui/imgui.h"  
 #include "../lib/imgui-sfml/imgui-SFML.h"
-#include <sstream>   // 문자열 스트림 사용
-#include <iomanip>   // 소수점 자리수 지정을 위해 사용
+#include <sstream>
+#include <iomanip> 
 
 GameScene::GameScene(sf::RenderWindow& window)
     : m_window(window), m_gameState(GameState::Playing)
 {
-    // ImGui-SFML 초기화
-    ImGui::SFML::Init(m_window, true); // <<< 추가
+    ImGui::SFML::Init(m_window, true);
 
     m_player = std::make_unique<Player>();
     m_boss = std::make_unique<Boss>();
@@ -17,8 +16,7 @@ GameScene::GameScene(sf::RenderWindow& window)
     m_dashUI = std::make_unique<DashUI>();
 }
 
-// 소멸자 구현
-GameScene::~GameScene() // <<< 추가된 부분
+GameScene::~GameScene()
 {
     ImGui::SFML::Shutdown();
 }
